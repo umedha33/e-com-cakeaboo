@@ -1,0 +1,33 @@
+.services-sec {
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+    /* background: rgba(224, 224, 224, 0.411); */
+    height: 10vh;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.services-sec .fa-solid {
+    padding: 30px;
+    padding-bottom: 0;
+    line-height: 20px;
+    font-size: 1.5rem;
+    color: rebeccapurple;
+    cursor: pointer;
+    transition: font-size 0.2s;
+}
+
+.services-sec .fa-solid:hover {
+    font-size: 1.7rem;
+    transition: font-size 0.2s;
+}
+
+.services-sec h2 {
+    font-size: 1rem;
+    padding: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: "Roboto", sans-serif;
+}
