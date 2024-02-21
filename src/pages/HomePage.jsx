@@ -1,3 +1,5 @@
+import Categories from '../components/Categories/Categories'
+import GenerateBanner from '../components/GenerateBanner/GenerateBanner'
 import Hero from '../components/Hero/Hero'
 import ServiceLbls from '../components/ServiceLbls/ServiceLbls'
 import ShortGallery from '../components/ShortGallery/ShortGallery'
@@ -9,6 +11,8 @@ const HomePage = () => {
       <Hero />
       <ServiceLbls />
       <ShortGallery />
+      <GenerateBanner />
+      <Categories />
     </div>
   )
 }

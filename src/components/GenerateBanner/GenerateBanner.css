@@ -1,0 +1,100 @@
+.generate-banner-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 10px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-radius: 40px;
+    background: linear-gradient(165deg, #2cc4db 50%, #efca48 50%);
+    height: 85vh;
+}
+
+.left-pane-gen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.294);
+    backdrop-filter: blur(30px);
+    margin: 20px;
+    margin-right: 0;
+    width: 55%;
+    height: 94%;
+    border-radius: 25px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.texts {
+    align-self: center;
+    width: 75%;
+    margin-top: 10px;
+}
+
+.left-pane-gen h1 {
+    color: white;
+    font-family: "Pacifico", cursive;
+    font-size: 4rem;
+    margin: 0;
+}
+
+#gen-txt {
+    font-family: "Bungee", sans-serif;
+    font-size: 2.5rem;
+    color: #ffee6a;
+    margin: 0;
+    text-shadow: -1px -1px 0 #635e5e,
+        1px -1px 0 #635e5e,
+        -1px 1px 0 #635e5e,
+        1px 1px 0 #635e5e;
+}
+
+#gen-txt-botm {
+    font-family: "Caveat", cursive;
+    font-size: 2.5rem !important;
+    line-height: 45px;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.left-pane-gen button {
+    padding: 6px 42px;
+    font-size: 0.9rem;
+    margin-top: 20px;
+    font-family: "Bungee", sans-serif;
+    border-radius: 30px;
+    border: 2.5px solid black;
+    cursor: pointer;
+    margin-top: 40px;
+    align-self: center;
+    transition: background-color 0.2s;
+    transition: padding 0.2s;
+    transition: letter-spacing 0.2s;
+}
+
+.left-pane-gen button:hover {
+    background: #ffee6a;
+    padding: 6px 50px;
+    letter-spacing: 2px;
+}
+
+.right-pane-gen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+}
+
+.right-pane-gen img {
+    margin-top: 25px;
+    max-width: 75%;
+    max-height: auto;
+    transition: transform 0.3s ease; 
+}
+
+.generate-banner-container:hover .right-pane-gen img {
+    transform: scale(1.05); 
+    transition: transform 0.3s ease; 
+}

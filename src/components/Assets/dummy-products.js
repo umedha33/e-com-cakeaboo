@@ -1,87 +1,87 @@
-import ck1 from '../Assets/doraemon_cake.jpg'
-import ck2 from '../Assets/mickey-mouse_cake.jpg'
-import ck3 from '../Assets/standard-ck.jpg'
-import ck4 from '../Assets/image-ckstandard.jpg'
-import ck5 from '../Assets/trad-wedd.jpg'
-import ck6 from '../Assets/floral-wed.jpg'
-import ck7 from '../Assets/valentines-heart.jpg'
-import ck8 from '../Assets/xoxo-valn.jpg'
+import ck1 from '../Assets/kidck-1.jpg'
+import ck2 from '../Assets/kidck-2.jpg'
+import ck3 from '../Assets/bday-1.jpg'
+import ck4 from '../Assets/bday-2.jpg'
+import ck5 from '../Assets/wedn-1.jpg'
+import ck6 from '../Assets/wedn-2.jpg'
+import ck7 from '../Assets/lvdtheme-1.jpg'
+import ck8 from '../Assets/lvdtheme-2.jpg'
 
 let dummyProducts = [
     {
         id: 1,
-        title: "Doremon Kids Cake",
+        title: "Naruto Kids Cake",
         description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
-        category: "kids-cake",
+        category: "kids-cakes",
         price: 2500,
-        color: "pink",
+        color: "black",
         layerCount: 2,
         tierCount: 1,
         shape: "circle",
-        keywords: "doremon",
+        keywords: "naruto",
         image: ck1
     },
     {
         id: 2,
-        title: "Mickey Mouse Kids Cake",
+        title: "Sunny Kids Cake",
         description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
-        category: "kids-cake",
+        category: "kids-cakes",
         price: 2800,
-        color: "white",
+        color: "blue",
         layerCount: 4,
         tierCount: 2,
         shape: "circle",
-        keywords: "mickey-mouse",
+        keywords: "sun-clouds",
         image: ck2
     },
     {
         id: 3,
-        title: "Standard Birthday Cake",
+        title: "Box Birthday Cake",
         description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
-        category: "birthday-cake",
+        category: "birthday-cakes",
         price: 3400,
-        color: "brown",
+        color: "green",
         layerCount: 2,
         tierCount: 1,
         shape: "square",
-        keywords: "standard",
+        keywords: "box-cake",
         image: ck3
     },
     {
         id: 4,
-        title: "Standard Birthday Cake With Image Print",
+        title: "Cylinder Birthday Cake",
         description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
-        category: "birthday-cake",
+        category: "birthday-cakes",
         price: 3200,
-        color: "white",
+        color: "blue",
         layerCount: 1,
         tierCount: 1,
-        shape: "square",
-        keywords: "image-standard",
+        shape: "circle",
+        keywords: "cylinder-standard",
         image: ck4
     },
     {
         id: 5,
-        title: "Tradditional 3 Tier Wedding Cake",
+        title: "Tradditional 2 Tier Wedding Cake",
         description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
-        category: "wedding-cake",
+        category: "wedding-cakes",
         price: 7200,
         color: "beige",
         layerCount: 6,
-        tierCount: 3,
+        tierCount: 2,
         shape: "circle",
         keywords: "traditional-wedding",
         image: ck5
     },
     {
         id: 6,
-        title: "Floral 4 Tier Wedding Cake",
+        title: "Floral 2 Tier Wedding Cake",
         description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
-        category: "wedding-cake",
+        category: "wedding-cakes",
         price: 8400,
-        color: "pink",
+        color: "white",
         layerCount: 8,
-        tierCount: 4,
+        tierCount: 2,
         shape: "circle",
         keywords: "floral-wedding",
         image: ck6
@@ -90,9 +90,9 @@ let dummyProducts = [
         id: 7,
         title: "Valentines Heart Cake",
         description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
-        category: "valentines-cake",
+        category: "love-themed cakes",
         price: 2300,
-        color: "pink",
+        color: "red",
         layerCount: 2,
         tierCount: 1,
         shape: "heart",
@@ -101,15 +101,15 @@ let dummyProducts = [
     },
     {
         id: 8,
-        title: "Valentines XOXO",
+        title: "Valentines Floral",
         description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
-        category: "valentines-cake",
+        category: "love-themed cakes",
         price: 2600,
-        color: "pink",
+        color: "red",
         layerCount: 2,
         tierCount: 1,
         shape: "circle",
-        keywords: "xoxo-valentines",
+        keywords: "valentines-floral",
         image: ck8
     }
 ];
