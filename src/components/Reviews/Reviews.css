@@ -1,0 +1,75 @@
+.reviews-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 10px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-radius: 40px;
+    background: #6d2093;
+}
+
+.reviews-container h1 {
+    color: white;
+    font-family: "Bungee", sans-serif;
+    font-size: 2rem;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.feedback-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 35px;
+    margin-bottom: 27px;
+    width: 91%;
+    gap: 30px;
+}
+
+.single-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgb(255, 255, 255);
+    width: 20rem;
+    border-radius: 25px;
+}
+
+#person-img {
+    width: 40%;
+    height: auto;
+    margin-top: 25px;
+    margin-bottom: -45px;
+    z-index: 2;
+}
+
+.desc-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(102, 148, 201);
+    border-radius: 25px;
+    height: 100%;
+    padding-top: 40px;
+    padding-bottom: 23px;
+}
+
+#top-com {
+    margin-left: 30px;
+    width: 10%;
+    height: auto;
+}
+
+#bottom-com {
+    margin-left: auto;
+    margin-right: 30px;
+    width: 10%;
+    height: auto;
+}
+
+.desc-section p {
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+    padding: 0 30px;
+}

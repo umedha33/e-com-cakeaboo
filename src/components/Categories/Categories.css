@@ -58,11 +58,9 @@
     font-size: 1.2rem;
     color: white;
     transition: font-size 0.3s ease;
-    transition: color 0.3s;
 }
 
 .category:hover .category-details h3 {
     font-size: 1.35rem;
-    color: rgb(102, 87, 209);
-    transition: color 0.3s;
+    /* color: rgb(102, 87, 209); */
 }

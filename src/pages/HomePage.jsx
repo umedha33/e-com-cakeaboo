@@ -1,6 +1,7 @@
 import Categories from '../components/Categories/Categories'
 import GenerateBanner from '../components/GenerateBanner/GenerateBanner'
 import Hero from '../components/Hero/Hero'
+import Reviews from '../components/Reviews/Reviews'
 import ServiceLbls from '../components/ServiceLbls/ServiceLbls'
 import ShortGallery from '../components/ShortGallery/ShortGallery'
 import './CSS/HomePage.css'
@@ -13,6 +14,7 @@ const HomePage = () => {
       <ShortGallery />
       <GenerateBanner />
       <Categories />
+      <Reviews />
     </div>
   )
 }

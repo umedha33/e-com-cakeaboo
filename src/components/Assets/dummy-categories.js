@@ -4,7 +4,7 @@ import cat3 from '../Assets/sweets-cat-transformed.jpeg'
 import cat4 from '../Assets/cupcake-cat-transformed.jpeg'
 import cat5 from '../Assets/party-set-cat-transformed.jpeg'
 import cat6 from '../Assets/lovethemed-cat-transformed.jpeg'
-import cat7 from '../Assets/engagement-cat-transformed.jpeg'
+import cat7 from '../Assets/engagement-cat-transformed.jpg'
 import cat8 from '../Assets/wedding-cat-transformed.jpeg'
 
 let dummyCategories = [
