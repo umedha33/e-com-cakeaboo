@@ -62,7 +62,7 @@
 
 .right-section img{
     width: 50%;
-    height: 80%;
+    height: auto;
     border-radius: 25px;
     transition: opacity 0.9s ease-in-out;
 }

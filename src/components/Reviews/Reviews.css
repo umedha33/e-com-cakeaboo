@@ -4,7 +4,6 @@
     align-items: center;
     margin: 0px 10px;
     margin-top: 7px;
-    margin-bottom: 10px;
     border-radius: 40px;
     background: #ff82cd;
     overflow: hidden;
@@ -23,17 +22,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     gap: 15px;
     width: 100%;
-    /* background: rgb(78, 113, 228); */
     margin-bottom: 30px;
     overflow: hidden;
 }
 
 .corousel-pane {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     width: 90%;
     overflow: hidden;
 }
@@ -47,8 +44,8 @@
 .feedback-cards {
     display: flex;
     gap: 20px;
-    /* padding-left: 8px; */
-    background-color: #839e39;
+    padding-left: 10px;
+    padding-right: 10px;
     transition: transform 0.5s ease;
 }
 
@@ -60,7 +57,6 @@
     width: 20rem;
     height: 28rem;
     border-radius: 25px;
-    /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); */
 }
 
 #person-img {
@@ -109,7 +105,13 @@
     font-weight: bold;
     padding-bottom: 5px;
     margin-left: 30px;
+    transition: color 0.3s, font-size 0.3s;
     cursor: pointer;
+}
+
+#left-btn:hover{
+    color: black;
+    font-size: 3rem;
 }
 
 #right-btn {
@@ -120,5 +122,11 @@
     font-weight: bold;
     margin-right: 30px;
     padding-bottom: 5px;
+    transition: color 0.3s, font-size 0.3s;
     cursor: pointer;
+}
+
+#right-btn:hover{
+    color: black;
+    font-size: 3rem;
 }

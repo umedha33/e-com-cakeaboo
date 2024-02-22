@@ -7,6 +7,7 @@ import GeneratePage from './pages/GeneratePage';
 import FaqsPage from './pages/FaqsPage';
 import AboutUsPage from './pages/AboutUsPage';
 import ContactUsPage from './pages/ContactUsPage';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -15,12 +16,13 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/cakes" element={<CakesPage/>} />
-          <Route path="/generatecake" element={<GeneratePage/>} />
-          <Route path="/faqs" element={<FaqsPage/>} />
-          <Route path="/aboutus" element={<AboutUsPage/>} />
-          <Route path="/contactus" element={<ContactUsPage/>} />
+          <Route path="/cakes" element={<CakesPage />} />
+          <Route path="/generatecake" element={<GeneratePage />} />
+          <Route path="/faqs" element={<FaqsPage />} />
+          <Route path="/aboutus" element={<AboutUsPage />} />
+          <Route path="/contactus" element={<ContactUsPage />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

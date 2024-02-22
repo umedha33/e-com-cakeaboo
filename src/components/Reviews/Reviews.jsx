@@ -9,7 +9,7 @@ const Reviews = () => {
     const [startIndex, setStartIndex] = useState(0);
 
     const handleNext = () => {
-        if (startIndex < dummyReviews.length) {
+        if (startIndex < dummyReviews.length - 4) {
             setStartIndex(startIndex + 1);
         }
     };
