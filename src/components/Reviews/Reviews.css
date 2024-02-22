@@ -3,10 +3,12 @@
     flex-direction: column;
     align-items: center;
     margin: 0px 10px;
-    margin-top: 15px;
+    margin-top: 7px;
     margin-bottom: 10px;
     border-radius: 40px;
-    background: #6d2093;
+    background: #ff82cd;
+    overflow: hidden;
+    position: relative;
 }
 
 .reviews-container h1 {
@@ -17,14 +19,37 @@
     margin-bottom: 20px;
 }
 
-.feedback-cards {
+.nav-cards-panel {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    padding: 35px;
-    margin-bottom: 27px;
-    width: 91%;
-    gap: 30px;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+    /* background: rgb(78, 113, 228); */
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.corousel-pane {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    overflow: hidden;
+}
+
+.feedback-cards-wrapper {
+    display: flex;
+    width: calc(100% - 60px);
+    overflow: hidden;
+}
+
+.feedback-cards {
+    display: flex;
+    gap: 20px;
+    /* padding-left: 8px; */
+    background-color: #839e39;
+    transition: transform 0.5s ease;
 }
 
 .single-card {
@@ -33,7 +58,9 @@
     align-items: center;
     background: rgb(255, 255, 255);
     width: 20rem;
+    height: 28rem;
     border-radius: 25px;
+    /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); */
 }
 
 #person-img {
@@ -48,7 +75,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: rgb(102, 148, 201);
+    background-color: rgb(182, 91, 164);
     border-radius: 25px;
     height: 100%;
     padding-top: 40px;
@@ -72,4 +99,26 @@
     color: rgb(255, 255, 255);
     font-weight: 400;
     padding: 0 30px;
+}
+
+#left-btn {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding-bottom: 5px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+#right-btn {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-right: 30px;
+    padding-bottom: 5px;
+    cursor: pointer;
 }

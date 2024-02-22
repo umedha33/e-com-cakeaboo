@@ -1,7 +1,7 @@
 .home-section {
     display: flex;
     flex-direction: row;
-    background: radial-gradient(circle, rgb(123, 91, 181), rgb(211, 80, 255));
+    background: radial-gradient(circle, rgb(118, 100, 207), rgb(158, 119, 242));
     height: 80vh;
     border-radius: 40px;
     align-items: center;
