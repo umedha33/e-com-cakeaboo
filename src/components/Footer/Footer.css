@@ -31,9 +31,9 @@
 /* ------------------------------------------------------------------- */
 
 .sec-one {
-    background: lightgreen;
     width: 30%;
     margin-left: 80px;
+    /* background: lightgreen; */
 }
 
 .sec-one h1 {
@@ -60,8 +60,8 @@
 /* ------------------------------------------------------------------- */
 
 .sec-two {
-    background: lightgreen;
     width: 10%;
+    /* background: lightgreen; */
 }
 
 .sec-two h1 {
@@ -94,8 +94,48 @@
 
 .sec-three {
     width: 20%;
-    background: lightgreen;
+    margin-left: -20px;
+    /* background: lightgreen; */
 }
+
+.sec-three h1 {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 1.2px;
+    text-align: left;
+}
+
+.sec-three ul {
+    color: white;
+    text-align: left;
+    line-height: 1.65rem;
+    list-style: none;
+    padding: 0;
+    margin-top: -3px;
+    cursor: pointer;
+}
+
+
+/* ------------------------------------------------------------------- */
+
+.sec-four{
+    width: 30%;
+    background: lightgreen;
+    margin-right: 80px;
+    margin-left: -20px;
+}
+
+.sec-four h1 {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 1.2px;
+    text-align: left;
+}
+
+
+/* ------------------------------------------------------------------- */
 
 .bottm-segmnt {
     display: flex;
@@ -112,12 +152,4 @@
     padding: 0 30px;
     font-size: 0.8rem;
     font-weight: 400;
-}
-
-/* ------------------------------------------------------------------- */
-
-.sec-four{
-    width: 30%;
-    background: lightgreen;
-    margin-right: 80px;
 }
