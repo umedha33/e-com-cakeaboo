@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    gap: 30px;
+    gap: 70px;
     background: #ff84be;
     padding-top: 70px;
     padding-bottom: 45px;
@@ -28,15 +28,19 @@
     width: 100%;
 }
 
+/* ------------------------------------------------------------------- */
+
 .sec-one {
+    background: lightgreen;
     width: 30%;
     margin-left: 80px;
 }
 
 .sec-one h1 {
-    font-family: "Roboto", sans-serif;
+    font-family: "Bebas Neue", sans-serif;
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    letter-spacing: 1.2px;
     text-align: left;
 }
 
@@ -53,14 +57,67 @@
     color: white;
 }
 
+/* ------------------------------------------------------------------- */
 
 .sec-two {
-    /* background-color: wheat; */
-    width: 40%;
+    background: lightgreen;
+    width: 10%;
 }
 
+.sec-two h1 {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 1.2px;
+    text-align: left;
+}
+
+.sec-two ul {
+    color: white;
+    text-align: left;
+    line-height: 1.65rem;
+    list-style: none;
+    padding: 0;
+    margin-top: -3px;
+    width: 8.5rem;
+    cursor: pointer;
+}
+
+.sec-two li:hover {
+    transition: color 0.2s, font-weight 0.2s;
+    color: #764ad4;
+    font-weight: 600;
+}
+
+
+/* ------------------------------------------------------------------- */
+
 .sec-three {
+    width: 20%;
+    background: lightgreen;
+}
+
+.bottm-segmnt {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: rgb(45, 45, 45);
+    height: 30px;
+}
+
+.bottm-segmnt h1 {
+    color: white;
+    padding: 0 30px;
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+/* ------------------------------------------------------------------- */
+
+.sec-four{
     width: 30%;
-    /* background-color: wheat; */
+    background: lightgreen;
     margin-right: 80px;
 }
