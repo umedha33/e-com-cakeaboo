@@ -1,9 +1,10 @@
 import React from 'react'
+import './CSS/CakesPage.css'
 
 const CakesPage = () => {
   return (
-    <div>
-      <h1>hellow cakes</h1>
+    <div className='cakes-page-container'>
+      <h1>hello cakes</h1>
     </div>
   )
 }

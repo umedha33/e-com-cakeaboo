@@ -1,0 +1,11 @@
+.generate-page-container{
+    display: flex;
+    flex-direction: row;
+    background: lightgreen;
+    height: 80vh;
+    border-radius: 40px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin: 0px 10px;
+}
