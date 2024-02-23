@@ -30,18 +30,27 @@ const Footer = () => {
                 </div>
                 <div className="sec-three">
                     <h1>Contact</h1>
-                    <ul>
-                        <li><i class="fa-regular fa-envelope"></i>  cakeaboocolombo@gmail.com</li>
-                        <li><i class="fa-brands fa-instagram"></i> @cake_a_boo_colombo</li>
-                        <li><i class="fa-solid fa-map-pin"></i> Cake A Boo - Colombo 06</li>
-                        {/* <li><i class="fa-solid fa-phone"></i> 081 234 5678</li> */}
-                    </ul>
+                    <div className="ico-txt">
+                        <ul id='ico-set'>
+                            <li><i class="fa-solid fa-envelopes-bulk"></i></li>
+                            <li><i class="fa-brands fa-instagram"></i></li>
+                            <li><i class="fa-solid fa-phone"></i></li>
+                            <li><i class="fa-solid fa-location-dot"></i></li>
+                        </ul>
+                        <ul>
+                            <li>cakeaboocolombo@gmail.com</li>
+                            <li>@cake_a_boo_colombo</li>
+                            <li>081 234 5678</li>
+                            <li>Cake A Boo - Colombo 06</li>
+                        </ul>
+                    </div>
                 </div>
                 <div className="sec-four">
                     <h1>Promo Alerts</h1>
-                    <h2>Enter your email to get promotion alerts!</h2>
+                    <h2>Stay informed and save more! Enter your email to receive instant alerts on our latest promotions.
+                    </h2>
                     <div class="input-container">
-                        <input type="email" name="email" id="promo-email" />
+                        <input type="email" name="email" id="promo-email" placeholder='Email Adress' />
                         <button id='submit-btn'>Submit</button>
                     </div>
                 </div>

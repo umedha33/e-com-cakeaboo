@@ -61,6 +61,7 @@
 
 .sec-two {
     width: 10%;
+    margin-left: 13px;
     /* background: lightgreen; */
 }
 
@@ -116,11 +117,25 @@
     cursor: pointer;
 }
 
+.ico-txt {
+    display: flex;
+    gap: 10px;
+}
+
+#ico-set {
+    margin-top: -1.5px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.fa-instagram{
+    font-size: 1rem;
+}
 
 /* ------------------------------------------------------------------- */
 
 .sec-four {
-    width: 30%;
+    width: 29%;
     margin-right: 40px;
     margin-left: -20px;
     /* background: lightgreen; */
@@ -136,7 +151,7 @@
 
 .sec-four h2 {
     font-weight: 400;
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-top: -2px;
     text-align: left;
     color: white;
@@ -156,6 +171,7 @@
     border: 3px solid #9e77f2;
     border-radius: 30px;
     padding: 0 20px;
+    margin-left: -5px;
     outline: none;
     font-size: 1rem;
     font-weight: 500;
@@ -163,15 +179,23 @@
 
 #submit-btn {
     position: absolute;
-    right: 0;
-    top: 8.5px;
+    right: 5px;
+    top: 8.42px;
     color: white;
     background: #9e77f2;
     border: none;
     border-radius: 50px;
     padding: 12px 22px;
     font-size: 1rem;
+    transition: background-color 0.2s;
+    cursor: pointer;
 }
+
+#submit-btn:hover {
+    transition: background-color 0.2s;
+    background: #7554bb;
+}
+
 
 /* ------------------------------------------------------------------- */
 

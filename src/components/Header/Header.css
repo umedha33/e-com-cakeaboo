@@ -2,7 +2,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 7px 25px;
+    padding-right: 35px;
+    height: 11vh;
     box-shadow: 0 1px 10px -5px black;
     background: #ff84be;
     margin: 10px;
@@ -12,6 +13,13 @@
 .header-logo {
     display: flex;
     align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.286);
+    height: 11vh;
+    width: 13%;
+    border-radius: 50px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+
 }
 
 .header-logo img {
@@ -24,7 +32,7 @@
 .navigation-menu {
     margin-top: 17px;
     display: flex;
-    gap: 30px;
+    gap: 35px;
     font-size: 1rem;
 }
 
@@ -35,14 +43,17 @@
     justify-content: center;
     cursor: pointer;
     font-family: "Roboto", sans-serif;
-    font-weight: 500;
+    transition: color 0.2s font-size 0.2s, font-weight 0.2s;
+    padding-top: 2px;
     color: white;
-    transition: color 0.2s;
+    transition: color 0.2s , font-weight 0.2s;
 }
 
 .navigation-menu li:hover {
-    color: rgb(54, 54, 54);
-    transition: color 0.2s;
+    transition: color 0.2s font-size 0.2s, font-weight 0.2s;
+    color: #5f4498;
+    font-size: 1.05rem;
+    font-weight: 700;
 }
 
 .log-cart {
@@ -55,25 +66,38 @@
 
 .log-cart p {
     font-size: 1rem;
-    color: #e8ff15;
+    padding-top: 2px;
+    color: #f2ff61;
     font-family: "Roboto", sans-serif;
     font-weight: bold;
     transition: color 0.2s;
 }
 
 .log-cart p:hover{
-    color: rgb(67, 67, 67);
+    color: #5f4498;
     transition: color 0.2s;
 }
 
 .fa-cart-shopping {
     font-size: 1.3rem;
+    padding-top: 2px;
     color: white;
     padding-right: 10px;
     transition: color 0.2s;
 }
 
 .fa-cart-shopping:hover{
-    color: rgb(67, 67, 67);
+    color: #5f4498;
+    font-size: 1.4rem;
     transition: color 0.2s;
+}
+
+.navigation-menu .active {
+    color: #5f4498;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.log-cart .active {
+    color: #5f4498;
 }
