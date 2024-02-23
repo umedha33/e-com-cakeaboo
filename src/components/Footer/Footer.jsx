@@ -39,6 +39,11 @@ const Footer = () => {
                 </div>
                 <div className="sec-four">
                     <h1>Promo Alerts</h1>
+                    <h2>Enter your email to get promotion alerts!</h2>
+                    <div class="input-container">
+                        <input type="email" name="email" id="promo-email" />
+                        <button id='submit-btn'>Submit</button>
+                    </div>
                 </div>
             </div>
             <div className="bottm-segmnt">
