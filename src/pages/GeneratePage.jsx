@@ -4,7 +4,7 @@ import './CSS/GeneratePage.css'
 const GeneratePage = () => {
   return (
     <div className='generate-page-container'>
-      <h1>hellow generate Cakes</h1>
+      <h1>hello generate Cakes</h1>
     </div>
   )
 }

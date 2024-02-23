@@ -1,9 +1,10 @@
 import React from 'react'
+import './CSS/ContactUsPage.css'
 
 const ContactUsPage = () => {
   return (
-    <div>
-      <h1>hellow contact us</h1>
+    <div className='contactus-container'>
+      <h1>hello contact us</h1>
     </div>
   )
 }

@@ -1,7 +1,7 @@
-.generate-page-container{
+.contactus-container {
     display: flex;
     flex-direction: row;
-    background: lightcoral;
+    background: lightsalmon;
     height: 80vh;
     border-radius: 40px;
     align-items: center;

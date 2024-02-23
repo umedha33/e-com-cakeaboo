@@ -1,7 +1,7 @@
-.generate-page-container{
+.aboutus-container {
     display: flex;
     flex-direction: row;
-    background: lightcoral;
+    background: rgb(255, 255, 123);
     height: 80vh;
     border-radius: 40px;
     align-items: center;

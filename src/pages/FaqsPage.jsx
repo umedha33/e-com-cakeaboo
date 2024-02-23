@@ -1,9 +1,10 @@
 import React from 'react'
+import './CSS/FaqsPage.css'
 
 const FaqsPage = () => {
   return (
-    <div>
-      <h1>hellow faqs</h1>
+    <div className='faqs-page-container'>
+      <h1>hello faqs</h1>
     </div>
   )
 }
