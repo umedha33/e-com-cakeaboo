@@ -78,19 +78,19 @@
 }
 
 .prod-con-left{
-    background: rgba(0, 0, 0, 0.533);
+    background: rgba(0, 0, 0, 0.089);
     height: 70vh;
     margin: 10px;
     margin-right: 0;
     border-radius: 25px;
-    width: 20%;
+    width: 15%;
 }
 
 .prod-con-right{
-    background: rgba(0, 0, 0, 0.533);
+    /* background: rgba(0, 0, 0, 0.219); */
     height: 70vh;
     margin: 10px;
     margin-left: 0;
     border-radius: 25px;
-    width: 80%;
+    width: 85%;
 }

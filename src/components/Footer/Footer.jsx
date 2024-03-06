@@ -32,10 +32,10 @@ const Footer = () => {
                     <h1>Contact</h1>
                     <div className="ico-txt">
                         <ul id='ico-set'>
-                            <li><i class="fa-solid fa-envelopes-bulk"></i></li>
-                            <li><i class="fa-brands fa-instagram"></i></li>
-                            <li><i class="fa-solid fa-phone"></i></li>
-                            <li><i class="fa-solid fa-location-dot"></i></li>
+                            <li><i className="fa-solid fa-envelopes-bulk"></i></li>
+                            <li><i className="fa-brands fa-instagram"></i></li>
+                            <li><i className="fa-solid fa-phone"></i></li>
+                            <li><i className="fa-solid fa-location-dot"></i></li>
                         </ul>
                         <ul>
                             <li>cakeaboocolombo@gmail.com</li>
@@ -49,7 +49,7 @@ const Footer = () => {
                     <h1>Promo Alerts</h1>
                     <h2>Stay informed and save more! Enter your email to receive instant alerts on our latest promotions.
                     </h2>
-                    <div class="input-container">
+                    <div className="input-container">
                         <input type="email" name="email" id="promo-email" placeholder='Email Adress' />
                         <button id='submit-btn'>Submit</button>
                     </div>

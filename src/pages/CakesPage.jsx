@@ -18,7 +18,7 @@ const CakesPage = () => {
         <div className="lbl-main-tags">
           <h1 className='txt-main-lb'>Sweets Corner</h1>
         </div>
-        <button><i class="fa-solid fa-xmark"></i></button>
+        <button><i className="fa-solid fa-xmark"></i></button>
       </div>
 
       <div className="products-container-with-side">

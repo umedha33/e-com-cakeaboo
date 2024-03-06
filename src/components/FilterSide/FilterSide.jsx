@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './FilterSide.css'
+import Slider from 'react-slider'
 
 const FilterSide = () => {
+
+    const PRICE_MIN = 450;
+    const PRICE_MAX = 55000;
+
+    const [priceVals, setPriceVals] = useState([3000, 15000])
+
     return (
         <div className='filterside-container'>
             <h1>Filter</h1>
@@ -11,7 +18,7 @@ const FilterSide = () => {
                 <div className="sort-sec">
                     <div className="filt-sec-header">
                         <h1>SORT</h1>
-                        <i class="fa-solid fa-angle-down"></i>
+                        <i className="fa-solid fa-angle-down"></i>
                     </div>
                     <div className="sort-sec-body">
                         <select id='sort'>
@@ -26,32 +33,17 @@ const FilterSide = () => {
                 <div className="price-sec">
                     <div className="filt-sec-header">
                         <h1>PRICE</h1>
-                        <i class="fa-solid fa-angle-down"></i>
+                        <i className="fa-solid fa-angle-down"></i>
                     </div>
                     <div className="price-sec-body">
-                        <div className="prc-fields">
-                            <label>Min</label>
-                            <input type="number" className='min-inp' value="2000" />
+                        <div className="price-val">
+                            {`${priceVals[0]}LKR`} - {`${priceVals[1]}LKR`}
                         </div>
-                        <div className='dash-line'>
-                            <span>-</span>
-                        </div>
-                        <div className="prc-fields">
-                            <label>Max</label>
-                            <input type="number" className='min-inp' value="8000" />
-                        </div>
-                    </div>
-
-                    <div className="slider-con">
-
-                        <div className="price-slider">
-                            <div className="progress-br"></div>
-                        </div>
-                        <div className="range-input">
-                            <input type="range" className='range-min' min="0" max="10000"  />
-                            <input type="range" className='range-max' min="0" max="10000" />
-                        </div>
-
+                        <Slider className="price-slider"
+                            onChange={setPriceVals}
+                            value={priceVals}
+                            min={PRICE_MIN}
+                            max={PRICE_MAX} />
                     </div>
                 </div>
 
