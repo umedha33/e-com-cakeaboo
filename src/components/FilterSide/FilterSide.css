@@ -9,12 +9,14 @@
 .filt-sec {
     display: flex;
     flex-direction: column;
-    /* background-color: rgb(255, 107, 107); */
 }
 
 .sort-sec {
-    padding: 5px;
     padding-top: 0;
+    background-color: rgba(0, 0, 0, 0.103);
+    margin: 10px;
+    margin-top: 0;
+    border-radius: 10px;
 }
 
 .filt-sec-header {
@@ -23,6 +25,7 @@
     justify-content: space-between;
     padding: 0 15px;
     height: 2.2rem;
+    border-radius: 10px;
     align-items: center;
 }
 
@@ -32,7 +35,6 @@
 }
 
 .sort-sec-body {
-    background-color: rgba(0, 0, 0, 0.103);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,11 +51,14 @@
 /* --------------------------------- */
 
 .price-sec {
-    padding: 5px;
+    padding-top: 0;
+    background-color: rgba(0, 0, 0, 0.103);
+    margin: 10px;
+    margin-top: 0;
+    border-radius: 10px;
 }
 
 .price-sec-body {
-    background-color: rgba(0, 0, 0, 0.103);
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -63,7 +68,7 @@
 }
 
 .price-val {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-family: "Roboto", sans-serif;
     font-weight: bold;
     margin: 5px 0;
@@ -86,4 +91,60 @@
     cursor: grab;
     background-color: lightgreen;
     border: 2px solid rgb(53, 168, 63);
+}
+
+/* ------------------------------------------- */
+
+.category-sec {
+    padding-top: 0;
+    background-color: rgba(0, 0, 0, 0.103);
+    margin: 10px;
+    margin-top: 0;
+    border-radius: 10px;
+}
+
+.category-sec-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* justify-content: center; */
+    /* align-items: center; */
+    padding: 10px 10px;
+}
+
+.cake-cat {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* height: 2rem; */
+    background-color: rgb(255, 255, 255);
+}
+
+.mainitem-cat-drop {
+    background-color: rgba(165, 165, 165, 0.768);
+    display: flex;
+    /* width: 100%; */
+    padding: 4px 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mainitem-cat-drop h2 {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-size: 0.8rem;
+    font-family: "Roboto", sans-serif;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.secondary-itms ul{
+    list-style: none;
+    text-align: start;
+    margin: 5px 0;
+}
+
+.secondary-itms ul li{
+    margin-left: -15px;
 }

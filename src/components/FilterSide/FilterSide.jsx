@@ -37,13 +37,72 @@ const FilterSide = () => {
                     </div>
                     <div className="price-sec-body">
                         <div className="price-val">
-                            {`${priceVals[0]}LKR`} - {`${priceVals[1]}LKR`}
+                            {`${priceVals[0]} LKR`} - {`${priceVals[1]} LKR`}
                         </div>
                         <Slider className="price-slider"
                             onChange={setPriceVals}
                             value={priceVals}
                             min={PRICE_MIN}
                             max={PRICE_MAX} />
+                    </div>
+                </div>
+
+                <div className="category-sec">
+                    <div className="filt-sec-header">
+                        <h1>CATEGORY</h1>
+                        <i className="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div className="category-sec-body">
+                        <div className="cake-cat">
+                            <div className="mainitem-cat-drop">
+                                <h2><input type="checkbox" />CAKES</h2>
+                                <i className="fa-solid fa-angle-down"></i>
+                            </div>
+                            <div className="secondary-itms">
+                                <ul>
+                                    <li><input type="checkbox" />Kids</li>
+                                    <li><input type="checkbox" />Birthday</li>
+                                    <li><input type="checkbox" />Party Sets</li>
+                                    <li><input type="checkbox" />Love Themed</li>
+                                    <li><input type="checkbox" />Engagement</li>
+                                    <li><input type="checkbox" />Wedding</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="cake-cat">
+                            <div className="mainitem-cat-drop">
+                                <h2><input type="checkbox" />CUP CAKES</h2>
+                                <i className="fa-solid fa-angle-down"></i>
+                            </div>
+                            <div className="secondary-itms">
+                                <ul>
+                                    <li><input type="checkbox" />Kids</li>
+                                    <li><input type="checkbox" />Birthday</li>
+                                    <li><input type="checkbox" />Party Sets</li>
+                                    <li><input type="checkbox" />Love Themed</li>
+                                    <li><input type="checkbox" />Engagement</li>
+                                    <li><input type="checkbox" />Wedding</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="cake-cat">
+                            <div className="mainitem-cat-drop">
+                                <h2><input type="checkbox" />SWEETS</h2>
+                                <i className="fa-solid fa-angle-down"></i>
+                            </div>
+                            <div className="secondary-itms">
+                                <ul>
+                                    <li><input type="checkbox" />Kids</li>
+                                    <li><input type="checkbox" />Birthday</li>
+                                    <li><input type="checkbox" />Party Sets</li>
+                                    <li><input type="checkbox" />Love Themed</li>
+                                    <li><input type="checkbox" />Engagement</li>
+                                    <li><input type="checkbox" />Wedding</li>
+                                </ul>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 
