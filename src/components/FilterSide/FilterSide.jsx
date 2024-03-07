@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 import './FilterSide.css'
 import Slider from 'react-slider'
-import layerPlus from '../Assets/layer-plus.svg'
-import layerMinus from '../Assets/layer-minus.svg'
-import tierPlus from '../Assets/tier-plus.svg'
-import tierMinus from '../Assets/tier-minus.svg'
 
 const colors = [
     'red', 'blue', 'green', 'yellow', 'orange', 'purple',
@@ -12,6 +8,28 @@ const colors = [
 ];
 
 const FilterSide = () => {
+
+    const [isSortOpen, setIsSortOpen] = useState(false);
+    const [isPriceOpen, setIsPriceOpen] = useState(false);
+    const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+    const [isVariationOpen, setIsVariationOpen] = useState(false);
+
+    const toggleSortSection = () => {
+        setIsSortOpen(!isSortOpen);
+    };
+
+    const togglePriceSection = () => {
+        setIsPriceOpen(!isPriceOpen);
+    };
+
+    const toggleCategorySection = () => {
+        setIsCategoryOpen(!isCategoryOpen);
+    };
+
+    const toggleVariationSection = () => {
+        setIsVariationOpen(!isVariationOpen);
+    };
+
 
     const PRICE_MIN = 450;
     const PRICE_MAX = 55000;
@@ -36,9 +54,11 @@ const FilterSide = () => {
                 <div className="sort-sec">
                     <div className="filt-sec-header">
                         <h1>SORT</h1>
-                        <i className="fa-solid fa-angle-down"></i>
+                        <i className={`fa-solid ${isSortOpen ? "fa-angle-up" : "fa-angle-down"}`}
+                            onClick={toggleSortSection}
+                        ></i>
                     </div>
-                    <div className="sort-sec-body">
+                    <div className={`sort-sec-body ${isSortOpen ? 'open' : 'closed'}`}>
                         <select id='sort'>
                             <option value="default-sorting">Default Sorting</option>
                             <option value="sort-by-latest">Sort by Latest</option>
@@ -51,9 +71,11 @@ const FilterSide = () => {
                 <div className="price-sec">
                     <div className="filt-sec-header">
                         <h1>PRICE</h1>
-                        <i className="fa-solid fa-angle-down"></i>
+                        <i className={`fa-solid ${isPriceOpen ? "fa-angle-up" : "fa-angle-down"}`}
+                            onClick={togglePriceSection}
+                        ></i>
                     </div>
-                    <div className="price-sec-body">
+                    <div className={`price-sec-body ${isPriceOpen ? 'open' : 'closed'}`}>
                         <div className="price-val">
                             {`${priceVals[0]} LKR`} - {`${priceVals[1]} LKR`}
                         </div>
@@ -68,9 +90,10 @@ const FilterSide = () => {
                 <div className="category-sec">
                     <div className="filt-sec-header">
                         <h1>CATEGORY</h1>
-                        <i className="fa-solid fa-angle-down"></i>
-                    </div>
-                    <div className="category-sec-body">
+                        <i className={`fa-solid ${isCategoryOpen ? "fa-angle-up" : "fa-angle-down"}`}
+                            onClick={toggleCategorySection}
+                        ></i>                    </div>
+                    <div className={`category-sec-body ${isCategoryOpen ? 'open' : 'closed'}`}>
                         <div className="cake-cat">
                             <div className="mainitem-cat-drop">
                                 <h2><input type="checkbox" />CAKES</h2>
@@ -121,9 +144,10 @@ const FilterSide = () => {
                 <div className="variation-sec">
                     <div className="filt-sec-header">
                         <h1>Variation</h1>
-                        <i className="fa-solid fa-angle-down"></i>
-                    </div>
-                    <div className="category-sec-body">
+                        <i className={`fa-solid ${isVariationOpen ? "fa-angle-up" : "fa-angle-down"}`}
+                            onClick={toggleVariationSection}
+                        ></i>                    </div>
+                    <div className={`category-sec-body ${isVariationOpen ? 'open' : 'closed'}`}>
 
                         <div className="cake-cat">
                             <div className="mainitem-cat-drop">
