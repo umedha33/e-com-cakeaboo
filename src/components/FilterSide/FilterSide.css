@@ -121,7 +121,7 @@
 }
 
 .mainitem-cat-drop {
-    background-color: rgba(165, 165, 165, 0.768);
+    background-color: rgba(148, 148, 148, 0.768);
     display: flex;
     /* width: 100%; */
     padding: 4px 10px;
@@ -139,12 +139,94 @@
     font-weight: 600;
 }
 
-.secondary-itms ul{
+.secondary-itms ul {
     list-style: none;
     text-align: start;
     margin: 5px 0;
 }
 
-.secondary-itms ul li{
+.secondary-itms ul li {
     margin-left: -15px;
+}
+
+/* ---------------------------------------------- */
+
+.variation-sec {
+    padding-top: 0;
+    background-color: rgba(0, 0, 0, 0.103);
+    margin: 10px;
+    margin-top: 0;
+    border-radius: 10px;
+}
+
+.color-grid-itms {
+    display: grid;
+    grid-template-columns: repeat(6, 22px);
+    grid-gap: 5px;
+    padding: 10px;
+    justify-content: center;
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    /* border: 1px solid #ccc; */
+    cursor: pointer;
+}
+
+.selected {
+    border: 2px solid #000;
+}
+
+.num-input-l-t {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.num-input-l-t label {
+    font-family: "Roboto", sans-serif;
+    /* background-color: red; */
+    text-align: left;
+    padding-left: 10px;
+    width: 4rem;
+
+}
+
+.pm-icons {
+    font-size: 0.9rem;
+    padding: 10px;
+    transition: font-size 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.pm-icons:hover {
+    color: red;
+    font-size: 1rem;
+    transition: font-size 0.2s, color 0.2s;
+}
+
+.num-input-l-t input {
+    width: 20%;
+    scale: 0.8;
+    font-size: 1rem;
+    height: 2rem;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.num-input-l-t input::-webkit-inner-spin-button,
+.num-input-l-t input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.num-input-l-t input[type=number] {
+    -moz-appearance: textfield;
 }

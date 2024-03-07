@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
 import './FilterSide.css'
 import Slider from 'react-slider'
+import layerPlus from '../Assets/layer-plus.svg'
+import layerMinus from '../Assets/layer-minus.svg'
+import tierPlus from '../Assets/tier-plus.svg'
+import tierMinus from '../Assets/tier-minus.svg'
+
+const colors = [
+    'red', 'blue', 'green', 'yellow', 'orange', 'purple',
+    'pink', 'cyan', 'magenta', 'lime', 'teal', 'brown'
+];
 
 const FilterSide = () => {
 
@@ -8,6 +17,15 @@ const FilterSide = () => {
     const PRICE_MAX = 55000;
 
     const [priceVals, setPriceVals] = useState([3000, 15000])
+    const [selectedColors, setSelectedColors] = useState([]);
+
+    const toggleColor = (color) => {
+        if (selectedColors.includes(color)) {
+            setSelectedColors(selectedColors.filter(c => c !== color));
+        } else {
+            setSelectedColors([...selectedColors, color]);
+        }
+    };
 
     return (
         <div className='filterside-container'>
@@ -76,12 +94,11 @@ const FilterSide = () => {
                             </div>
                             <div className="secondary-itms">
                                 <ul>
-                                    <li><input type="checkbox" />Kids</li>
-                                    <li><input type="checkbox" />Birthday</li>
-                                    <li><input type="checkbox" />Party Sets</li>
-                                    <li><input type="checkbox" />Love Themed</li>
-                                    <li><input type="checkbox" />Engagement</li>
-                                    <li><input type="checkbox" />Wedding</li>
+                                    <li><input type="checkbox" />Butter Cream</li>
+                                    <li><input type="checkbox" />Frosted</li>
+                                    <li><input type="checkbox" />Ganache</li>
+                                    <li><input type="checkbox" />Fondant</li>
+                                    <li><input type="checkbox" />Whipped Cream</li>
                                 </ul>
                             </div>
                         </div>
@@ -92,12 +109,92 @@ const FilterSide = () => {
                             </div>
                             <div className="secondary-itms">
                                 <ul>
-                                    <li><input type="checkbox" />Kids</li>
-                                    <li><input type="checkbox" />Birthday</li>
-                                    <li><input type="checkbox" />Party Sets</li>
-                                    <li><input type="checkbox" />Love Themed</li>
-                                    <li><input type="checkbox" />Engagement</li>
-                                    <li><input type="checkbox" />Wedding</li>
+                                    <li><input type="checkbox" />Cakesicles</li>
+                                    <li><input type="checkbox" />Cake Pops</li>
+                                    <li><input type="checkbox" />Sugar Cookies</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="variation-sec">
+                    <div className="filt-sec-header">
+                        <h1>Variation</h1>
+                        <i className="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div className="category-sec-body">
+
+                        <div className="cake-cat">
+                            <div className="mainitem-cat-drop">
+                                <h2><input type="checkbox" />COLORS</h2>
+                                <i className="fa-solid fa-angle-down"></i>
+                            </div>
+                            <div className="color-grid-itms">
+                                {colors.map((color, index) => (
+                                    <div
+                                        key={index}
+                                        className={`cell ${selectedColors.includes(color) ? 'selected' : ''}`}
+                                        style={{ backgroundColor: color }}
+                                        onClick={() => toggleColor(color)}
+                                    ></div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="cake-cat">
+                            <div className="mainitem-cat-drop">
+                                <h2><input type="checkbox" />FLAVOR</h2>
+                                <i className="fa-solid fa-angle-down"></i>
+                            </div>
+                            <div className="secondary-itms">
+                                <ul>
+                                    <li><input type="checkbox" />Vanilla</li>
+                                    <li><input type="checkbox" />Chocolate</li>
+                                    <li><input type="checkbox" />Red Velvet</li>
+                                    <li><input type="checkbox" />Lemon</li>
+                                    <li><input type="checkbox" />Strawberry</li>
+                                    <li><input type="checkbox" />Coffee</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="cake-cat">
+                            <div className="mainitem-cat-drop">
+                                <h2>LAYERS & TIERS</h2>
+                                <i className="fa-solid fa-angle-down"></i>
+                            </div>
+                            <div className="secondary-itms">
+                                <div className="num-input-l-t">
+                                    <label>Layers</label>
+                                    <i class="fa-solid fa-minus pm-icons"></i>
+                                    <input type="number" value={1} />
+                                    <i class="fa-solid fa-plus pm-icons"></i>
+
+                                </div>
+                                <div className="num-input-l-t">
+                                    <label>Tiers:</label>
+                                    <i class="fa-solid fa-minus pm-icons"></i>
+                                    <input type="number" value={1} />
+                                    <i class="fa-solid fa-plus pm-icons"></i>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="cake-cat">
+                            <div className="mainitem-cat-drop">
+                                <h2><input type="checkbox" />SHAPE</h2>
+                                <i className="fa-solid fa-angle-down"></i>
+                            </div>
+                            <div className="secondary-itms">
+                                <ul>
+                                    <li><input type="checkbox" />Slice </li>
+                                    <li><input type="checkbox" />Round </li>
+                                    <li><input type="checkbox" />Square </li>
+                                    <li><input type="checkbox" />Rectangular </li>
+                                    <li><input type="checkbox" />Heart Shaped</li>
+                                    <li><input type="checkbox" />Custom</li>
                                 </ul>
                             </div>
                         </div>
@@ -105,6 +202,7 @@ const FilterSide = () => {
 
                     </div>
                 </div>
+
 
             </div>
 
