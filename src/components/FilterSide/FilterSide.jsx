@@ -7,7 +7,15 @@ const colors = [
     'pink', 'cyan', 'magenta', 'lime', 'teal', 'brown'
 ];
 
-const FilterSide = () => {
+const FilterSide = ({ onSortChange }) => {
+
+    const [selectedSortOption, setSelectedSortOption] = useState('default-sorting');
+
+    const handleSortChange = (event) => {
+        const selectedOption = event.target.value;
+        setSelectedSortOption(selectedOption);
+        onSortChange(selectedOption);
+    };
 
     const [isSortOpen, setIsSortOpen] = useState(false);
     const [isPriceOpen, setIsPriceOpen] = useState(false);
@@ -59,7 +67,7 @@ const FilterSide = () => {
                         ></i>
                     </div>
                     <div className={`sort-sec-body ${isSortOpen ? 'open' : 'closed'}`}>
-                        <select id='sort'>
+                        <select id='sort' value={selectedSortOption} onChange={handleSortChange}>
                             <option value="default-sorting">Default Sorting</option>
                             <option value="sort-by-latest">Sort by Latest</option>
                             <option value="sort-by-price-low">Sort by Price: Low to High</option>

@@ -19,7 +19,8 @@ let dummyProducts = [
         tierCount: 1,
         shape: "circle",
         keywords: "naruto",
-        image: ck1
+        image: ck1,
+        date: "2024-03-10"
     },
     {
         id: 2,
@@ -32,7 +33,8 @@ let dummyProducts = [
         tierCount: 2,
         shape: "circle",
         keywords: "sun-clouds",
-        image: ck2
+        image: ck2,
+        date: "2024-03-09"
     },
     {
         id: 3,
@@ -45,7 +47,8 @@ let dummyProducts = [
         tierCount: 1,
         shape: "square",
         keywords: "box-cake",
-        image: ck3
+        image: ck3,
+        date: "2024-03-08"
     },
     {
         id: 4,
@@ -58,7 +61,8 @@ let dummyProducts = [
         tierCount: 1,
         shape: "circle",
         keywords: "cylinder-standard",
-        image: ck4
+        image: ck4,
+        date: "2024-03-10"
     },
     {
         id: 5,
@@ -71,7 +75,8 @@ let dummyProducts = [
         tierCount: 2,
         shape: "circle",
         keywords: "traditional-wedding",
-        image: ck5
+        image: ck5,
+        date: "2024-03-05"
     },
     {
         id: 6,
@@ -84,7 +89,8 @@ let dummyProducts = [
         tierCount: 2,
         shape: "circle",
         keywords: "floral-wedding",
-        image: ck6
+        image: ck6,
+        date: "2024-03-10"
     },
     {
         id: 7,
@@ -97,7 +103,8 @@ let dummyProducts = [
         tierCount: 1,
         shape: "heart",
         keywords: "valentines-heart",
-        image: ck7
+        image: ck7,
+        date: "2024-03-09"
     },
     {
         id: 8,
@@ -110,7 +117,8 @@ let dummyProducts = [
         tierCount: 1,
         shape: "circle",
         keywords: "valentines-floral",
-        image: ck8
+        image: ck8,
+        date: "2024-03-04"
     }
 ];
 

@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './CSS/CakesPage.css'
 import FilterSide from '../components/FilterSide/FilterSide'
 import ProductsRender from '../components/ProductsRender/ProductsRender'
+import dummyProducts from '../components/Assets/dummy-products.js'
 
 const CakesPage = () => {
+
+  const [sortingMethod, setSortingMethod] = useState('default-sorting');
+
+  const handleSortChange = (selectedOption) => {
+    setSortingMethod(selectedOption);
+  };
+
   return (
     <div className='cakes-page-container'>
 
@@ -23,10 +31,10 @@ const CakesPage = () => {
 
       <div className="products-container-with-side">
         <div className="prod-con-left">
-          <FilterSide />
+          <FilterSide onSortChange={handleSortChange} />
         </div>
         <div className="prod-con-right">
-          <ProductsRender />
+          <ProductsRender products={dummyProducts} sortingMethod={sortingMethod} />
         </div>
       </div>
 
