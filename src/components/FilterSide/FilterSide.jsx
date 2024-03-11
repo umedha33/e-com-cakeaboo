@@ -7,8 +7,15 @@ const colors = [
     'pink', 'cyan', 'magenta', 'lime', 'teal', 'brown'
 ];
 
-const FilterSide = ({ onSortChange }) => {
+const categories = {
+    'CAKES': ['Kids', 'Birthday', 'Party Sets', 'Love Themed', 'Engagement', 'Wedding'],
+    'CUP CAKES': ['Butter Cream', 'Frosted', 'Ganache', 'Fondant', 'Whipped Cream'],
+    'SWEETS': ['Cakesicles', 'Cake Pops', 'Sugar Cookies']
+};
 
+const FilterSide = ({ onSortChange, onPriceRangeChange }) => {
+
+    const [selectedColors, setSelectedColors] = useState([]);
     const [selectedSortOption, setSelectedSortOption] = useState('default-sorting');
 
     const handleSortChange = (event) => {
@@ -16,6 +23,20 @@ const FilterSide = ({ onSortChange }) => {
         setSelectedSortOption(selectedOption);
         onSortChange(selectedOption);
     };
+
+    const handlePriceRangeChange = (values) => {
+        setPriceVals(values);
+        onPriceRangeChange(values);
+    };
+
+
+
+
+    
+    const [priceVals, setPriceVals] = useState([450, 55000])
+
+    const PRICE_MIN = 450;
+    const PRICE_MAX = 55000;
 
     const [isSortOpen, setIsSortOpen] = useState(false);
     const [isPriceOpen, setIsPriceOpen] = useState(false);
@@ -37,13 +58,6 @@ const FilterSide = ({ onSortChange }) => {
     const toggleVariationSection = () => {
         setIsVariationOpen(!isVariationOpen);
     };
-
-
-    const PRICE_MIN = 450;
-    const PRICE_MAX = 55000;
-
-    const [priceVals, setPriceVals] = useState([3000, 15000])
-    const [selectedColors, setSelectedColors] = useState([]);
 
     const toggleColor = (color) => {
         if (selectedColors.includes(color)) {
@@ -88,7 +102,7 @@ const FilterSide = ({ onSortChange }) => {
                             {`${priceVals[0]} LKR`} - {`${priceVals[1]} LKR`}
                         </div>
                         <Slider className="price-slider"
-                            onChange={setPriceVals}
+                            onChange={handlePriceRangeChange}
                             value={priceVals}
                             min={PRICE_MIN}
                             max={PRICE_MAX} />
@@ -100,49 +114,63 @@ const FilterSide = ({ onSortChange }) => {
                         <h1>CATEGORY</h1>
                         <i className={`fa-solid ${isCategoryOpen ? "fa-angle-up" : "fa-angle-down"}`}
                             onClick={toggleCategorySection}
-                        ></i>                    </div>
+                        ></i>
+                    </div>
                     <div className={`category-sec-body ${isCategoryOpen ? 'open' : 'closed'}`}>
                         <div className="cake-cat">
                             <div className="mainitem-cat-drop">
-                                <h2><input type="checkbox" />CAKES</h2>
+                                <h2>
+                                    <input type="checkbox" />
+                                    CAKES
+                                </h2>
                                 <i className="fa-solid fa-angle-down"></i>
                             </div>
                             <div className="secondary-itms">
                                 <ul>
-                                    <li><input type="checkbox" />Kids</li>
-                                    <li><input type="checkbox" />Birthday</li>
-                                    <li><input type="checkbox" />Party Sets</li>
-                                    <li><input type="checkbox" />Love Themed</li>
-                                    <li><input type="checkbox" />Engagement</li>
-                                    <li><input type="checkbox" />Wedding</li>
+                                    {categories['CAKES'].map((subCategory, idx) => (
+                                        <li key={idx}>
+                                            <input type="checkbox" />
+                                            {subCategory}
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
                         <div className="cake-cat">
                             <div className="mainitem-cat-drop">
-                                <h2><input type="checkbox" />CUP CAKES</h2>
+                                <h2>
+                                    <input type="checkbox" />
+                                    CUP CAKES
+                                </h2>
                                 <i className="fa-solid fa-angle-down"></i>
                             </div>
                             <div className="secondary-itms">
                                 <ul>
-                                    <li><input type="checkbox" />Butter Cream</li>
-                                    <li><input type="checkbox" />Frosted</li>
-                                    <li><input type="checkbox" />Ganache</li>
-                                    <li><input type="checkbox" />Fondant</li>
-                                    <li><input type="checkbox" />Whipped Cream</li>
+                                    {categories['CUP CAKES'].map((subCategory, idx) => (
+                                        <li key={idx}>
+                                            <input type="checkbox" />
+                                            {subCategory}
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
                         <div className="cake-cat">
                             <div className="mainitem-cat-drop">
-                                <h2><input type="checkbox" />SWEETS</h2>
+                                <h2>
+                                    <input type="checkbox" />
+                                    SWEETS
+                                </h2>
                                 <i className="fa-solid fa-angle-down"></i>
                             </div>
                             <div className="secondary-itms">
                                 <ul>
-                                    <li><input type="checkbox" />Cakesicles</li>
-                                    <li><input type="checkbox" />Cake Pops</li>
-                                    <li><input type="checkbox" />Sugar Cookies</li>
+                                    {categories['SWEETS'].map((subCategory, idx) => (
+                                        <li key={idx}>
+                                            <input type="checkbox" />
+                                            {subCategory}
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
@@ -154,7 +182,8 @@ const FilterSide = ({ onSortChange }) => {
                         <h1>Variation</h1>
                         <i className={`fa-solid ${isVariationOpen ? "fa-angle-up" : "fa-angle-down"}`}
                             onClick={toggleVariationSection}
-                        ></i>                    </div>
+                        ></i>
+                    </div>
                     <div className={`category-sec-body ${isVariationOpen ? 'open' : 'closed'}`}>
 
                         <div className="cake-cat">
@@ -221,10 +250,11 @@ const FilterSide = ({ onSortChange }) => {
                             </div>
                             <div className="secondary-itms">
                                 <ul>
-                                    <li><input type="checkbox" />Slice </li>
-                                    <li><input type="checkbox" />Round </li>
-                                    <li><input type="checkbox" />Square </li>
-                                    <li><input type="checkbox" />Rectangular </li>
+                                    <li><input type="checkbox" />Slice</li>
+                                    <li><input type="checkbox" />Round</li>
+                                    <li><input type="checkbox" />Top Forward</li>
+                                    <li><input type="checkbox" />Square</li>
+                                    <li><input type="checkbox" />Rectangular</li>
                                     <li><input type="checkbox" />Heart Shaped</li>
                                     <li><input type="checkbox" />Custom</li>
                                 </ul>
@@ -234,10 +264,7 @@ const FilterSide = ({ onSortChange }) => {
 
                     </div>
                 </div>
-
-
             </div>
-
         </div>
     )
 }

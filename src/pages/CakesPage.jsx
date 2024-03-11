@@ -7,9 +7,14 @@ import dummyProducts from '../components/Assets/dummy-products.js'
 const CakesPage = () => {
 
   const [sortingMethod, setSortingMethod] = useState('default-sorting');
+  const [priceRange, setPriceRange] = useState([450, 55000]);
 
   const handleSortChange = (selectedOption) => {
     setSortingMethod(selectedOption);
+  };
+
+  const handlePriceRangeChange = (newPriceRange) => {
+    setPriceRange(newPriceRange);
   };
 
   return (
@@ -31,10 +36,15 @@ const CakesPage = () => {
 
       <div className="products-container-with-side">
         <div className="prod-con-left">
-          <FilterSide onSortChange={handleSortChange} />
+          <FilterSide
+            onSortChange={handleSortChange}
+            onPriceRangeChange={handlePriceRangeChange} />
         </div>
         <div className="prod-con-right">
-          <ProductsRender products={dummyProducts} sortingMethod={sortingMethod} />
+          <ProductsRender
+            products={dummyProducts}
+            sortingMethod={sortingMethod}
+            priceRange={priceRange} />
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProductsRender.css';
 
-const ProductsRender = ({ products, sortingMethod }) => {
+const ProductsRender = ({ products, sortingMethod, priceRange }) => {
 
     const sortProducts = (products, sortingMethod) => {
         switch (sortingMethod) {
@@ -12,15 +12,20 @@ const ProductsRender = ({ products, sortingMethod }) => {
             case 'sort-by-price-high':
                 return products.sort((a, b) => b.price - a.price);
             default:
-                return products;
+                return products.slice().sort((a, b) => a.title.localeCompare(b.title));
         }
     };
 
+    const filterProductsByPriceRange = (products, priceRange) => {
+        return products.filter(product => product.price >= priceRange[0] && product.price <= priceRange[1]);
+    };
+
     const sortedProducts = sortProducts(products, sortingMethod);
+    const filteredProducts = filterProductsByPriceRange(sortedProducts, priceRange);
 
     return (
         <div className='product-render-container'>
-            {sortedProducts.map(product => (
+            {filteredProducts.map(product => (
                 <div key={product.id} className="ind-product">
                     <img src={product.image} alt={product.title} />
                     <button>ADD TO CART</button>

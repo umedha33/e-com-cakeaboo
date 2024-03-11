@@ -20,7 +20,7 @@ let dummyProducts = [
         shape: "circle",
         keywords: "naruto",
         image: ck1,
-        date: "2024-03-10"
+        date: new Date("2024-03-10")
     },
     {
         id: 2,
@@ -34,7 +34,7 @@ let dummyProducts = [
         shape: "circle",
         keywords: "sun-clouds",
         image: ck2,
-        date: "2024-03-09"
+        date: new Date("2024-03-09")
     },
     {
         id: 3,
@@ -48,7 +48,7 @@ let dummyProducts = [
         shape: "square",
         keywords: "box-cake",
         image: ck3,
-        date: "2024-03-08"
+        date: new Date("2024-03-08")
     },
     {
         id: 4,
@@ -62,7 +62,7 @@ let dummyProducts = [
         shape: "circle",
         keywords: "cylinder-standard",
         image: ck4,
-        date: "2024-03-10"
+        date: new Date("2024-03-10")
     },
     {
         id: 5,
@@ -76,7 +76,7 @@ let dummyProducts = [
         shape: "circle",
         keywords: "traditional-wedding",
         image: ck5,
-        date: "2024-03-05"
+        date: new Date("2024-03-05")
     },
     {
         id: 6,
@@ -90,7 +90,7 @@ let dummyProducts = [
         shape: "circle",
         keywords: "floral-wedding",
         image: ck6,
-        date: "2024-03-10"
+        date: new Date("2024-03-10")
     },
     {
         id: 7,
@@ -104,7 +104,7 @@ let dummyProducts = [
         shape: "heart",
         keywords: "valentines-heart",
         image: ck7,
-        date: "2024-03-09"
+        date: new Date("2024-03-09")
     },
     {
         id: 8,
@@ -118,7 +118,7 @@ let dummyProducts = [
         shape: "circle",
         keywords: "valentines-floral",
         image: ck8,
-        date: "2024-03-04"
+        date: new Date("2024-03-04")
     }
 ];
 
