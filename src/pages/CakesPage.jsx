@@ -16,12 +16,40 @@ const categories = {
 
 const CakesPage = () => {
 
-  const [selectedColors, setSelectedColors] = useState([]);
-  const [priceVals, setPriceVals] = useState([450, 55000])
-
   const PRICE_MIN = 450;
   const PRICE_MAX = 55000;
 
+  const [selectedColors, setSelectedColors] = useState([]);
+  const [priceVals, setPriceVals] = useState([450, 55000])
+  const [sortOption, setSortOption] = useState('default-sorting');
+
+  const sortProducts = (option, minPrice, maxPrice) => {
+    let sortedProducts = dummyProducts.slice();
+    switch (option) {
+      case 'sort-by-latest':
+        sortedProducts = sortedProducts.sort((a, b) => b.date - a.date);
+        break;
+      case 'sort-by-price-low':
+        sortedProducts = sortedProducts.sort((a, b) => a.price - b.price);
+        break;
+      case 'sort-by-price-high':
+        sortedProducts = sortedProducts.sort((a, b) => b.price - a.price);
+        break;
+      default:
+        sortedProducts = sortedProducts.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+    }
+    sortedProducts = sortedProducts.filter(product => product.price >= minPrice && product.price <= maxPrice);
+
+    return sortedProducts;
+  };
+
+
+
+
+
+  // toggling up down sections -------------------------------------
+  // ---------------------------------------------------------------
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [isPriceOpen, setIsPriceOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -50,7 +78,8 @@ const CakesPage = () => {
       setSelectedColors([...selectedColors, color]);
     }
   };
-
+  // ---------------------------------------------------------------
+  // toggling up down sections -------------------------------------
 
   return (
     <div className='cakes-page-container'>
@@ -86,7 +115,7 @@ const CakesPage = () => {
                   ></i>
                 </div>
                 <div className={`sort-sec-body ${isSortOpen ? 'open' : 'closed'}`}>
-                  <select id='sort'>
+                  <select id='sort' value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
                     <option value="default-sorting">Default Sorting</option>
                     <option value="sort-by-latest">Sort by Latest</option>
                     <option value="sort-by-price-low">Sort by Price: Low to High</option>
@@ -244,7 +273,7 @@ const CakesPage = () => {
         <div className="prod-con-right">
           {/* PRODUCT RENDER COMPONENT */}
           <div className='product-render-container'>
-            {dummyProducts.map(product => (
+            {sortProducts(sortOption, priceVals[0], priceVals[1]).map(product => (
               <div key={product.id} className="ind-product">
                 <img src={product.image} alt={product.title} />
                 <button>ADD TO CART</button>
