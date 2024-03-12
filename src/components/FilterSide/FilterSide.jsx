@@ -29,10 +29,6 @@ const FilterSide = ({ onSortChange, onPriceRangeChange }) => {
         onPriceRangeChange(values);
     };
 
-
-
-
-    
     const [priceVals, setPriceVals] = useState([450, 55000])
 
     const PRICE_MIN = 450;
@@ -117,63 +113,31 @@ const FilterSide = ({ onSortChange, onPriceRangeChange }) => {
                         ></i>
                     </div>
                     <div className={`category-sec-body ${isCategoryOpen ? 'open' : 'closed'}`}>
-                        <div className="cake-cat">
-                            <div className="mainitem-cat-drop">
-                                <h2>
-                                    <input type="checkbox" />
-                                    CAKES
-                                </h2>
-                                <i className="fa-solid fa-angle-down"></i>
+                        {Object.entries(categories).map(([mainCategory, subCategories]) => (
+                            <div key={mainCategory} className="cake-cat">
+                                <div className="mainitem-cat-drop">
+                                    <h2>
+                                        <input
+                                            type="checkbox"
+                                        />
+                                        {mainCategory}
+                                    </h2>
+                                    <i className="fa-solid fa-angle-down"></i>
+                                </div>
+                                <div className="secondary-itms">
+                                    <ul>
+                                        {subCategories.map((subCategory, idx) => (
+                                            <li key={idx}>
+                                                <input
+                                                    type="checkbox"
+                                                />
+                                                {subCategory}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
-                            <div className="secondary-itms">
-                                <ul>
-                                    {categories['CAKES'].map((subCategory, idx) => (
-                                        <li key={idx}>
-                                            <input type="checkbox" />
-                                            {subCategory}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="cake-cat">
-                            <div className="mainitem-cat-drop">
-                                <h2>
-                                    <input type="checkbox" />
-                                    CUP CAKES
-                                </h2>
-                                <i className="fa-solid fa-angle-down"></i>
-                            </div>
-                            <div className="secondary-itms">
-                                <ul>
-                                    {categories['CUP CAKES'].map((subCategory, idx) => (
-                                        <li key={idx}>
-                                            <input type="checkbox" />
-                                            {subCategory}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="cake-cat">
-                            <div className="mainitem-cat-drop">
-                                <h2>
-                                    <input type="checkbox" />
-                                    SWEETS
-                                </h2>
-                                <i className="fa-solid fa-angle-down"></i>
-                            </div>
-                            <div className="secondary-itms">
-                                <ul>
-                                    {categories['SWEETS'].map((subCategory, idx) => (
-                                        <li key={idx}>
-                                            <input type="checkbox" />
-                                            {subCategory}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
 

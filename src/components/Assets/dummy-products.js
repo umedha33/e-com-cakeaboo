@@ -20,7 +20,8 @@ let dummyProducts = [
         shape: "circle",
         keywords: "naruto",
         image: ck1,
-        date: new Date("2024-03-10")
+        date: new Date("2024-03-10"),
+        categories: ["Kids", "CAKES"]
     },
     {
         id: 2,
@@ -34,7 +35,8 @@ let dummyProducts = [
         shape: "circle",
         keywords: "sun-clouds",
         image: ck2,
-        date: new Date("2024-03-09")
+        date: new Date("2024-03-09"),
+        categories: ["Kids", "CAKES"]
     },
     {
         id: 3,
@@ -48,7 +50,8 @@ let dummyProducts = [
         shape: "square",
         keywords: "box-cake",
         image: ck3,
-        date: new Date("2024-03-08")
+        date: new Date("2024-03-08"),
+        categories: ["Birthday", "CAKES"]
     },
     {
         id: 4,
@@ -62,7 +65,8 @@ let dummyProducts = [
         shape: "circle",
         keywords: "cylinder-standard",
         image: ck4,
-        date: new Date("2024-03-10")
+        date: new Date("2024-03-10"),
+        categories: ["Birthday", "CAKES"]
     },
     {
         id: 5,
@@ -76,7 +80,8 @@ let dummyProducts = [
         shape: "circle",
         keywords: "traditional-wedding",
         image: ck5,
-        date: new Date("2024-03-05")
+        date: new Date("2024-03-05"),
+        categories: ["Wedding", "CAKES"]
     },
     {
         id: 6,
@@ -90,7 +95,8 @@ let dummyProducts = [
         shape: "circle",
         keywords: "floral-wedding",
         image: ck6,
-        date: new Date("2024-03-10")
+        date: new Date("2024-03-10"),
+        categories: ["Wedding", "CAKES"]
     },
     {
         id: 7,
@@ -104,7 +110,8 @@ let dummyProducts = [
         shape: "heart",
         keywords: "valentines-heart",
         image: ck7,
-        date: new Date("2024-03-09")
+        date: new Date("2024-03-09"),
+        categories: ["Love Themed", "CAKES"]
     },
     {
         id: 8,
@@ -118,7 +125,8 @@ let dummyProducts = [
         shape: "circle",
         keywords: "valentines-floral",
         image: ck8,
-        date: new Date("2024-03-04")
+        date: new Date("2024-03-04"),
+        categories: ["Love Themed", "CAKES"]
     }
 ];
 
