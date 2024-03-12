@@ -22,6 +22,8 @@ const CakesPage = () => {
   const [selectedColors, setSelectedColors] = useState([]);
   const [priceVals, setPriceVals] = useState([450, 55000])
   const [sortOption, setSortOption] = useState('default-sorting');
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
 
   const sortProducts = (option, minPrice, maxPrice) => {
     let sortedProducts = dummyProducts.slice();
@@ -39,19 +41,38 @@ const CakesPage = () => {
         sortedProducts = sortedProducts.sort((a, b) => a.title.localeCompare(b.title));
         break;
     }
-    sortedProducts = sortedProducts.filter(product => product.price >= minPrice && product.price <= maxPrice);
+
+    // Filter by selected categories
+    if (selectedCategories.length > 0) {
+      sortedProducts = sortedProducts.filter(product =>
+        product.categories.some(category =>
+          selectedCategories.includes(category)
+        )
+      );
+    }
+
+    // Filter by price range
+    sortedProducts = sortedProducts.filter(product =>
+      product.price >= minPrice && product.price <= maxPrice
+    );
 
     return sortedProducts;
   };
 
-
+  const toggleCategory = (category) => {
+    if (selectedCategories.includes(category)) {
+      setSelectedCategories(selectedCategories.filter(c => c !== category));
+    } else {
+      setSelectedCategories([...selectedCategories, category]);
+    }
+  };
 
 
 
   // toggling up down sections -------------------------------------
   // ---------------------------------------------------------------
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const [isPriceOpen, setIsPriceOpen] = useState(false);
+  const [isSortOpen, setIsSortOpen] = useState(true);
+  const [isPriceOpen, setIsPriceOpen] = useState(true);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isVariationOpen, setIsVariationOpen] = useState(false);
 
@@ -157,6 +178,8 @@ const CakesPage = () => {
                         <h2>
                           <input
                             type="checkbox"
+                            onChange={() => toggleCategory(mainCategory)}
+                            checked={selectedCategories.includes(mainCategory)}
                           />
                           {mainCategory}
                         </h2>
@@ -168,6 +191,8 @@ const CakesPage = () => {
                             <li key={idx}>
                               <input
                                 type="checkbox"
+                                onChange={() => toggleCategory(subCategory)}
+                                checked={selectedCategories.includes(subCategory)}
                               />
                               {subCategory}
                             </li>

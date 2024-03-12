@@ -6,6 +6,14 @@ import ck5 from '../Assets/wedn-1.jpg'
 import ck6 from '../Assets/wedn-2.jpg'
 import ck7 from '../Assets/lvdtheme-1.jpg'
 import ck8 from '../Assets/lvdtheme-2.jpg'
+import ck9 from '../Assets/fondnt-1.jpg'
+import ck10 from '../Assets/fondnt-2.jpg'
+import ck11 from '../Assets/buttercrm-1.jpg'
+import ck12 from '../Assets/buttercrm-2.jpg'
+import ck13 from '../Assets/frosted-1.jpg'
+import ck14 from '../Assets/frosted-2.jpg'
+import ck15 from '../Assets/whippedcrm-1.jpg'
+import ck16 from '../Assets/whippedcrm-2.jpg'
 
 let dummyProducts = [
     {
@@ -127,7 +135,103 @@ let dummyProducts = [
         image: ck8,
         date: new Date("2024-03-04"),
         categories: ["Love Themed", "CAKES"]
-    }
+    },
+    {
+        id: 9,
+        title: "Mehendi Fondant Cup Cake",
+        description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
+        category: "fondant cup cakes",
+        price: 1600,
+        color: "blue",
+        keywords: "mehendi-blue",
+        image: ck9,
+        date: new Date("2024-03-10"),
+        categories: ["Fondant", "CUP CAKES"]
+    },
+    {
+        id: 10,
+        title: "Mr Cup Cake",
+        description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
+        category: "fondant cup cakes",
+        price: 1500,
+        color: "beige",
+        keywords: "office-mr",
+        image: ck10,
+        date: new Date("2024-03-10"),
+        categories: ["Fondant", "CUP CAKES"]
+    },
+    {
+        id: 11,
+        title: "Sea Wave Cup Cake",
+        description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
+        category: "butter cream cup cakes",
+        price: 1650,
+        color: "blue",
+        keywords: "sea-wave",
+        image: ck11,
+        date: new Date("2024-03-10"),
+        categories: ["Butter Cream", "CUP CAKES"]
+    },
+    {
+        id: 12,
+        title: "Forget Me Not Cup Cake",
+        description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
+        category: "butter cream cup cakes",
+        price: 1680,
+        color: "purple",
+        keywords: "forget-me-not",
+        image: ck12,
+        date: new Date("2024-03-11"),
+        categories: ["Butter Cream", "CUP CAKES"]
+    },
+    {
+        id: 13,
+        title: "Snow Flake Cup Cake",
+        description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
+        category: "frosted cup cakes",
+        price: 1760,
+        color: "beige",
+        keywords: "snow-flake",
+        image: ck13,
+        date: new Date("2024-03-11"),
+        categories: ["Frosted", "CUP CAKES"]
+    },
+    {
+        id: 14,
+        title: "Honey Bee Cup Cake",
+        description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
+        category: "frosted cup cakes",
+        price: 1700,
+        color: "white",
+        keywords: "honey-bee",
+        image: ck14,
+        date: new Date("2024-03-11"),
+        categories: ["Frosted", "CUP CAKES"]
+    },
+    {
+        id: 15,
+        title: "Lemon Curd Cup Cake",
+        description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
+        category: "whipped cream cup cakes",
+        price: 1850,
+        color: "yellow",
+        keywords: "lemon-curd",
+        image: ck15,
+        date: new Date("2024-03-11"),
+        categories: ["Whipped Cream", "CUP CAKES"]
+    },
+    {
+        id: 16,
+        title: "Choco Leaf Cake",
+        description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
+        category: "whipped cream cup cakes",
+        price: 1800,
+        color: "white",
+        keywords: "choco-leaf",
+        image: ck16,
+        date: new Date("2024-03-12"),
+        categories: ["Whipped Cream", "CUP CAKES"]
+    },
 ];
 
 export default dummyProducts;
