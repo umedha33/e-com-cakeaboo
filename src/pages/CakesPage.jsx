@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import './CSS/CakesPage.css'
 import dummyProducts from '../components/Assets/dummy-products.js'
 import Slider from 'react-slider'
+import { Link } from 'react-router-dom';
 
 const colors = [
   'red', 'blue', 'green', 'yellow', 'orange', 'purple',
-  'pink', 'cyan', 'magenta', 'lime', 'teal', 'brown'
+  'pink', 'cyan', 'black', 'lime', 'beige', 'rgb(244, 244, 244)', 'brown'
 ];
 
 const categories = {
@@ -55,6 +56,15 @@ const CakesPage = () => {
     sortedProducts = sortedProducts.filter(product =>
       product.price >= minPrice && product.price <= maxPrice
     );
+
+    // Filter by selected colors
+    if (selectedColors.length > 0) {
+      sortedProducts = sortedProducts.filter(product =>
+        product.color.some(color =>
+          selectedColors.includes(color)
+        )
+      );
+    }
 
     return sortedProducts;
   };
@@ -215,7 +225,7 @@ const CakesPage = () => {
 
                   <div className="cake-cat">
                     <div className="mainitem-cat-drop">
-                      <h2><input type="checkbox" />COLORS</h2>
+                      <h2>COLORS</h2>
                       <i className="fa-solid fa-angle-down"></i>
                     </div>
                     <div className="color-grid-itms">
@@ -232,7 +242,7 @@ const CakesPage = () => {
 
                   <div className="cake-cat">
                     <div className="mainitem-cat-drop">
-                      <h2><input type="checkbox" />FLAVOR</h2>
+                      <h2>FLAVOR</h2>
                       <i className="fa-solid fa-angle-down"></i>
                     </div>
                     <div className="secondary-itms">
@@ -272,7 +282,7 @@ const CakesPage = () => {
 
                   <div className="cake-cat">
                     <div className="mainitem-cat-drop">
-                      <h2><input type="checkbox" />SHAPE</h2>
+                      <h2>SHAPE</h2>
                       <i className="fa-solid fa-angle-down"></i>
                     </div>
                     <div className="secondary-itms">
@@ -300,7 +310,13 @@ const CakesPage = () => {
           <div className='product-render-container'>
             {sortProducts(sortOption, priceVals[0], priceVals[1]).map(product => (
               <div key={product.id} className="ind-product">
-                <img src={product.image} alt={product.title} />
+                <Link
+                  to={`/product/${product.id}`}
+                  state={{ singleProduct: product.id }}
+                  className="product-link"
+                >
+                  <img src={product.image} alt={product.title} />
+                </Link>
                 <button>ADD TO CART</button>
                 <div className="ind-product-details">
                   <h3>{product.title}</h3>

@@ -1,0 +1,182 @@
+.single-product-container {
+    display: flex;
+    gap: 10px;
+}
+
+.left-side-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: pink; */
+    padding-top: 30px;
+    padding-left: 30px;
+    margin: 10px;
+    margin-right: 0;
+    margin-top: 0;
+    width: 50%;
+    height: 80vh;
+    border-radius: 10px;
+}
+
+.right-side-cont {
+    display: flex;
+    text-align: left;
+    padding-top: 30px;
+    /* background-color: lightgreen; */
+    margin: 10px;
+    margin-top: 0;
+    margin-left: 0;
+    border-radius: 20px;
+    width: 50%;
+}
+
+.product-img-viewer {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 15px;
+    height: 100%;
+}
+
+.fullimg-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    /* background-color: crimson; */
+}
+
+.thumb-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 98%;
+    border-radius: 30px;
+    /* background-color: rgba(0, 183, 255, 0.104); */
+}
+
+#main-image {
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 30px;
+}
+
+#thumb-image {
+    max-height: 85%;
+    max-width: 85%;
+    border-radius: 20px;
+}
+
+.product-dtl-viewer {
+    margin-left: 35px;
+    margin-right: 35px;
+    width: 100%;
+}
+
+#title {
+    font-family: "Roboto", sans-serif;
+    font-size: 2.2rem;
+    color: rgb(248, 55, 151);
+    margin: 0;
+    margin-top: 30px;
+}
+
+#categories {
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    color: rgb(51, 51, 51);
+    margin: 0;
+    margin-top: 10px;
+}
+
+#keywords {
+    font-family: "Roboto", sans-serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: rgb(51, 51, 51);
+    margin-top: -7px;
+}
+
+.layer-tier-cont {
+    display: flex;
+    gap: 15px;
+    margin-top: -10px;
+}
+
+#layers {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.1rem;
+    color: rgb(0, 27, 234);
+    margin-top: 10px;
+}
+
+#price {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    color: rgb(255, 0, 0);
+    margin-top: 20px;
+}
+
+.desc-cont {
+    background-color: rgba(0, 183, 255, 0.104);
+    border-radius: 20px;
+    height: 17.4rem;
+    width: 95%;
+    padding: 20px;
+}
+
+.cust-lt-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgba(248, 55, 152, 0.125);
+    border-radius: 0 20px;
+    border-bottom-right-radius: 20px ;
+margin-top: 20px;
+}
+
+.cust-lt-cont h1 {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgb(255, 75, 165);
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.cust-lt-cont hr{
+    width: 99.8%;
+    margin-top: -10px;
+    border: 0.5px solid rgba(248, 55, 152, 0.178);
+}
+
+.custom-sec {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    margin-top: -30px;
+    padding: 10px 0;
+    padding-left: 15px;
+    gap: 20px;
+    align-items: center;
+    border: 1px solid rgba(255, 46, 154, 0.395);
+    border-bottom-left-radius: 20px ;
+    border-bottom-right-radius: 20px ;
+}
+
+.cust-lt-cont input {
+    width: 2rem;
+    padding: 5px;
+}
+
+#cust-layers {
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(255, 75, 165);
+    margin: 0;
+}
