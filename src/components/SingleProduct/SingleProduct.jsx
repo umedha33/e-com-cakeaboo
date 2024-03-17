@@ -25,8 +25,8 @@ const SingleProduct = () => {
 
     return (
         <div className='single-product-container'>
-            <div className="left-side-cont">
-                {product && (
+            {product && (
+                <div className="left-side-cont">
                     <div key={product.id} className="product-img-viewer">
                         <div className="thumb-container">
                             <img id='thumb-image' src={product.image} alt={product.title} />
@@ -38,16 +38,28 @@ const SingleProduct = () => {
                             <img id='main-image' src={product.image} alt={product.title} />
                         </div>
                     </div>
-                )}
-            </div>
+                    <div className="description-sec">
+                        <div className="desc-head">
+                            <h2>Description</h2>
+                        </div>
+                        <div className="desc-body">
+                            <p>{product.description}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div className="right-side-cont">
                 {product && (
                     <div key={product.id} className="product-dtl-viewer">
                         <h1 id='title'>{product.title}</h1>
                         <h2 id='categories'>{`Category › ${product.categories}`}</h2>
+                        <h2 id='keywords'>{`Keywords: ${product.keywords}`}</h2>
                         <div className="default-sec">
-                            <label>Default Variations</label>
-                            <h2 id='layers'>{`Layer Count: ${product.layerCount} | Tier Count: ${product.tierCount}`}</h2>
+                            <h1>Default Variations</h1>
+                            <hr />
+                            <h2 id='layers'>{`Layer Count: ${product.layerCount}`}</h2>
+                            <h2 id='tiers'>{`Tier Count: ${product.tierCount}`}</h2>
+                            <h2 id='flavors'>{`Flavor: ${product.flavor}`}</h2>
                             <div className="color-grid-itms">
                                 <h2>Color ›</h2>
                                 {product.color.map((color, index) => (
@@ -59,8 +71,6 @@ const SingleProduct = () => {
                                 ))}
                             </div>
                         </div>
-                        <h2 id='keywords'>{`Keywords: ${product.keywords}`}</h2>
-                        <h2 id='price'>{`${(product.price).toFixed(2)} LKR`}</h2>
                         <div className="cust-lt-cont">
                             <h1>Customize the cake</h1>
                             <hr />
@@ -93,6 +103,7 @@ const SingleProduct = () => {
                                     </div>
                                 </div>
                                 <div className="fifth-rw">
+                                    <h2 id='color-slct'>Change Flavor: </h2>
                                     <select id='flavor'>
                                         <option value="vanilla">Vanilla</option>
                                         <option value="chocolate">Chocolate</option>
@@ -104,9 +115,13 @@ const SingleProduct = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="desc-cont">
-                            <h2 id='desc'>{product.description}</h2>
-                        </div> */}
+                        <div className="total-sec">
+                            <div className='btns-cpl'>
+                                <button id='addtocart'>Add to Cart <i class="fa-solid fa-cart-plus"></i></button>
+                                <button id='proceed'>Procees to Checkout ›</button>
+                            </div>
+                            <h2 id='price'>{`${(product.price).toFixed(2)} LKR`}</h2>
+                        </div>
                     </div>
                 )}
             </div>
