@@ -31,16 +31,38 @@ const SingleProduct = () => {
                     <div key={product.id} className="product-dtl-viewer">
                         <h1 id='title'>{product.title}</h1>
                         <h2 id='categories'>{`Category › ${product.categories}`}</h2>
-                        <h2 id='layers'>{`Layer Count: ${product.layerCount} | Tier Count: ${product.tierCount}`}</h2>
+                        <div className="default-sec">
+                            <label>Default Variations</label>
+                            <h2 id='layers'>{`Layer Count: ${product.layerCount} | Tier Count: ${product.tierCount}`}</h2>
+                            <div className="color-grid-itms">
+                                {product.color.map((color, index) => (
+                                    <div
+                                        key={index}
+                                        className='cell'
+                                        style={{ backgroundColor: color }}
+                                    ></div>
+                                ))}
+                            </div>
+                        </div>
                         <h2 id='keywords'>{`Keywords: ${product.keywords}`}</h2>
                         <div className="cust-lt-cont">
                             <h1>Customize the cake</h1>
                             <hr />
                             <div className="custom-sec">
-                                <h2 id='cust-layers'>Custom Layers: </h2>
-                                <input type="number" placeholder='0' />
-                                <h2 id='cust-layers'>Custom Tiers: </h2>
-                                <input type="number" placeholder='0' />
+                                <div className="first-rw">
+                                    <h2 id='cust-layers'>Custom Layers: </h2>
+                                    <input type="number" placeholder='0' />
+                                    <h2 id='cust-layers'>Custom Tiers: </h2>
+                                    <input type="number" placeholder='0' />
+                                </div>
+                                <div className="second-rw">
+                                    <label>Writings: </label>
+                                    <input type="text" name="writing" id="writing" placeholder='Ex: Happy Birthday!' />
+                                </div>
+                                <div className="third-rw">
+                                    <label>Additional Comments: </label>
+                                    <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                                </div>
                             </div>
                         </div>
                         <h2 id='price'>{`${(product.price).toFixed(2)} LKR`}</h2>

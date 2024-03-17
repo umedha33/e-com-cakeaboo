@@ -111,7 +111,7 @@
     font-family: "Roboto", sans-serif;
     font-size: 1.1rem;
     color: rgb(0, 27, 234);
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 #price {
@@ -135,8 +135,8 @@
     gap: 20px;
     background-color: rgba(248, 55, 152, 0.125);
     border-radius: 0 20px;
-    border-bottom-right-radius: 20px ;
-margin-top: 20px;
+    border-bottom-right-radius: 20px;
+    margin-top: 20px;
 }
 
 .cust-lt-cont h1 {
@@ -149,7 +149,7 @@ margin-top: 20px;
     margin-left: 10px;
 }
 
-.cust-lt-cont hr{
+.cust-lt-cont hr {
     width: 99.8%;
     margin-top: -10px;
     border: 0.5px solid rgba(248, 55, 152, 0.178);
@@ -157,19 +157,72 @@ margin-top: 20px;
 
 .custom-sec {
     background-color: rgb(255, 255, 255);
-    display: flex;
+    /* display: flex; */
     margin-top: -30px;
-    padding: 10px 0;
+    padding: 15px 0;
     padding-left: 15px;
     gap: 20px;
     align-items: center;
     border: 1px solid rgba(255, 46, 154, 0.395);
-    border-bottom-left-radius: 20px ;
-    border-bottom-right-radius: 20px ;
+    /* border-bottom-left-radius: 20px; */
+    border-bottom-right-radius: 20px;
 }
 
-.cust-lt-cont input {
-    width: 2rem;
+.first-rw {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.second-rw {
+    display: flex;
+    margin-top: 15px;
+    gap: 20px;
+    align-items: center;
+}
+
+.third-rw {
+    display: flex;
+    margin-top: 15px;
+    gap: 20px;
+    align-items: center;
+}
+
+.second-rw label {
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+    color: rgb(255, 75, 165);
+    font-weight: 500;
+}
+
+.third-rw label {
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+    color: rgb(255, 75, 165);
+    font-weight: 500;
+}
+
+.third-rw textarea {
+    width: 66%;
+    max-width: 66%;
+    max-height: 4.5rem;
+    padding: 10px;
+    margin: 0;
+    border-radius: 10px;
+    outline: none;
+}
+
+.second-rw input[type="text"] {
+    width: 82%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: rgba(248, 55, 152, 0.178);
+}
+
+.cust-lt-cont input[type="number"] {
+    width: 2.9rem;
     padding: 5px;
 }
 
@@ -179,4 +232,27 @@ margin-top: 20px;
     font-weight: 500;
     color: rgb(255, 75, 165);
     margin: 0;
+}
+
+.default-sec {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px 0;
+    padding-bottom: 0;
+    background-color: lightgreen;
+}
+
+.color-grid-itms {
+    /* background-color: white; */
+    display: flex;
+    align-items: start;
+    justify-content: left;
+    margin-top: -15px;
+}
+
+.cell {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }
