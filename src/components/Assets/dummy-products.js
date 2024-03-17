@@ -22,7 +22,7 @@ let dummyProducts = [
         description: "Lorem ipsem gat chagr ohan wahi manh waj pron",
         category: "kids-cakes",
         price: 2500,
-        color: ["yellow","black"],
+        color: ["yellow","black", "orange"],
         layerCount: 2,
         tierCount: 1,
         shape: "circle",

@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import './SingleProduct.css'
 import dummyProducts from './../Assets/dummy-products';
 
+
+const allColors = [
+    'red', 'blue', 'green', 'yellow', 'orange', 'purple',
+    'pink', 'cyan', 'black', 'lime', 'beige', 'rgb(244, 244, 244)', 'brown'
+];
+
 const SingleProduct = () => {
     const location = useLocation()
     const { singleProduct } = location.state
-
     const product = dummyProducts.find(product => product.id === singleProduct);
+    const [selectedColors, setSelectedColors] = useState([]);
+
+    const toggleColor = (color) => {
+        if (selectedColors.includes(color)) {
+            setSelectedColors(selectedColors.filter(c => c !== color));
+        } else {
+            setSelectedColors([...selectedColors, color]);
+        }
+    };
 
     return (
         <div className='single-product-container'>
@@ -35,6 +49,7 @@ const SingleProduct = () => {
                             <label>Default Variations</label>
                             <h2 id='layers'>{`Layer Count: ${product.layerCount} | Tier Count: ${product.tierCount}`}</h2>
                             <div className="color-grid-itms">
+                                <h2>Color ›</h2>
                                 {product.color.map((color, index) => (
                                     <div
                                         key={index}
@@ -45,6 +60,7 @@ const SingleProduct = () => {
                             </div>
                         </div>
                         <h2 id='keywords'>{`Keywords: ${product.keywords}`}</h2>
+                        <h2 id='price'>{`${(product.price).toFixed(2)} LKR`}</h2>
                         <div className="cust-lt-cont">
                             <h1>Customize the cake</h1>
                             <hr />
@@ -57,15 +73,37 @@ const SingleProduct = () => {
                                 </div>
                                 <div className="second-rw">
                                     <label>Writings: </label>
-                                    <input type="text" name="writing" id="writing" placeholder='Ex: Happy Birthday!' />
+                                    <input type="text" name="writing" id="writing" placeholder='E.g. Happy Birthday!' />
                                 </div>
                                 <div className="third-rw">
                                     <label>Additional Comments: </label>
                                     <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
                                 </div>
+                                <div className="fourth-rw">
+                                    <h2 id='color-slct'>Change Color: </h2>
+                                    <div className="select-colors">
+                                        {allColors.map((color, index) => (
+                                            <div
+                                                key={index}
+                                                className={`cell ${selectedColors.includes(color) ? 'selected' : ''}`}
+                                                style={{ backgroundColor: color }}
+                                                onClick={() => toggleColor(color)}
+                                            ></div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="fifth-rw">
+                                    <select id='flavor'>
+                                        <option value="vanilla">Vanilla</option>
+                                        <option value="chocolate">Chocolate</option>
+                                        <option value="red-velvet">Red Velvet</option>
+                                        <option value="lemon">Lemon</option>
+                                        <option value="strawberry">Strawberry</option>
+                                        <option value="coffee">Coffee</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <h2 id='price'>{`${(product.price).toFixed(2)} LKR`}</h2>
                         {/* <div className="desc-cont">
                             <h2 id='desc'>{product.description}</h2>
                         </div> */}
