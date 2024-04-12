@@ -26,7 +26,10 @@ const CartPage = () => {
                         <tbody>
                             {cartDummy.map((cartDum, index) => (
                                 <tr key={index}>
-                                    <td style={{ width: '10%' }}><img src={cartDum.imageUrl} alt="Product Image" /></td>
+                                    <td style={{ width: '10%' }}><img
+                                        src={cartDum.imageUrl}
+                                        alt="Product Image"
+                                        id='image' /></td>
                                     <td style={{ width: '45%', textAlign: 'left', paddingLeft: '20px' }}>{cartDum.details}</td>
                                     <td style={{ width: '15%' }}>
                                         <div className="qty-input">

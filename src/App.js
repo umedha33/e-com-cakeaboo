@@ -11,6 +11,7 @@ import Footer from './components/Footer/Footer';
 import MyAccountPage from './pages/MyAccountPage';
 import SingleProduct from './components/SingleProduct/SingleProduct';
 import CartPage from './pages/CartPage';
+import Checkout from './components/Checkout/Checkout';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/myaccount" element={<MyAccountPage />} />
           <Route path="/product/:id" element={<SingleProduct />} />
           <Route path='/cart' element={<CartPage />} />
+          <Route path='/checkout' element={<Checkout />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -1,0 +1,260 @@
+.checkout-container {
+    display: flex;
+    background-image: radial-gradient(circle, rgb(255, 183, 225), rgb(255, 231, 249), white);
+    margin: 20px;
+    margin-bottom: 10px;
+    border-radius: 40px;
+    align-items: center;
+    padding: 20px;
+    justify-content: center;
+}
+
+.checkout-form-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 20px;
+    width: 50rem;
+    padding: 0 30px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 28px rgba(0, 0, 0, 0.1);
+}
+
+
+.delivery-sec {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 207, 227, 0.211);
+    width: 100vh;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.name-number {
+    /* background-color: bisque; */
+    display: grid;
+    grid-auto-flow: column;
+    padding: 10px;
+    padding-right: 22px;
+    column-gap: 2rem;
+}
+
+.name-number>div {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+}
+
+.name-number label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 8px;
+    margin-bottom: 5px;
+}
+
+.name-number input {
+    height: 2.6rem;
+    padding-left: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+
+
+
+.email-city {
+    /* background-color: aqua; */
+    display: grid;
+    grid-auto-flow: column;
+    padding: 10px;
+    padding-right: 22px;
+    column-gap: 2rem;
+}
+
+.email-city>div {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+}
+
+.email-city label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 8px;
+    margin-bottom: 5px;
+}
+
+.email-city input {
+    height: 2.6rem;
+    padding-left: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+
+
+
+.province-postal {
+    /* background-color: beige; */
+    display: grid;
+    grid-auto-flow: column;
+    padding: 10px;
+    padding-right: 22px;
+    column-gap: 2rem;
+}
+
+.province-postal>div {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+}
+
+.province-postal label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 8px;
+    margin-bottom: 5px;
+}
+
+.province-postal input {
+    height: 2.6rem;
+    padding-left: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.shippingad {
+    /* background-color: crimson; */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 10px;
+    padding-right: 22px;
+}
+
+.shippingad label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 8px;
+    margin-bottom: 5px;
+}
+
+.shippingad input {
+    height: 2.6rem;
+    padding-left: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+
+
+.scheduledate-sec {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(190, 14, 87, 0.211);
+    width: 100vh;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+.delivery-calendar {
+    /* background-color: aquamarine; */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 0 10px;
+    padding-right: 32px;
+}
+
+.delivery-calendar label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 8px;
+    margin-bottom: 5px;
+}
+
+.delivery-calendar input[type="date"] {
+    height: 3rem;
+    width: 100%;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #666;
+}
+
+.order-notes {
+    /* background-color: aquamarine; */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 0 10px;
+    padding-right: 35px;
+    margin-top: 20px;
+}
+
+.order-notes label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 8px;
+    margin-bottom: 5px;
+}
+
+.order-notes textarea {
+    font-size: 1rem;
+    max-width: 100%;
+    min-width: 100%;
+    border-radius: 10px;
+    font-family: "Roboto", sans-serif;
+    border-top-left-radius: 0;
+    padding: 10px;
+    min-height: 80px;
+    max-height: 150px;
+    margin-bottom: 8px;
+}
+
+.place-order {
+    /* background-color: black; */
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
+#place-order-btn {
+    padding: 6px 42px;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-right: 11px;
+    font-family: "Bungee", sans-serif;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    background-color: rgb(255, 182, 210);
+    transition: background-color 0.2s;
+    transition: padding 0.2s;
+    transition: letter-spacing 0.2s;
+}
+
+
+#place-order-btn:hover {
+    background: #ffee6a;
+    padding: 6px 50px;
+    letter-spacing: 2px;
+}
