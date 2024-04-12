@@ -170,7 +170,7 @@ td {
 }
 
 #promolbl {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 0;
 }
 
@@ -213,12 +213,12 @@ td {
 }
 
 #shippinglbl {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 0;
 }
 
 #shippingprice {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: blue;
     margin: 0;
 }
@@ -238,19 +238,20 @@ td {
 }
 
 #totllbl {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin: 0;
     color: crimson;
 }
 
 #totlpricelbl {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin: 0;
     /* color: crimson; */
 }
 
 #checkoutBtn {
     height: 3rem;
+    width: 88%;
     font-size: 1rem;
     font-weight: bold;
     background-color: blue;

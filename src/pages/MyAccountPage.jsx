@@ -1,10 +1,11 @@
 import React from 'react'
 import './CSS/MyAccountPage.css'
+import UserLogin from '../components/UserLogin/UserLogin'
 
 const MyAccountPage = () => {
   return (
     <div className='my-account-container'>
-      <h1>hello myaccount</h1>
+      <UserLogin />
     </div>
   )
 }

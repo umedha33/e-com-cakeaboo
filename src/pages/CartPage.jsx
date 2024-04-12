@@ -1,6 +1,7 @@
 import React from 'react'
 import './CSS/CartPage.css'
 import cartDummy from './../components/Assets/cart-products-dummy'
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
     return (
@@ -79,7 +80,9 @@ const CartPage = () => {
                             <h1 id='totllbl'>TOTAL COST</h1>
                             <h1 id='totlpricelbl'>{15890} LKR</h1>
                         </div>
-                        <button id='checkoutBtn'>CHECKOUT</button>
+                        <Link to="/checkout">
+                            <button id='checkoutBtn'>CHECKOUT</button>
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -1,11 +1,12 @@
-.my-account-container{
+.my-account-container {
     display: flex;
     flex-direction: row;
-    background: rgb(241, 122, 216);
-    height: 80vh;
+    background-image: radial-gradient(circle, rgb(255, 183, 225), rgb(255, 231, 249), white);
+    /* height: 85vh; */
     border-radius: 40px;
     align-items: center;
     text-align: center;
     justify-content: center;
-    margin: 0px 10px;
+    /* margin: 0px 10px; */
+    padding: 10px;
 }
