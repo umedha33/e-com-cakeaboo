@@ -155,11 +155,11 @@ const FilterSide = ({ onSortChange, onPriceRangeChange }) => {
                                 <h2><input type="checkbox" />COLORS</h2>
                                 <i className="fa-solid fa-angle-down"></i>
                             </div>
-                            <div className="color-grid-itms">
+                            <div className="color-grid-itms-filt">
                                 {colors.map((color, index) => (
                                     <div
                                         key={index}
-                                        className={`cell ${selectedColors.includes(color) ? 'selected' : ''}`}
+                                        className={`cell-flt ${selectedColors.includes(color) ? 'selected' : ''}`}
                                         style={{ backgroundColor: color }}
                                         onClick={() => toggleColor(color)}
                                     ></div>

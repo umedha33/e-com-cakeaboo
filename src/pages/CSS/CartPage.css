@@ -1,0 +1,275 @@
+.cart-page-container {
+    display: flex;
+    flex-direction: row;
+    background: rgb(238, 238, 238);
+    /* height: 80vh; */
+    border-radius: 40px;
+    margin: 0px 10px;
+}
+
+
+.cart-left-panel {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 232, 232);
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    width: 70%;
+    align-items: center;
+}
+
+.left-top {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.left-top h1 {
+    font-size: 1.5rem;
+    margin: 0 52px;
+    margin-top: 20px;
+}
+
+.cart-left-panel hr {
+    width: 90%;
+    margin-bottom: 25px;
+    border: 1px solid black;
+}
+
+.left-bottom {
+    background-color: white;
+    width: 95%;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th {
+    padding: 15px 8px;
+    text-align: center;
+}
+
+td {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 8px;
+    text-align: center;
+}
+
+img {
+    width: 100px;
+    border-radius: 15px;
+}
+
+#qty {
+    width: 20px;
+    height: 25px;
+}
+
+.qty-input input {
+    scale: 0.9;
+    font-size: 1rem;
+    height: 2rem;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.qty-input input::-webkit-inner-spin-button,
+.qty-input input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+
+
+
+.cart-right-panel {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 183, 211);
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    width: 30%;
+}
+
+.cart-right-panel hr {
+    width: 90%;
+    border: 1px solid black;
+}
+
+.right-top {
+    display: flex;
+    margin: 20px;
+}
+
+.right-top h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    margin-top: 20px;
+}
+
+
+
+.right-bottom {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    height: 100%;
+    margin: 20px;
+    border-radius: 20px;
+    /* justify-content: space-between; */
+}
+
+.right-bttom-topPane {
+    /* background-color: antiquewhite; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+
+.items-n-total {
+    /* background-color: azure; */
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+#itemslbl {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+#pricelbl {
+    font-size: 1.2rem;
+    margin: 0;
+    color: blue;
+}
+
+.promo-code {
+    /* background-color: brown; */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 0 20px;
+    margin-right: 15px;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+#promolbl {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.promoinner {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+#promobox {
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.124);
+    padding-left: 10px;
+}
+
+#applyBtn {
+    width: 10rem;
+    background-color: greenyellow;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    color: green;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#applyBtn:hover {
+    background-color: green;
+    color: white;
+}
+
+.shipping {
+    /* background-color: white; */
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+    padding: 10px 0;
+}
+
+#shippinglbl {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+#shippingprice {
+    font-size: 1.2rem;
+    color: blue;
+    margin: 0;
+}
+
+.right-bttom-bottomPane {
+    /* background-color: aquamarine; */
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.total-price {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 30px;
+}
+
+#totllbl {
+    font-size: 1.5rem;
+    margin: 0;
+    color: crimson;
+}
+
+#totlpricelbl {
+    font-size: 1.5rem;
+    margin: 0;
+    /* color: crimson; */
+}
+
+#checkoutBtn {
+    height: 3rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: blue;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin: 0 20px;
+    margin-top: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#checkoutBtn:hover {
+    background-color: lawngreen;
+    color: black;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#order-hr {
+    border: 1px solid rgba(0, 0, 0, 0.059);
+    margin: 0 20px;
+}

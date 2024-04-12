@@ -23,6 +23,23 @@ const SingleProduct = () => {
         }
     };
 
+    const [buttonText, setButtonText] = useState('Add to Cart');
+    const [isClicked, setIsClicked] = useState(false);
+    const [iconClass, setIconClass] = useState('fa-solid fa-cart-plus');
+
+    const handleClick = () => {
+        if (!isClicked) {
+            setIsClicked(true);
+            setButtonText('Product Added!');
+            setIconClass('fa-solid fa-circle-check');
+            setTimeout(() => {
+                setButtonText('Add to Cart');
+                setIconClass('fa-solid fa-cart-plus');
+                setIsClicked(false);
+            }, 5000);
+        }
+    };
+
     return (
         <div className='single-product-container'>
             {product && (
@@ -60,12 +77,12 @@ const SingleProduct = () => {
                             <h2 id='layers'>{`Layer Count: ${product.layerCount}`}</h2>
                             <h2 id='tiers'>{`Tier Count: ${product.tierCount}`}</h2>
                             <h2 id='flavors'>{`Flavor: ${product.flavor}`}</h2>
-                            <div className="color-grid-itms">
+                            <div className="color-grid">
                                 <h2>Color ›</h2>
                                 {product.color.map((color, index) => (
                                     <div
                                         key={index}
-                                        className='cell'
+                                        className='gcell'
                                         style={{ backgroundColor: color }}
                                     ></div>
                                 ))}
@@ -95,7 +112,7 @@ const SingleProduct = () => {
                                         {allColors.map((color, index) => (
                                             <div
                                                 key={index}
-                                                className={`cell ${selectedColors.includes(color) ? 'selected' : ''}`}
+                                                className={`gcell ${selectedColors.includes(color) ? 'selected' : ''}`}
                                                 style={{ backgroundColor: color }}
                                                 onClick={() => toggleColor(color)}
                                             ></div>
@@ -117,10 +134,13 @@ const SingleProduct = () => {
                         </div>
                         <div className="total-sec">
                             <div className='btns-cpl'>
-                                <button id='addtocart'>Add to Cart <i class="fa-solid fa-cart-plus"></i></button>
+                                <button
+                                    id='addtocart'
+                                    onClick={handleClick}
+                                >{buttonText} <i className={iconClass}></i></button>
                                 <button id='proceed'>Procees to Checkout ›</button>
                             </div>
-                            <h2 id='price'>{`${(product.price).toFixed(2)} LKR`}</h2>
+                            <h2 id='sprice'>{`${(product.price).toFixed(2)} LKR`}</h2>
                         </div>
                     </div>
                 )}

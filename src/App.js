@@ -10,6 +10,7 @@ import ContactUsPage from './pages/ContactUsPage';
 import Footer from './components/Footer/Footer';
 import MyAccountPage from './pages/MyAccountPage';
 import SingleProduct from './components/SingleProduct/SingleProduct';
+import CartPage from './pages/CartPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/contactus" element={<ContactUsPage />} />
           <Route path="/myaccount" element={<MyAccountPage />} />
           <Route path="/product/:id" element={<SingleProduct />} />
+          <Route path='/cart' element={<CartPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

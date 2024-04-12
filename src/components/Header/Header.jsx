@@ -41,7 +41,9 @@ const Header = () => {
                 <p className={activeItem === 'MY ACCOUNT' ? 'active' : ''} onClick={() => clickedItem('MY ACCOUNT')}>
                     <Link to="/myaccount" className="nav-link">MY ACCOUNT</Link>
                 </p>
-                <i className="fa-solid fa-cart-shopping"></i>
+                <Link to="/cart" className="nav-link" onClick={() => clickedItem('CART')}>
+                    <i className={`fa-solid fa-cart-shopping ${activeItem === 'CART' ? 'active' : ''}`}></i>
+                </Link>
             </div>
         </div>
     );
