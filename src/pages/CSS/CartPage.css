@@ -53,29 +53,29 @@ table {
     overflow: hidden;
 }
 
-th {
+.cart-body th {
     padding: 15px 8px;
     text-align: center;
 }
 
-td {
+.cart-body td {
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     padding: 8px;
     text-align: center;
 }
 
-#image {
+.cart-body #image {
     width: 100px;
     border-radius: 15px;
 }
 
-#qty {
+.cart-body #qty {
     width: 20px;
     height: 25px;
 }
 
-.qty-input input {
+.cart-body .qty-input input {
     scale: 0.9;
     font-size: 1rem;
     height: 2rem;
@@ -83,8 +83,8 @@ td {
     text-align: center;
 }
 
-.qty-input input::-webkit-inner-spin-button,
-.qty-input input::-webkit-outer-spin-button {
+.cart-body .qty-input input::-webkit-inner-spin-button,
+.cart-body .qty-input input::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }

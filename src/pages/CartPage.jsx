@@ -14,7 +14,7 @@ const CartPage = () => {
                 </div>
                 <hr />
                 <div className="left-bottom">
-                    <table>
+                    <table className='cart-body'>
                         <thead>
                             <tr>
                                 <th>Image</th>

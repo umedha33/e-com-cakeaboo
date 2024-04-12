@@ -1,5 +1,12 @@
 .userlogin-container {
     /* background-color: blue; */
+    background-image: radial-gradient(circle, rgb(255, 183, 225), rgb(255, 231, 249), white);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.login-register-container {
     display: flex;
     width: 140vh;
 }
