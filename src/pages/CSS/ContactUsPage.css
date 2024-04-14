@@ -1,11 +1,202 @@
 .contactus-container {
     display: flex;
     flex-direction: row;
-    background: lightsalmon;
-    height: 80vh;
+    /* background: rgb(255, 172, 211); */
+    background-image: radial-gradient(circle, rgb(191, 183, 255), rgb(232, 218, 255), white);
+    height: 85vh;
     border-radius: 40px;
     align-items: center;
     text-align: center;
     justify-content: center;
     margin: 0px 10px;
+    padding: 10px 0;
+}
+
+.contact-left {
+    /* background-color: antiquewhite; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+}
+
+.contact-form {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.contact-form h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    padding-left: 20px;
+    padding-top: 15px;
+    text-align: left;
+}
+
+.contact-form hr {
+    border: 2px solid rebeccapurple;
+    width: 14%;
+    margin-left: 20px;
+    margin-bottom: -10px;
+}
+
+.contact-form h2 {
+    font-size: 1.15rem;
+    color: rebeccapurple;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.contactformline {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 20px;
+    margin-bottom: 0px;
+}
+
+.contactformline label {
+    font-size: 1.1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    color: rebeccapurple;
+    margin-bottom: 5px;
+    padding-left: 1px;
+}
+
+.contactformline input {
+    width: 98%;
+    height: 2.5rem;
+    padding-left: 10px;
+    border-radius: 10px;
+    font-size: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.209);
+}
+
+#enteremesage {
+    min-width: 96.5%;
+    max-width: 96.5%;
+    min-height: 10rem;
+    max-height: 10rem;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.250);
+    border-radius: 10px;
+}
+
+#contact-btn {
+    width: 95%;
+    height: 3rem;
+    font-size: 0.9rem;
+    margin-top: 14px;
+    font-family: "Bungee", sans-serif;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    background-color: rgb(89, 135, 215);
+    color: white;
+    transition: background-color 0.2s;
+    transition: padding 0.2s;
+    transition: letter-spacing 0.2s;
+}
+
+
+#contact-btn:hover {
+    background: rgb(59, 100, 171);
+    padding: 6px 50px;
+    letter-spacing: 2px;
+    color: white;
+}
+
+
+
+
+
+
+
+
+.contact-right {
+    /* background-color: aquamarine; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px;
+    padding-bottom: 0;
+    height: 100%;
+    width: 50%;
+}
+
+.map-section {
+    background-color: cadetblue;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.map-section img {
+    width: 100%;
+    /* margin-top: 10px; */
+    border-radius: 20px 20px 0 0;
+}
+
+.gotochat {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 12.3rem;
+    border-radius: 0 0 20px 20px;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.gotochat h1 {
+    font-size: 1.5rem;
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    margin-top: 17px;
+}
+
+.gotochat h2 {
+    font-size: 1.2rem;
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: rebeccapurple;
+}
+
+#chat-btn {
+    width: 95%;
+    height: 3rem;
+    font-size: 0.9rem;
+    margin-top: 30px;
+    font-family: "Bungee", sans-serif;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    background-color: rgb(152, 89, 215);
+    color: white;
+    transition: background-color 0.2s;
+    transition: padding 0.2s;
+    transition: letter-spacing 0.2s;
+}
+
+
+#chat-btn:hover {
+    background: rebeccapurple;
+    padding: 6px 50px;
+    letter-spacing: 2px;
+    color: white;
 }
