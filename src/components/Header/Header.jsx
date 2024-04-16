@@ -39,7 +39,7 @@ const Header = () => {
             </ul>
             <div className="log-cart">
                 <p className={activeItem === 'MY ACCOUNT' ? 'active' : ''} onClick={() => clickedItem('MY ACCOUNT')}>
-                    <Link to="/myaccount" className="nav-link">MY ORDERS</Link>
+                    <Link to="/myaccount" className="nav-link">MY ACCOUNT</Link>
                 </p>
                 <Link to="/cart" className="nav-link" onClick={() => clickedItem('CART')}>
                     <i className={`fa-solid fa-cart-shopping ${activeItem === 'CART' ? 'active' : ''}`}></i>
