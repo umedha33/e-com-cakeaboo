@@ -1,0 +1,134 @@
+::-webkit-scrollbar {
+    width: 5px;
+    background: black;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(100, 100, 235);
+    border-radius: 20px;
+}
+
+.products-container {
+    /* background-color: burlywood; */
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+}
+
+.products-nav {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    box-shadow: 0 10px 8px -8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    z-index: 2;
+}
+
+.products-nav h1 {
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    margin: 15px 0;
+    color: gray;
+    cursor: pointer;
+}
+
+.products-nav h1:hover {
+    color: rgb(138, 77, 199);
+}
+
+.active {
+    color: rebeccapurple !important;
+}
+
+.product-list {
+    background-color: aliceblue;
+    display: flex;
+    height: auto;
+    overflow-y: auto;
+}
+
+
+#colorColumn {
+    background-color: rgb(206, 183, 246);
+}
+
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+}
+
+.productlist-body th {
+    padding: 15px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    background-color: rgb(216, 237, 255);
+    font-size: 0.9rem;
+}
+
+.productlist-body td {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 2px solid rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.productlist-body #image {
+    width: 100px;
+    border-radius: 15px;
+}
+
+
+
+
+.add-products {
+    display: flex;
+    height: 100%;
+}
+
+.left-col {
+    background-color: burlywood;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+
+
+
+
+
+.right-col {
+    background-color: cadetblue;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.color-grid-itms {
+    background-color: aliceblue;
+    display: grid;
+    grid-template-columns: repeat(6, 22px);
+    grid-gap: 5px;
+    padding: 10px;
+    justify-content: center;
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.selected {
+    border: 2px solid #000;
+}

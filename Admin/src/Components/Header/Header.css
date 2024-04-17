@@ -1,0 +1,47 @@
+.header-container {
+    background-color: rgb(179, 156, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+
+}
+
+.header-container h1 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: rebeccapurple;
+    margin: 0;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.noti-acc-set {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 25px;
+}
+
+#admin-dp {
+    width: 7%;
+    border-radius: 50%;
+    border: 2px solid rebeccapurple;
+    cursor: pointer;
+    transition: border 0.2s;
+}
+
+#admin-dp:hover {
+    border: 2px solid white;
+}
+
+.fa-bell {
+    color: rebeccapurple;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.fa-bell:hover {
+    color: white;
+}
