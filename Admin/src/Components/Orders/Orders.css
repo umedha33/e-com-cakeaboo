@@ -1,5 +1,147 @@
 .orders-container {
-    background-color: cadetblue;
     display: flex;
+    flex-direction: column;
     width: 85%;
+    background-color: aliceblue;
+}
+
+.orders-nav {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    box-shadow: 0 10px 8px -8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    z-index: 2;
+}
+
+.orders-nav h1 {
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    margin: 15px 0;
+    color: gray;
+    cursor: pointer;
+}
+
+.orders-nav h1:hover {
+    color: rgb(138, 77, 199);
+}
+
+.active-head {
+    color: rebeccapurple !important;
+}
+
+.orderlist {
+    display: flex;
+    height: auto;
+    overflow-y: auto;
+}
+
+.orders-body table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.orders-body th {
+    padding: 15px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    background-color: rgb(216, 237, 255);
+    font-size: 0.9rem;
+}
+
+.orders-body td {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    /* border-top: 2px solid rgba(0, 0, 0, 0.2); */
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.orders-body #image {
+    width: 100px;
+    border-radius: 15px;
+}
+
+.orders-body span {
+    font-weight: bold;
+}
+
+.custom-order {
+    color: red;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+}
+
+.default-order {
+    color: rgb(47, 206, 47);
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+}
+
+#custName {
+    font-size: 0.9rem;
+    font-family: "Roboto", sans-serif;
+    color: rebeccapurple;
+}
+
+#delv-date {
+    font-size: 0.9rem;
+    font-family: "Roboto", sans-serif;
+    color: red;
+}
+
+.orders-body tr {
+    cursor: pointer;
+}
+
+.orders-body tr:hover {
+    background-color: rgb(234, 222, 255);
+    cursor: pointer;
+}
+
+.popup {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.ordercard-container {
+    position: relative;
+    z-index: 1001;
+    background-color: aliceblue;
+    width: 60rem;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.popup button {
+    background-color: rgb(194, 135, 252);
+    height: 2.6rem;
+    width: 60rem;
+    font-size: 1.1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: none;
+    color: rebeccapurple;
+    cursor: pointer;
 }
