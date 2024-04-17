@@ -10,6 +10,44 @@ const colors = [
 const Products = () => {
     const [activeHeader, setActiveHeader] = useState('PRODUCT LIST');
     const [selectedColors, setSelectedColors] = useState([]);
+    const [galleryFiles, setGalleryFiles] = useState([]);
+    const [mainFile, setMainFile] = useState(null);
+
+    const mainFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const previewFile = Object.assign(file, {
+                preview: URL.createObjectURL(file)
+            });
+            setMainFile(previewFile);
+        }
+    };
+
+    const mainRemoveFile = () => {
+        if (mainFile) URL.revokeObjectURL(mainFile.preview);
+        setMainFile(null);
+    };
+
+    const galleryFileChange = (event) => {
+        const fileList = event.target.files;
+        if (fileList && fileList.length > 0) {
+            const fileArray = Array.from(fileList).map(file =>
+                Object.assign(file, {
+                    preview: URL.createObjectURL(file)
+                })
+            );
+            setGalleryFiles(prevFiles => [...prevFiles, ...fileArray]);
+        }
+    };
+
+    const galleryRemoveFile = (index) => {
+        const newFiles = [...galleryFiles];
+        if (newFiles[index] && newFiles[index].preview) {
+            URL.revokeObjectURL(newFiles[index].preview);
+        }
+        newFiles.splice(index, 1);
+        setGalleryFiles(newFiles);
+    };
 
     const handleHeaderClick = (navItem) => {
         setActiveHeader(navItem);
@@ -106,97 +144,146 @@ const Products = () => {
 
             {activeHeader === 'ADD PRODUCTS' && (
                 <div className="add-products">
-                    <div className="left-col">
-                        <div>
-                            <label htmlFor="title">TITLE</label>
-                            <input type="text" name="title" id="title" />
+                    <div className="add-body">
+                        <div className="left-col">
+                            <div className='normal-inputs'>
+                                <label htmlFor="title">TITLE</label>
+                                <input type="text" name="title" id="title" />
+                            </div>
+                            <div className='normal-inputs'>
+                                <label htmlFor="description">DESCRIPTION</label>
+                                <textarea name="description" id="" cols="30" rows="10"></textarea>
+                            </div>
+                            <div className='normal-inputs'>
+                                <label htmlFor="category">CATEGORY</label>
+                                <select name="category" id="category">
+                                    <option value="cakes">Cakes</option>
+                                    <option value="cupcakes">Cup Cakes</option>
+                                    <option value="sweets">Sweets</option>
+                                </select>
+                            </div>
+                            <div className='normal-inputs'>
+                                <label htmlFor="subcategory">SUB CATEGORY</label>
+                                <select name="subcategory" id="subcategory">
+                                    <option value="kids">Kids</option>
+                                    <option value="birthday">Birthday</option>
+                                    <option value="partysets">Party Sets</option>
+                                    <option value="lovethemed">Love Themed</option>
+                                    <option value="engagement">Engagement</option>
+                                    <option value="wedding">Wedding</option>
+                                    <option value="buttercream">Butter Cream</option>
+                                    <option value="frosted">Frosted</option>
+                                    <option value="ganache">Ganache</option>
+                                    <option value="fondant">Fondant</option>
+                                    <option value="whippedcream">Whipped Cream</option>
+                                </select>
+                            </div>
+                            <div className='normal-inputs'>
+                                <label htmlFor="flavor">FLAVOR</label>
+                                <select name="flavor" id="flavor">
+                                    <option value="vanilla">Vanila</option>
+                                    <option value="chocolate">Chocolate</option>
+                                    <option value="redvelvet">Red Velvet</option>
+                                    <option value="Lemon">Strawberry</option>
+                                    <option value="coffee">Coffee</option>
+                                </select>
+                            </div>
+                            <div className='number-inputs'>
+                                <div className='layers'>
+                                    <label htmlFor="layers">LAYER COUNT</label>
+                                    <i class="fa-solid fa-minus"></i>
+                                    <input type="number" name="layers" id="layers" />
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                                <div className='tiers'>
+                                    <label htmlFor="tiers">TIER COUNT</label>
+                                    <i class="fa-solid fa-minus"></i>
+                                    <input type="number" name="tiers" id="tiers" />
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                            </div>
+                            <div className='normal-inputs'>
+                                <label htmlFor="shape">SHAPE</label>
+                                <select name="shape" id="shape">
+                                    <option value="slice">Slice</option>
+                                    <option value="round">Round</option>
+                                    <option value="topforward">Top Forward</option>
+                                    <option value="square">Square</option>
+                                    <option value="rectangular">Rectangular</option>
+                                    <option value="heartshaped">Heart Shaped</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            <div className="color">
+                                <label>COLOR</label>
+                            </div>
+                            <div className="color-selection">
+                                <div className="color-pallet">
+                                    {colors.map((color, index) => (
+                                        <div
+                                            key={index}
+                                            className={`cell ${selectedColors.includes(color) ? 'selected' : ''}`}
+                                            style={{ backgroundColor: color }}
+                                            onClick={() => toggleColor(color)}
+                                        ></div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className='normal-inputs'>
+                                <label htmlFor="price">PRICE</label>
+                                <input type="text" name="price" id="price" />
+                            </div>
                         </div>
-                        <div>
-                            <label htmlFor="description">DESCRIPTION</label>
-                            <textarea name="description" id="" cols="30" rows="10"></textarea>
-                        </div>
-                        <div>
-                            <label htmlFor="category">CATEGORY</label>
-                            <select name="category" id="category">
-                                <option value="cakes">Cakes</option>
-                                <option value="cupcakes">Cup Cakes</option>
-                                <option value="sweets">Sweets</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="subcategory">SUB CATEGORY</label>
-                            <select name="subcategory" id="subcategory">
-                                <option value="kids">Kids</option>
-                                <option value="birthday">Birthday</option>
-                                <option value="partysets">Party Sets</option>
-                                <option value="lovethemed">Love Themed</option>
-                                <option value="engagement">Engagement</option>
-                                <option value="wedding">Wedding</option>
-                                <option value="buttercream">Butter Cream</option>
-                                <option value="frosted">Frosted</option>
-                                <option value="ganache">Ganache</option>
-                                <option value="fondant">Fondant</option>
-                                <option value="whippedcream">Whipped Cream</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="flavor">FLAVOR</label>
-                            <select name="flavor" id="flavor">
-                                <option value="vanilla">Vanila</option>
-                                <option value="chocolate">Chocolate</option>
-                                <option value="redvelvet">Red Velvet</option>
-                                <option value="Lemon">Strawberry</option>
-                                <option value="coffee">Coffee</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="layers">LAYER COUNT</label>
-                            <i class="fa-solid fa-minus"></i>
-                            <input type="number" name="layers" id="layers" />
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div>
-                            <label htmlFor="tiers">TIER COUNT</label>
-                            <i class="fa-solid fa-minus"></i>
-                            <input type="number" name="tiers" id="tiers" />
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div>
-                            <label htmlFor="shape">SHAPE</label>
-                            <select name="shape" id="shape">
-                                <option value="slice">Slice</option>
-                                <option value="round">Round</option>
-                                <option value="topforward">Top Forward</option>
-                                <option value="square">Square</option>
-                                <option value="rectangular">Rectangular</option>
-                                <option value="heartshaped">Heart Shaped</option>
-                                <option value="custom">Custom</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="price">PRICE</label>
-                            <input type="text" name="price" id="price" />
-                        </div>
-                    </div>
 
-                    <div className="right-col">
-                        <div>
-                            <label htmlFor="mainImage">MAIN IMAGE</label>
-                            <input type="file" name="mainImage" id="mainImage" />
-                        </div>
-                        <div>
-                            <label htmlFor="thumbs">PRODUCT IMAGES</label>
-                            <input type="file" name="thumbs" id="thumbs" />
-                        </div>
-                        <div className="color-grid-itms">
-                            {colors.map((color, index) => (
-                                <div
-                                    key={index}
-                                    className={`cell ${selectedColors.includes(color) ? 'selected' : ''}`}
-                                    style={{ backgroundColor: color }}
-                                    onClick={() => toggleColor(color)}
-                                ></div>
-                            ))}
+                        <div className="right-col">
+                            <div className="image-section">
+                                <label htmlFor='main-image-upload' id='mainimage-lbl'>MAIN IMAGE</label>
+                                <div className="file-input">
+                                    <label htmlFor="main-image-upload" className="main-image-upload">
+                                        Upload Main Image<i className="fa-solid fa-folder"></i>
+                                    </label>
+                                    <input id="main-image-upload"
+                                        type="file"
+                                        name="attachment-images"
+                                        accept="image/png, image/jpeg"
+                                        onChange={mainFileChange}
+                                    />
+                                </div>
+                                {mainFile && (
+                                    <div className="main-preview">
+                                        <div className="main-thumbnail">
+                                            <i onClick={mainRemoveFile} className="fa-solid fa-delete-left"></i>
+                                            <img src={mainFile.preview} alt='Main image' />
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="image-section">
+                                <label id='productgallery-lbl'>PRODUCT GALLERY</label>
+                                <div className="file-input">
+                                    <label for="file-upload" className="file-upload">
+                                        Upload Other Images<i className="fa-solid fa-folder"></i>
+                                    </label>
+                                    <input id="file-upload"
+                                        type="file"
+                                        name="attachment-images"
+                                        accept="image/png, image/jpeg"
+                                        onChange={galleryFileChange}
+                                        multiple />
+                                </div>
+                                <div className="image-preview">
+                                    {galleryFiles.map((files, index) => (
+                                        <div key={index} className="thumbnail">
+                                            <i onClick={() => galleryRemoveFile(index)} className="fa-solid fa-delete-left"></i>
+                                            <img src={files.preview} alt={`Thumbnail ${index}`} />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="submit-section">
+                                <button>PUBLISH PRODUCT</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
