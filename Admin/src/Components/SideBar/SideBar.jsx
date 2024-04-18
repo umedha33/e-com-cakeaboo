@@ -19,7 +19,7 @@ const SideBar = ({ active, onComponentSelect }) => {
                 </h1>
                 <h1 onClick={() => onComponentSelect('Customers')}
                     className={active === 'Customers' ? 'active' : ''}>
-                    Customers
+                    Customer Chats
                 </h1>
                 <h1 onClick={() => onComponentSelect('Coupons')}
                     className={active === 'Coupons' ? 'active' : ''}>
