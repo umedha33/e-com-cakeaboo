@@ -25,7 +25,7 @@ const OrderCard = ({ order }) => {
                 </div>
 
                 <div className="card-body">
-                    <div className="left-col">
+                    <div className="crdb-left-col">
                         <img src={order.imageUrl} alt="order-image" />
                     </div>
                     <div className="order-right-col">

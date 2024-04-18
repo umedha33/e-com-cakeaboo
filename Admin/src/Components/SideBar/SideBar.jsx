@@ -17,13 +17,13 @@ const SideBar = ({ active, onComponentSelect }) => {
                     className={active === 'Orders' ? 'active' : ''}>
                     Orders
                 </h1>
-                <h1 onClick={() => onComponentSelect('Customers')}
-                    className={active === 'Customers' ? 'active' : ''}>
-                    Customer Chats
-                </h1>
                 <h1 onClick={() => onComponentSelect('Coupons')}
                     className={active === 'Coupons' ? 'active' : ''}>
                     Coupons
+                </h1>
+                <h1 onClick={() => onComponentSelect('Customers')}
+                    className={active === 'Customers' ? 'active' : ''}>
+                    Customer Chats
                 </h1>
             </div>
             <div className="bottom-sec">

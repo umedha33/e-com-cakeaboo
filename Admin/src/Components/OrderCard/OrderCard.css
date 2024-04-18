@@ -55,15 +55,15 @@
     padding-bottom: 10px;
 }
 
-.left-col {
+.crdb-left-col {
     /* background-color: black; */
-    padding-top: 28px;
+    padding: 10px 30px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.left-col img {
+.crdb-left-col img {
     width: 22rem;
     border-radius: 15px;
     margin-left: -10px;

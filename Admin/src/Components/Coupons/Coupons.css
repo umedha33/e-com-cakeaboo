@@ -1,5 +1,196 @@
 .coupons-container {
     display: flex;
+    flex-direction: column;
     width: 85%;
-    background-color: aquamarine;
+    background-color: crimson;
+}
+
+.coupons-nav {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 10px 8px -8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    z-index: 2;
+    width: 100%;
+}
+
+.coupons-nav h1 {
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    margin: 15px 20px;
+    color: rebeccapurple;
+}
+
+
+
+
+.coup-creat {
+    background-color: aliceblue;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.coup-left-sec {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+
+.couponlist-body table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.couponlist-body th {
+    padding: 15px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    background-color: rgb(216, 237, 255);
+    font-size: 0.9rem;
+}
+
+.couponlist-body td {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    padding: 12px 10px;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.couponlist-body tr:hover {
+    background-color: rgb(234, 222, 255);
+}
+
+.couponlist-body td span {
+    font-weight: bold;
+    color: red;
+}
+
+#coup-code {
+    font-weight: bold;
+    color: rebeccapurple;
+}
+
+#coup-title {
+    text-align: left;
+    padding-left: 15px;
+    /* font-weight: bold; */
+}
+
+
+
+
+
+
+.coup-right-sec {
+    background-color: rgba(120, 128, 174, 0.151);
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+}
+
+.coup-right-sec h1 {
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.coupon-form {
+    /* background-color: antiquewhite; */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.date-sel-set {
+    display: flex;
+}
+
+
+.normal-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.normal-inputs label {
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
+    color: rebeccapurple;
+    margin-left: 22px;
+    margin-top: 20px;
+}
+
+.normal-inputs input {
+    height: 2.5rem;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.139);
+    margin: 0 20px;
+    padding-left: 10px;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+}
+
+.normal-inputs textarea {
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.139);
+    margin: 0 20px;
+    min-width: 35.8rem;
+    max-width: 35.8rem;
+    min-height: 50px;
+    max-height: 100px;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+.normal-inputs select {
+    margin: 0 20px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.139);
+    font-size: 1rem;
+}
+
+.publish-coup {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* background-color: crimson; */
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.publish-coup button {
+    /* margin-top: 10px; */
+    margin: 20px;
+    width: 100%;
+    height: 2.9rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
+    background-color: rgba(110, 239, 116, 0.507);
+    border: 2px solid green;
+    color: rgb(0, 87, 0);
+    cursor: pointer;
+    transition: background-color 0.2s, border 0.2s;
+}
+
+.publish-coup button:hover {
+    background-color: rgb(110, 239, 116);
+    border: 3px solid green;
+    transition: background-color 0.2s, border 0.2s;
 }

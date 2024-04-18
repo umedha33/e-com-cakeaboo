@@ -145,7 +145,7 @@ const Products = () => {
             {activeHeader === 'ADD PRODUCTS' && (
                 <div className="add-products">
                     <div className="add-body">
-                        <div className="left-col">
+                        <div className="adp-left-col">
                             <div className='normal-inputs'>
                                 <label htmlFor="title">TITLE</label>
                                 <input type="text" name="title" id="title" />
