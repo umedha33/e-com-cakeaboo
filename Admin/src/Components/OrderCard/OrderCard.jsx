@@ -13,7 +13,7 @@ const OrderCard = ({ order }) => {
                     <div className='status-row'>
                         <p><strong>Status:</strong></p>
                         <select name="status" id="status" >
-                            <option value="" disabled selected>{order.orderStatus}</option>
+                            <option style={{ color: 'red' }} value="" disabled selected>{order.orderStatus}</option>
                             <option value="order-placed">Order Placed</option>
                             <option value="accepted">Accepted</option>
                             <option value="processing">Processing</option>
@@ -28,7 +28,7 @@ const OrderCard = ({ order }) => {
                     <div className="left-col">
                         <img src={order.imageUrl} alt="order-image" />
                     </div>
-                    <div className="right-col">
+                    <div className="order-right-col">
                         <div className="all-info">
                             <p><strong>Order Date:</strong> {order.orderDate}</p>
                             <p><strong>Delivery Date:</strong> {order.deliveryDate}</p>

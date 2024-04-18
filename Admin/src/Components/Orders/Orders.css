@@ -134,7 +134,7 @@
 
 .popup button {
     background-color: rgb(194, 135, 252);
-    height: 2.6rem;
+    height: 2.8rem;
     width: 60rem;
     font-size: 1.1rem;
     font-family: "Roboto", sans-serif;
@@ -144,4 +144,10 @@
     border: none;
     color: rebeccapurple;
     cursor: pointer;
+    padding-top: 10px;
+}
+
+.calendar {
+    height: 100%;
+    /* background-color: antiquewhite; */
 }

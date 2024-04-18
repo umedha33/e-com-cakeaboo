@@ -235,7 +235,7 @@ const Products = () => {
                             </div>
                         </div>
 
-                        <div className="right-col">
+                        <div className="right-colm">
                             <div className="image-section">
                                 <label htmlFor='main-image-upload' id='mainimage-lbl'>MAIN IMAGE</label>
                                 <div className="file-input">

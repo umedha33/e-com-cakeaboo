@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './Orders.css'
 import dummyAdminOrders from '../Assets/dummyAdmin-orders'
 import OrderCard from './../OrderCard/OrderCard';
+import Calendar from '../Calendar/Calendar';
 
 const Orders = () => {
     const [activeHeader, setActiveHeader] = useState('ORDER LIST');
@@ -68,7 +69,7 @@ const Orders = () => {
             )}
             {activeHeader === 'CALENDAR' && (
                 <div className="calendar">
-                    <h1>hello calendar</h1>
+                    <Calendar />
                 </div>
             )}
             {showPopup && selectedOrder && (
