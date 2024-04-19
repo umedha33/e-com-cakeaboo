@@ -10,8 +10,51 @@ const colors = [
 const Products = () => {
     const [activeHeader, setActiveHeader] = useState('PRODUCT LIST');
     const [selectedColors, setSelectedColors] = useState([]);
-    const [galleryFiles, setGalleryFiles] = useState([]);
-    const [mainFile, setMainFile] = useState(null);
+    const [productgallery, setGalleryFiles] = useState([]);
+    const [mainimage, setMainFile] = useState(null);
+
+    const [productDetails, setProductDetails] = useState({
+        title: "",
+        description: "",
+        category: "Cakes",
+        subcategory: "Kids",
+        flavor: "Vanila",
+        layercount: "",
+        tiercount: "",
+        shape: "Round",
+        color: [],
+        mainimage: "",
+        productgallery: [],
+        price: "",
+    })
+
+    const changeHandler = (e) => {
+        setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
+    }
+
+    const Add_Product = async () => {
+        console.log(productDetails);
+        let responseData;
+        let product = productDetails;
+
+        let formData = new FormData();
+        formData.append('mainImage', mainimage);
+
+        await fetch('http://localhost:4000/upload', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+            },
+            body: formData,
+        }).then((resp) => resp.json()).then((data) => { responseData = data })
+
+        if (responseData.success) {
+            product.mainimage = responseData.image_url;
+            console.log(product);
+        }
+    }
+
+
 
     const mainFileChange = (event) => {
         const file = event.target.files[0];
@@ -24,7 +67,7 @@ const Products = () => {
     };
 
     const mainRemoveFile = () => {
-        if (mainFile) URL.revokeObjectURL(mainFile.preview);
+        if (mainimage) URL.revokeObjectURL(mainimage.preview);
         setMainFile(null);
     };
 
@@ -41,7 +84,7 @@ const Products = () => {
     };
 
     const galleryRemoveFile = (index) => {
-        const newFiles = [...galleryFiles];
+        const newFiles = [...productgallery];
         if (newFiles[index] && newFiles[index].preview) {
             URL.revokeObjectURL(newFiles[index].preview);
         }
@@ -54,12 +97,20 @@ const Products = () => {
     }
 
     const toggleColor = (color) => {
+        let newSelectedColors;
         if (selectedColors.includes(color)) {
-            setSelectedColors(selectedColors.filter(c => c !== color));
+            newSelectedColors = selectedColors.filter(c => c !== color);
         } else {
-            setSelectedColors([...selectedColors, color]);
+            newSelectedColors = [...selectedColors, color];
         }
+        setSelectedColors(newSelectedColors);
+
+        setProductDetails(prevDetails => ({
+            ...prevDetails,
+            color: newSelectedColors
+        }));
     };
+
 
     return (
 
@@ -148,15 +199,15 @@ const Products = () => {
                         <div className="adp-left-col">
                             <div className='normal-inputs'>
                                 <label htmlFor="title">TITLE</label>
-                                <input type="text" name="title" id="title" />
+                                <input value={productDetails.title} onChange={changeHandler} type="text" name="title" id="title" />
                             </div>
                             <div className='normal-inputs'>
                                 <label htmlFor="description">DESCRIPTION</label>
-                                <textarea name="description" id="" cols="30" rows="10"></textarea>
+                                <textarea value={productDetails.description} onChange={changeHandler} name="description" id="" cols="30" rows="10"></textarea>
                             </div>
                             <div className='normal-inputs'>
                                 <label htmlFor="category">CATEGORY</label>
-                                <select name="category" id="category">
+                                <select value={productDetails.category} onChange={changeHandler} name="category" id="category">
                                     <option value="cakes">Cakes</option>
                                     <option value="cupcakes">Cup Cakes</option>
                                     <option value="sweets">Sweets</option>
@@ -164,7 +215,7 @@ const Products = () => {
                             </div>
                             <div className='normal-inputs'>
                                 <label htmlFor="subcategory">SUB CATEGORY</label>
-                                <select name="subcategory" id="subcategory">
+                                <select value={productDetails.subcategory} onChange={changeHandler} name="subcategory" id="subcategory">
                                     <option value="kids">Kids</option>
                                     <option value="birthday">Birthday</option>
                                     <option value="partysets">Party Sets</option>
@@ -180,7 +231,7 @@ const Products = () => {
                             </div>
                             <div className='normal-inputs'>
                                 <label htmlFor="flavor">FLAVOR</label>
-                                <select name="flavor" id="flavor">
+                                <select value={productDetails.flavor} onChange={changeHandler} name="flavor" id="flavor">
                                     <option value="vanilla">Vanila</option>
                                     <option value="chocolate">Chocolate</option>
                                     <option value="redvelvet">Red Velvet</option>
@@ -191,22 +242,22 @@ const Products = () => {
                             <div className='number-inputs'>
                                 <div className='layers'>
                                     <label htmlFor="layers">LAYER COUNT</label>
-                                    <i class="fa-solid fa-minus"></i>
-                                    <input type="number" name="layers" id="layers" />
-                                    <i class="fa-solid fa-plus"></i>
+                                    <i className="fa-solid fa-minus"></i>
+                                    <input value={productDetails.layercount} onChange={changeHandler} type="number" name="layercount" id="layers" />
+                                    <i className="fa-solid fa-plus"></i>
                                 </div>
                                 <div className='tiers'>
                                     <label htmlFor="tiers">TIER COUNT</label>
-                                    <i class="fa-solid fa-minus"></i>
-                                    <input type="number" name="tiers" id="tiers" />
-                                    <i class="fa-solid fa-plus"></i>
+                                    <i className="fa-solid fa-minus"></i>
+                                    <input value={productDetails.tiercount} onChange={changeHandler} type="number" name="tiercount" id="tiers" />
+                                    <i className="fa-solid fa-plus"></i>
                                 </div>
                             </div>
                             <div className='normal-inputs'>
                                 <label htmlFor="shape">SHAPE</label>
-                                <select name="shape" id="shape">
-                                    <option value="slice">Slice</option>
+                                <select value={productDetails.shape} onChange={changeHandler} name="shape" id="shape">
                                     <option value="round">Round</option>
+                                    <option value="slice">Slice</option>
                                     <option value="topforward">Top Forward</option>
                                     <option value="square">Square</option>
                                     <option value="rectangular">Rectangular</option>
@@ -224,6 +275,8 @@ const Products = () => {
                                             key={index}
                                             className={`cell ${selectedColors.includes(color) ? 'selected' : ''}`}
                                             style={{ backgroundColor: color }}
+                                            value={productDetails.title}
+                                            onChange={changeHandler}
                                             onClick={() => toggleColor(color)}
                                         ></div>
                                     ))}
@@ -231,7 +284,7 @@ const Products = () => {
                             </div>
                             <div className='normal-inputs'>
                                 <label htmlFor="price">PRICE</label>
-                                <input type="text" name="price" id="price" />
+                                <input value={productDetails.price} onChange={changeHandler} type="text" name="price" id="price" />
                             </div>
                         </div>
 
@@ -249,11 +302,11 @@ const Products = () => {
                                         onChange={mainFileChange}
                                     />
                                 </div>
-                                {mainFile && (
+                                {mainimage && (
                                     <div className="main-preview">
                                         <div className="main-thumbnail">
                                             <i onClick={mainRemoveFile} className="fa-solid fa-delete-left"></i>
-                                            <img src={mainFile.preview} alt='Main image' />
+                                            <img src={mainimage.preview} alt='Main image' />
                                         </div>
                                     </div>
                                 )}
@@ -261,7 +314,7 @@ const Products = () => {
                             <div className="image-section">
                                 <label id='productgallery-lbl'>PRODUCT GALLERY</label>
                                 <div className="file-input">
-                                    <label for="file-upload" className="file-upload">
+                                    <label htmlFor="file-upload" className="file-upload">
                                         Upload Other Images<i className="fa-solid fa-folder"></i>
                                     </label>
                                     <input id="file-upload"
@@ -272,7 +325,7 @@ const Products = () => {
                                         multiple />
                                 </div>
                                 <div className="image-preview">
-                                    {galleryFiles.map((files, index) => (
+                                    {productgallery.map((files, index) => (
                                         <div key={index} className="thumbnail">
                                             <i onClick={() => galleryRemoveFile(index)} className="fa-solid fa-delete-left"></i>
                                             <img src={files.preview} alt={`Thumbnail ${index}`} />
@@ -281,7 +334,7 @@ const Products = () => {
                                 </div>
                             </div>
                             <div className="submit-section">
-                                <button>PUBLISH PRODUCT</button>
+                                <button onClick={() => { Add_Product() }}>PUBLISH PRODUCT</button>
                             </div>
 
                         </div>
