@@ -55,6 +55,17 @@ const Products = () => {
             };
             setProductDetails(updatedProductDetails);
             console.log(updatedProductDetails);
+
+            await fetch('http://localhost:4000/addproduct', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedProductDetails),
+            }).then((resp) => resp.json()).then((data) => {
+                data.success ? alert("Product Added!") : alert("Failed to add :(")
+            })
         }
     };
 
