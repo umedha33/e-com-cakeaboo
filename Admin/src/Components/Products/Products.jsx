@@ -33,27 +33,30 @@ const Products = () => {
     }
 
     const Add_Product = async () => {
-        console.log(productDetails);
-        let responseData;
-        let product = productDetails;
-
         let formData = new FormData();
         formData.append('mainImage', mainimage);
 
-        await fetch('http://localhost:4000/upload', {
+        productgallery.forEach(file => {
+            formData.append('productgallery', file);
+        });
+
+        const response = await fetch('http://localhost:4000/uploadImages', {
             method: 'POST',
-            headers: {
-                Accept: 'application/json',
-            },
             body: formData,
-        }).then((resp) => resp.json()).then((data) => { responseData = data })
+        });
+
+        const responseData = await response.json();
 
         if (responseData.success) {
-            product.mainimage = responseData.image_url;
-            console.log(product);
+            const updatedProductDetails = {
+                ...productDetails,
+                mainimage: responseData.mainImageUrl,
+                productgallery: responseData.galleryImageUrls
+            };
+            setProductDetails(updatedProductDetails);
+            console.log(updatedProductDetails);
         }
-    }
-
+    };
 
 
     const mainFileChange = (event) => {
@@ -235,7 +238,8 @@ const Products = () => {
                                     <option value="vanilla">Vanila</option>
                                     <option value="chocolate">Chocolate</option>
                                     <option value="redvelvet">Red Velvet</option>
-                                    <option value="Lemon">Strawberry</option>
+                                    <option value="strawberry">Strawberry</option>
+                                    <option value="lemon">Lemon</option>
                                     <option value="coffee">Coffee</option>
                                 </select>
                             </div>

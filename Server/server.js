@@ -22,20 +22,28 @@ app.get("/", (req, res) => {
 const storage = multer.diskStorage({
     destination: './upload/images',
     filename: (req, file, cb) => {
-        return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+        cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
     }
-})
+});
 
 const upload = multer({ storage: storage })
 
 // Endpoint for Uploading Images
 app.use('/images', express.static('upload/images'))
-app.post("/upload", upload.single('mainImage'), (req, res) => {
+
+app.post("/uploadImages", upload.fields([
+    { name: 'mainImage', maxCount: 1 },
+    { name: 'productgallery', maxCount: 10 }
+]), (req, res) => {
+    const mainImageUrl = req.files.mainImage ? `http://localhost:${port}/images/${req.files.mainImage[0].filename}` : null;
+    const galleryImageUrls = req.files.productgallery ? req.files.productgallery.map(file => `http://localhost:${port}/images/${file.filename}`) : [];
+
     res.json({
         success: 1,
-        image_url: `http://localhost:${port}/images/${req.file.filename}`
-    })
-})
+        mainImageUrl: mainImageUrl,
+        galleryImageUrls: galleryImageUrls
+    });
+});
 
 // Schema for Creating Products
 const Product = mongoose.model("Product", {
