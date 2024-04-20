@@ -142,20 +142,31 @@ app.post('/addproduct', async (req, res) => {
 
 // Endpoint for Deleting Products
 app.post('/removeproduct', async (req, res) => {
-    await Product.findOneAndDelete({
+    const result = await Product.findOneAndDelete({
         id: req.body.id
     });
-    console.log("Product Removed");
-    res.json({
-        success: true,
-        title: req.body.title
-    })
-})
+
+    if (result) {
+        console.log("Product Removed:", result.title);
+        res.json({
+            success: true,
+            title: result.title
+        });
+    } else {
+        console.log("ID mismatched");
+        console.log(result);
+        res.status(404).json({
+            success: false,
+            message: "ID mismatched"
+        });
+    }
+});
 
 // Endpoint for Getting All Products
 app.get('/allproducts', async (req, res) => {
     let allProducts = await Product.find({});
     console.log("All Products Fetched");
+    // console.log("Sending all products:", allProducts);
     res.json({ allProducts });
 })
 
