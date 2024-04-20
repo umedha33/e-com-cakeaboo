@@ -1,8 +1,60 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './UserLogin.css'
 import googleIcon from './../Assets/google_logo-google_icongoogle-512.png'
 
 const UserLogin = () => {
+    const [formData, setFormData] = useState({
+        username: "",
+        userpassword: "",
+        useremail: ""
+    })
+
+    const changeHandler = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+    const login = async () => {
+        console.log("Login Executed...", formData);
+        let responseData;
+        await fetch('http://localhost:4000/login', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/form-data',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        }).then((response) => response.json())
+            .then((data) => responseData = data)
+
+        if (responseData.success) {
+            localStorage.setItem('auth-token', responseData.token);
+            window.location.replace("/userdashboard");
+        } else {
+            alert(responseData.error)
+        }
+    }
+
+    const register = async () => {
+        console.log("Register Executed...", formData);
+        let responseData;
+        await fetch('http://localhost:4000/signup', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/form-data',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        }).then((response) => response.json())
+            .then((data) => responseData = data)
+
+        if (responseData.success) {
+            localStorage.setItem('auth-token', responseData.token);
+            window.location.replace("/userdashboard");
+        } else {
+            alert(responseData.error)
+        }
+    }
+
     return (
         <div className='userlogin-container'>
             <div className="login-register-container">
@@ -10,12 +62,22 @@ const UserLogin = () => {
                     <h1 id='already-regged-lbl'>Already Registered? <br /> Sign In,</h1>
                     <div className="login-form">
                         <label htmlFor="loginEmail">Email:</label>
-                        <input type="email" name="loginEmail" id="loginEmail" placeholder='Enter your email address' />
+                        <input type="email"
+                            name="useremail"
+                            value={formData.useremail}
+                            onChange={changeHandler}
+                            id="loginEmail"
+                            placeholder='Enter your email address' />
                         <label htmlFor="loginPassword">Password:</label>
-                        <input type="password" name="loginPassword" id="loginPassword" placeholder='Enter your password' />
+                        <input type="password"
+                            name="userpassword"
+                            value={formData.userpassword}
+                            onChange={changeHandler}
+                            id="loginPassword"
+                            placeholder='Enter your password' />
                     </div>
                     <div className="login-btns">
-                        <button id='signInBtn'>Sign In</button>
+                        <button onClick={() => { login() }} id='signInBtn'>Sign In</button>
                         <button id='googleBtn'>
                             <img src={googleIcon} alt="Google Icon" />
                             Sign In with Google</button>
@@ -26,14 +88,29 @@ const UserLogin = () => {
                     <h1 id='donthave-account-lbl'>Don't have an account? <br /> Register Here!</h1>
                     <div className="register-form">
                         <label htmlFor="registerName">Name:</label>
-                        <input type="text" name="registerName" id="registerName" placeholder='Enter your name' />
+                        <input type="text"
+                            name="username"
+                            value={formData.username}
+                            onChange={changeHandler}
+                            id="registerName"
+                            placeholder='Enter your name' />
                         <label htmlFor="registerEmail">Email:</label>
-                        <input type="email" name="registerEmail" id="registerEmail" placeholder='Enter an email address' />
+                        <input type="email"
+                            name="useremail"
+                            value={formData.useremail}
+                            onChange={changeHandler}
+                            id="registerEmail"
+                            placeholder='Enter an email address' />
                         <label htmlFor="registerPassword">Password:</label>
-                        <input type="password" name="registerPassword" id="registerPassword" placeholder='Enter a password' />
+                        <input type="password"
+                            name="userpassword"
+                            value={formData.userpassword}
+                            onChange={changeHandler}
+                            id="registerPassword"
+                            placeholder='Enter a password' />
                     </div>
                     <div className="register-btns">
-                        <button id='registerBtn'>Sign Up</button>
+                        <button onClick={() => { register() }} id='registerBtn'>Sign Up</button>
                         <button id='googleRegBtn'>
                             <img src={googleIcon} alt="Google Icon" />
                             Sign Up with Google</button>

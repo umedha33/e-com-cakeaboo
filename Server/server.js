@@ -174,6 +174,95 @@ app.get('/allproducts', async (req, res) => {
 
 
 
+// Schema for User Accounts
+const Users = mongoose.model('Users', {
+    username: {
+        type: String,
+    },
+    useremail: {
+        type: String,
+        unique: true,
+    },
+    userpassword: {
+        type: String,
+    },
+    cartData: {
+        type: Object,
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+    },
+})
+
+// Endpoint for user registeration 
+app.post('/signup', async (req, res) => {
+    let check = await Users.findOne({ useremail: req.body.useremail });
+    if (check) {
+        return res.status(400).json({
+            success: false,
+            error: "User Already Registered!"
+        })
+    }
+    let cart = {};
+    for (let i = 0; i < 300; i++) {
+        cart[i] = 0;
+    }
+    const user = new Users({
+        username: req.body.username,
+        useremail: req.body.useremail,
+        userpassword: req.body.userpassword,
+        cartData: cart,
+    })
+    await user.save();
+
+    const data = {
+        user: {
+            id: user.id
+        }
+    }
+    const token = jwt.sign(data, 'secret_cakeaboo');
+    res.json({
+        success: true,
+        token
+    })
+})
+
+// Endpoint for user login
+app.post('/login', async (req, res) => {
+    let user = await Users.findOne({
+        useremail: req.body.useremail
+    });
+    if (user) {
+        const passwordCheck = req.body.userpassword === user.userpassword;
+        if (passwordCheck) {
+            const data = {
+                user: {
+                    id: user.id
+                }
+            }
+            const token = jwt.sign(data, 'secret_cakeaboo');
+            res.json({
+                success: true,
+                token
+            });
+        } else {
+            res.json({
+                success: false,
+                error: "Wrong Password!"
+            });
+        }
+    } else {
+        res.json({
+            success: false,
+            error: "Wrong Email Adress!"
+        });
+    }
+})
+
+
+
+
 app.listen(port, (error) => {
     if (!error) {
         console.log("Server Running on Port " + port)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './CSS/MyAccountPage.css'
 import UserLogin from '../components/UserLogin/UserLogin'
 import UserDashboard from '../components/UserDashboard/UserDashboard'
@@ -6,8 +6,7 @@ import UserDashboard from '../components/UserDashboard/UserDashboard'
 const MyAccountPage = () => {
   return (
     <div className='my-account-container'>
-      {/* <UserLogin /> */}
-      <UserDashboard />
+      {localStorage.getItem('auth-token') ? <UserDashboard /> : <UserLogin />}
     </div>
   )
 }

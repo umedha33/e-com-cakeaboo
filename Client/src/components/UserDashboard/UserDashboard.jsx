@@ -20,7 +20,11 @@ const UserDashboard = () => {
                         className={activeHeader === 'CHAT' ? 'active' : ''}
                     >CHAT</h1>
                 </div>
-                <button id='logoutBtn'>LOGOUT</button>
+                <button onClick={() => {
+                    localStorage.removeItem('auth-token');
+                    window.location.replace('/userlogin');
+                }}
+                    id='logoutBtn'>LOGOUT</button>
             </div>
 
             {activeHeader === 'MY ORDERS' && (

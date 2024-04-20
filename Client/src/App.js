@@ -12,6 +12,8 @@ import MyAccountPage from './pages/MyAccountPage';
 import SingleProduct from './components/SingleProduct/SingleProduct';
 import CartPage from './pages/CartPage';
 import Checkout from './components/Checkout/Checkout';
+import UserDashboard from './components/UserDashboard/UserDashboard';
+import UserLogin from './components/UserLogin/UserLogin';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="/product/:id" element={<SingleProduct />} />
           <Route path='/cart' element={<CartPage />} />
           <Route path='/checkout' element={<Checkout />} />
+          <Route path='/userdashboard' element={<UserDashboard />} />
+          <Route path='/userlogin' element={<UserLogin />} />
         </Routes>
         <Footer />
       </BrowserRouter>
