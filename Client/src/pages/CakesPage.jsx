@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './CSS/CakesPage.css'
 import dummyProducts from '../components/Assets/dummy-products.js'
 import Slider from 'react-slider'
@@ -10,12 +10,35 @@ const colors = [
 ];
 
 const categories = {
-  'CAKES': ['Kids', 'Birthday', 'Party Sets', 'Love Themed', 'Engagement', 'Wedding'],
-  'CUP CAKES': ['Butter Cream', 'Frosted', 'Ganache', 'Fondant', 'Whipped Cream'],
-  'SWEETS': ['Cakesicles', 'Cake Pops', 'Sugar Cookies']
+  'Cakes': ['Kids', 'birthday', 'partysets', 'lovethemed', 'engagement', 'wedding'],
+  'cupcakes': ['buttercream', 'frosted', 'ganache', 'fondant', 'whippedcream'],
+  'sweets': ['Cakesicles', 'Cake Pops', 'Sugar Cookies']
 };
 
 const CakesPage = () => {
+  const [alldaProducts, setAllProducts] = useState([]);
+  const fetchInfo = async () => {
+    await fetch('http://localhost:4000/allproducts')
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.allProducts)) {
+          const updatedProducts = data.allProducts.map(product => ({
+            ...product,
+            categories: [product.category, product.subcategory]
+          }));
+
+          setAllProducts(updatedProducts);
+          console.log(`meka thama`, alldaProducts);
+
+        } else {
+          console.log("data.allProducts is not an array, it is a:", typeof data.allProducts);
+        }
+      });
+  }
+
+  useEffect(() => {
+    fetchInfo();
+  }, [])
 
   const PRICE_MIN = 450;
   const PRICE_MAX = 55000;
@@ -27,7 +50,7 @@ const CakesPage = () => {
 
 
   const sortProducts = (option, minPrice, maxPrice) => {
-    let sortedProducts = dummyProducts.slice();
+    let sortedProducts = alldaProducts.slice();
     switch (option) {
       case 'sort-by-latest':
         sortedProducts = sortedProducts.sort((a, b) => b.date - a.date);
@@ -265,16 +288,16 @@ const CakesPage = () => {
                     <div className="secondary-itms">
                       <div className="num-input-l-t">
                         <label>Layers</label>
-                        <i class="fa-solid fa-minus pm-icons"></i>
+                        <i className="fa-solid fa-minus pm-icons"></i>
                         <input type="number" value={1} />
-                        <i class="fa-solid fa-plus pm-icons"></i>
+                        <i className="fa-solid fa-plus pm-icons"></i>
 
                       </div>
                       <div className="num-input-l-t">
                         <label>Tiers:</label>
-                        <i class="fa-solid fa-minus pm-icons"></i>
+                        <i className="fa-solid fa-minus pm-icons"></i>
                         <input type="number" value={1} />
-                        <i class="fa-solid fa-plus pm-icons"></i>
+                        <i className="fa-solid fa-plus pm-icons"></i>
 
                       </div>
                     </div>
@@ -315,7 +338,7 @@ const CakesPage = () => {
                   state={{ singleProduct: product.id }}
                   className="product-link"
                 >
-                  <img src={product.image} alt={product.title} />
+                  <img src={product.mainimage} alt={product.title} />
                 </Link>
                 <button>ADD TO CART</button>
                 <div className="ind-product-details">
