@@ -14,6 +14,19 @@ const SingleProduct = () => {
     const [selectedColors, setSelectedColors] = useState([]);
     const [oneProduct, setOneProduct] = useState({});
     const [currentImage, setCurrentImage] = useState('mainimage');
+    const [customizedData, setCustomizedData] = useState({
+        customlayers: "Default",
+        customtiers: "Default",
+        customwriting: "Default",
+        customcomment: "Default",
+        customcolor: ["Default"],
+        customflavor: "Default",
+    })
+
+    const changeHandler = (e) => {
+        setCustomizedData({ ...customizedData, [e.target.name]: e.target.value });
+    }
+
 
     const fetchProduct = async (id) => {
         const response = await fetch(`http://localhost:4000/oneproduct?id=${id}`);
@@ -33,22 +46,48 @@ const SingleProduct = () => {
     };
 
     const toggleColor = (color) => {
+        let newSelectedColors;
         if (selectedColors.includes(color)) {
-            setSelectedColors(selectedColors.filter(c => c !== color));
+            newSelectedColors = selectedColors.filter(c => c !== color);
         } else {
-            setSelectedColors([...selectedColors, color]);
+            newSelectedColors = [...selectedColors, color];
         }
+        setSelectedColors(newSelectedColors);
+        setCustomizedData({ ...customizedData, customcolor: newSelectedColors });
     };
+
 
     const [buttonText, setButtonText] = useState('Add to Cart');
     const [isClicked, setIsClicked] = useState(false);
     const [iconClass, setIconClass] = useState('fa-solid fa-cart-plus');
 
-    const handleClick = () => {
+    const handleAddToCart = (itemID, customD) => {
         if (!isClicked) {
             setIsClicked(true);
             setButtonText('Product Added!');
             setIconClass('fa-solid fa-circle-check');
+
+            console.log(`This is the ID`, itemID);
+            console.log(`This is the custom data`, customizedData);
+
+            if (localStorage.getItem('auth-token')) {
+                fetch('http://localhost:4000/addtocart', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'auth-token': `${localStorage.getItem('auth-token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ItemID: itemID,
+                        CustomData: customD
+                    }),
+                }).then((response) => response.json())
+                    .then((data) => console.log(data))
+            } else {
+                window.alert("Please Login!")
+            }
+
             setTimeout(() => {
                 setButtonText('Add to Cart');
                 setIconClass('fa-solid fa-cart-plus');
@@ -124,17 +163,36 @@ const SingleProduct = () => {
                             <div className="custom-sec">
                                 <div className="first-rw">
                                     <h2 id='cust-layers'>Custom Layers: </h2>
-                                    <input type="number" placeholder='0' />
+                                    <input type="number"
+                                        name='customlayers'
+                                        value={customizedData.customlayers}
+                                        onChange={changeHandler}
+                                        placeholder='0' />
+
                                     <h2 id='cust-layers'>Custom Tiers: </h2>
-                                    <input type="number" placeholder='0' />
+                                    <input type="number"
+                                        name='customtiers'
+                                        value={customizedData.customtiers}
+                                        onChange={changeHandler}
+                                        placeholder='0' />
                                 </div>
                                 <div className="second-rw">
                                     <label>Writings: </label>
-                                    <input type="text" name="writing" id="writing" placeholder='E.g. Happy Birthday!' />
+                                    <input type="text"
+                                        name="customwriting"
+                                        value={customizedData.customwriting}
+                                        onChange={changeHandler}
+                                        id="writing"
+                                        placeholder='E.g. Happy Birthday!' />
                                 </div>
                                 <div className="third-rw">
                                     <label>Additional Comments: </label>
-                                    <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                                    <textarea name="customcomment"
+                                        value={customizedData.customcomment}
+                                        onChange={changeHandler}
+                                        id="comment"
+                                        cols="30"
+                                        rows="10"></textarea>
                                 </div>
                                 <div className="fourth-rw">
                                     <h2 id='color-slct'>Change Color: </h2>
@@ -144,6 +202,8 @@ const SingleProduct = () => {
                                                 key={index}
                                                 className={`gcell ${selectedColors.includes(color) ? 'selected' : ''}`}
                                                 style={{ backgroundColor: color }}
+                                                value={customizedData.customcolor}
+                                                onChange={changeHandler}
                                                 onClick={() => toggleColor(color)}
                                             ></div>
                                         ))}
@@ -151,13 +211,17 @@ const SingleProduct = () => {
                                 </div>
                                 <div className="fifth-rw">
                                     <h2 id='color-slct'>Change Flavor: </h2>
-                                    <select id='flavor'>
-                                        <option value="vanilla">Vanilla</option>
-                                        <option value="chocolate">Chocolate</option>
-                                        <option value="red-velvet">Red Velvet</option>
-                                        <option value="lemon">Lemon</option>
-                                        <option value="strawberry">Strawberry</option>
-                                        <option value="coffee">Coffee</option>
+                                    <select value={customizedData.customflavor}
+                                        onChange={changeHandler}
+                                        name='customflavor'
+                                        id='flavor' >
+                                        <option value="Vanila">Vanila</option>
+                                        <option value="Chocolate">Chocolate</option>
+                                        <option value="Red Velvet">Red Velvet</option>
+                                        <option value="Lemon">Lemon</option>
+                                        <option value="Strawberry">Strawberry</option>
+                                        <option value="Coffee">Coffee</option>
+                                        <option value="Funfetti">Funfetti</option>
                                     </select>
                                 </div>
                             </div>
@@ -166,7 +230,7 @@ const SingleProduct = () => {
                             <div className='btns-cpl'>
                                 <button
                                     id='addtocart'
-                                    onClick={handleClick}
+                                    onClick={() => { handleAddToCart(oneProduct.id, customizedData) }}
                                 >{buttonText} <i className={iconClass}></i></button>
                                 <Link to="/checkout" style={{ textDecoration: 'none' }}>
                                     <button id='proceed'>Procees to Checkout ›</button>
@@ -176,12 +240,9 @@ const SingleProduct = () => {
                         </div>
                     </div>
                 </>
-
-
             ) : (
                 <></>
             )}
-
         </div>
     )
 }

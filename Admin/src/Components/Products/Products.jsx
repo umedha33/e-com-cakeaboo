@@ -127,7 +127,8 @@ const Products = () => {
                                             <i onClick={() => { remove_product(product.id) }}
                                                 id='dlt-mark'
                                                 className="fa-solid fa-circle-xmark">
-                                            </i></td>
+                                            </i>
+                                        </td>
                                     </tr>
                                 ))
                             ) : (

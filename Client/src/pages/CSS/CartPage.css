@@ -66,13 +66,13 @@ table {
 }
 
 .cart-body #image {
-    width: 100px;
+    width: 120px;
     border-radius: 15px;
 }
 
 .cart-body #qty {
-    width: 20px;
-    height: 25px;
+    width: 35px;
+    height: 40px;
 }
 
 .cart-body .qty-input input {
@@ -90,8 +90,15 @@ table {
 }
 
 
+.pm-icons {
+    font-size: 1rem;
+}
 
-
+#dlt-mark {
+    font-size: 1.1rem;
+    color: red;
+    cursor: pointer;
+}
 
 .cart-right-panel {
     display: flex;

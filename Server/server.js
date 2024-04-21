@@ -30,7 +30,6 @@ const upload = multer({ storage: storage })
 
 // Endpoint for Uploading Images
 app.use('/images', express.static('upload/images'))
-
 app.post("/uploadImages", upload.fields([
     { name: 'mainImage', maxCount: 1 },
     { name: 'productgallery', maxCount: 10 }
@@ -177,6 +176,76 @@ app.get('/oneproduct', async (req, res) => {
     res.json({ oneProduct });
 })
 
+// Middleware to fetch user
+const fetchUser = async (req, res, next) => {
+    const token = req.header('auth-token');
+    // console.log("Fetching User in Middleware", token);
+
+    if (!token) {
+        res.status(401).send({
+            error: "Authenticate with valid token"
+        })
+    } else {
+        try {
+            const data = jwt.verify(token, 'secret_cakeaboo');
+            req.user = data.user;
+            next();
+        } catch (error) {
+            res.status(401).send({ error: "Authenticate using valid token" })
+        }
+    }
+}
+
+// Endpoint for adding products to cart
+app.post('/addtocart', fetchUser, async (req, res) => {
+    console.log(req.body, req.user);
+
+    let userData = await Users.findOne({
+        _id: req.user.id
+    })
+
+    const existingIDs = Object.keys(userData.cartData).map(id => parseInt(id)).filter(id => !isNaN(id));
+    const newCartItemID = existingIDs.length > 0 ? Math.max(...existingIDs) + 1 : 1;
+
+    const itemDetails = {
+        ItemID: req.body.ItemID,
+        CustomData: {
+            customlayers: req.body.CustomData.customlayers,
+            customtiers: req.body.CustomData.customtiers,
+            customwriting: req.body.CustomData.customwriting,
+            customcomment: req.body.CustomData.customcomment,
+            customcolor: req.body.CustomData.customcolor,
+            customflavor: req.body.CustomData.customflavor
+        }
+    };
+
+    userData.cartData[newCartItemID] = itemDetails;
+
+    await Users.findOneAndUpdate({
+        _id: req.user.id
+    }, { cartData: userData.cartData });
+
+    res.send("Added to Cart")
+})
+
+// Endpoint for getting cart data
+app.get('/getfromcart', fetchUser, async (req, res) => {
+    try {
+        let userData = await Users.findOne({
+            _id: req.user.id
+        });
+
+        if (!userData) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        let cartData = userData.cartData || {};
+        res.json({ cartData: cartData });
+
+    } catch (error) {
+        res.status(500).json({ message: "An error occurred while retrieving cart data", error: error.toString() });
+    }
+});
 
 
 // Schema for User Accounts
@@ -209,15 +278,12 @@ app.post('/signup', async (req, res) => {
             error: "User Already Registered!"
         })
     }
-    let cart = {};
-    for (let i = 0; i < 300; i++) {
-        cart[i] = 0;
-    }
+
     const user = new Users({
         username: req.body.username,
         useremail: req.body.useremail,
         userpassword: req.body.userpassword,
-        cartData: cart,
+        cartData: { initialized: true },
     })
     await user.save();
 
