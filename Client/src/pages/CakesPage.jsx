@@ -10,10 +10,18 @@ const colors = [
 ];
 
 const categories = {
-  'Cakes': ['Kids', 'birthday', 'partysets', 'lovethemed', 'engagement', 'wedding'],
-  'cupcakes': ['buttercream', 'frosted', 'ganache', 'fondant', 'whippedcream'],
-  'sweets': ['Cakesicles', 'Cake Pops', 'Sugar Cookies']
+  'Cakes': ['Kids', 'Birthday', 'Party Sets', 'Love Themed', 'Engagement', 'Wedding'],
+  'Cup Cakes': ['Butter Cream', 'Frosted', 'Ganache', 'Fondant', 'Whipped Cream'],
+  'Sweets': ['Cakesicles', 'Cake Pops', 'Sugar Cookies', 'Trees']
 };
+
+const flavors = [
+  'Vanila', 'Chocolate', 'Red Velvet', 'Lemon', 'Strawberry', 'Coffee', 'Funfetti'
+]
+
+const shapes = [
+  'Round', 'Slice', 'Top Forward', 'Square', 'Rectangular', 'Heart Shaped', 'Custom'
+]
 
 const CakesPage = () => {
   const [alldaProducts, setAllProducts] = useState([]);
@@ -47,13 +55,19 @@ const CakesPage = () => {
   const [priceVals, setPriceVals] = useState([450, 55000])
   const [sortOption, setSortOption] = useState('default-sorting');
   const [selectedCategories, setSelectedCategories] = useState([]);
-
+  const [selectedFlavors, setSelectedFlavors] = useState([]);
+  const [selectedShapes, setSelectedShapes] = useState([]);
+  const [layerCount, setLayerCount] = useState(1);
+  const [tierCount, setTierCount] = useState(1);
 
   const sortProducts = (option, minPrice, maxPrice) => {
     let sortedProducts = alldaProducts.slice();
     switch (option) {
       case 'sort-by-latest':
-        sortedProducts = sortedProducts.sort((a, b) => b.date - a.date);
+        sortedProducts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        break;
+      case 'sort-by-oldest':
+        sortedProducts.sort((a, b) => new Date(a.date) - new Date(b.date));
         break;
       case 'sort-by-price-low':
         sortedProducts = sortedProducts.sort((a, b) => a.price - b.price);
@@ -89,7 +103,36 @@ const CakesPage = () => {
       );
     }
 
+    // Filter by selected flavors
+    if (selectedFlavors.length > 0) {
+      sortedProducts = sortedProducts.filter(product =>
+        selectedFlavors.includes(product.flavor)
+      );
+    }
+
+    // Filter by selected shapes
+    if (selectedShapes.length > 0) {
+      sortedProducts = sortedProducts.filter(product =>
+        selectedShapes.includes(product.shape)
+      );
+    }
+
+    // Filter by selected layer & tier counts
+    sortedProducts = sortedProducts.filter(product =>
+      product.layercount >= layerCount && product.tiercount >= tierCount
+    );
+
     return sortedProducts;
+  };
+
+  const handleLayerChange = (event) => {
+    const newLayerCount = parseInt(event.target.value) || 1;
+    setLayerCount(newLayerCount);
+  };
+
+  const handleTierChange = (event) => {
+    const newTierCount = parseInt(event.target.value) || 1;
+    setTierCount(newTierCount);
   };
 
   const toggleCategory = (category) => {
@@ -100,6 +143,29 @@ const CakesPage = () => {
     }
   };
 
+  const toggleColor = (color) => {
+    if (selectedColors.includes(color)) {
+      setSelectedColors(selectedColors.filter(c => c !== color));
+    } else {
+      setSelectedColors([...selectedColors, color]);
+    }
+  };
+
+  const toggleFlavor = (flavor) => {
+    if (selectedFlavors.includes(flavor)) {
+      setSelectedFlavors(selectedFlavors.filter(c => c !== flavor));
+    } else {
+      setSelectedFlavors([...selectedFlavors, flavor]);
+    }
+  };
+
+  const toggleShape = (shape) => {
+    if (selectedShapes.includes(shape)) {
+      setSelectedShapes(selectedShapes.filter(c => c !== shape));
+    } else {
+      setSelectedShapes([...selectedShapes, shape]);
+    }
+  };
 
 
   // toggling up down sections -------------------------------------
@@ -125,13 +191,6 @@ const CakesPage = () => {
     setIsVariationOpen(!isVariationOpen);
   };
 
-  const toggleColor = (color) => {
-    if (selectedColors.includes(color)) {
-      setSelectedColors(selectedColors.filter(c => c !== color));
-    } else {
-      setSelectedColors([...selectedColors, color]);
-    }
-  };
   // ---------------------------------------------------------------
   // toggling up down sections -------------------------------------
 
@@ -172,6 +231,7 @@ const CakesPage = () => {
                   <select id='sort' value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
                     <option value="default-sorting">Default Sorting</option>
                     <option value="sort-by-latest">Sort by Latest</option>
+                    <option value="sort-by-oldest">Sort by Oldest</option>
                     <option value="sort-by-price-low">Sort by Price: Low to High</option>
                     <option value="sort-by-price-high">Sort by Price: High to Low</option>
                   </select>
@@ -270,12 +330,16 @@ const CakesPage = () => {
                     </div>
                     <div className="secondary-itms">
                       <ul>
-                        <li><input type="checkbox" />Vanilla</li>
-                        <li><input type="checkbox" />Chocolate</li>
-                        <li><input type="checkbox" />Red Velvet</li>
-                        <li><input type="checkbox" />Lemon</li>
-                        <li><input type="checkbox" />Strawberry</li>
-                        <li><input type="checkbox" />Coffee</li>
+                        {flavors.map((flavor, idx) => (
+                          <li key={idx}>
+                            <input
+                              type="checkbox"
+                              onChange={() => toggleFlavor(flavor)}
+                              checked={selectedFlavors.includes(flavor)}
+                            />
+                            {flavor}
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -288,17 +352,15 @@ const CakesPage = () => {
                     <div className="secondary-itms">
                       <div className="num-input-l-t">
                         <label>Layers</label>
-                        <i className="fa-solid fa-minus pm-icons"></i>
-                        <input type="number" value={1} />
-                        <i className="fa-solid fa-plus pm-icons"></i>
-
+                        <i className="fa-solid fa-minus pm-icons" onClick={() => setLayerCount(Math.max(1, layerCount - 1))}></i>
+                        <input type="number" value={layerCount} onChange={handleLayerChange} />
+                        <i className="fa-solid fa-plus pm-icons" onClick={() => setLayerCount(layerCount + 1)}></i>
                       </div>
                       <div className="num-input-l-t">
                         <label>Tiers:</label>
-                        <i className="fa-solid fa-minus pm-icons"></i>
-                        <input type="number" value={1} />
-                        <i className="fa-solid fa-plus pm-icons"></i>
-
+                        <i className="fa-solid fa-minus pm-icons" onClick={() => setTierCount(Math.max(1, tierCount - 1))}></i>
+                        <input type="number" value={tierCount} onChange={handleTierChange} />
+                        <i className="fa-solid fa-plus pm-icons" onClick={() => setTierCount(tierCount + 1)}></i>
                       </div>
                     </div>
                   </div>
@@ -310,13 +372,16 @@ const CakesPage = () => {
                     </div>
                     <div className="secondary-itms">
                       <ul>
-                        <li><input type="checkbox" />Slice</li>
-                        <li><input type="checkbox" />Round</li>
-                        <li><input type="checkbox" />Top Forward</li>
-                        <li><input type="checkbox" />Square</li>
-                        <li><input type="checkbox" />Rectangular</li>
-                        <li><input type="checkbox" />Heart Shaped</li>
-                        <li><input type="checkbox" />Custom</li>
+                        {shapes.map((shape, idx) => (
+                          <li key={idx}>
+                            <input
+                              type="checkbox"
+                              onChange={() => toggleShape(shape)}
+                              checked={selectedShapes.includes(shape)}
+                            />
+                            {shape}
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -330,25 +395,30 @@ const CakesPage = () => {
 
         <div className="prod-con-right">
           {/* PRODUCT RENDER COMPONENT */}
-          <div className='product-render-container'>
-            {sortProducts(sortOption, priceVals[0], priceVals[1]).map(product => (
-              <div key={product.id} className="ind-product">
-                <Link
-                  to={`/product/${product.id}`}
-                  state={{ singleProduct: product.id }}
-                  className="product-link"
-                >
-                  <img src={product.mainimage} alt={product.title} />
-                </Link>
-                <button>ADD TO CART</button>
-                <div className="ind-product-details">
-                  <h3>{product.title}</h3>
-                  <p id='indprice'>{(product.price).toFixed(2)} LKR</p>
+          {sortProducts(sortOption, priceVals[0], priceVals[1]).length > 0 ?
+            <div className='product-render-container'>
+              {sortProducts(sortOption, priceVals[0], priceVals[1]).map(product => (
+                <div key={product.id} className="ind-product">
+                  <Link
+                    to={`/product/${product.id}`}
+                    state={{ singleProduct: product.id }}
+                    className="product-link"
+                  >
+                    <img src={product.mainimage} alt={product.title} />
+                  </Link>
+                  <button>ADD TO CART</button>
+                  <div className="ind-product-details">
+                    <h3>{product.title}</h3>
+                    <p id='indprice'>{(product.price).toFixed(2)} LKR</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-
+              ))}
+            </div>
+            :
+            <div className="no-products">
+              <h1>Oops... <br /> No products found on the given filter</h1>
+            </div>
+          }
         </div>
       </div>
 

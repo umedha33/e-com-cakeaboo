@@ -19,8 +19,8 @@ const AddProducts = () => {
         category: "Cakes",
         subcategory: "Kids",
         flavor: "Vanila",
-        layercount: "",
-        tiercount: "",
+        layercount: "1",
+        tiercount: "1",
         shape: "Round",
         color: [],
         mainimage: "",
@@ -161,62 +161,69 @@ const AddProducts = () => {
                     <div className='normal-inputs'>
                         <label htmlFor="category">CATEGORY</label>
                         <select value={productDetails.category} onChange={changeHandler} name="category" id="category">
-                            <option value="cakes">Cakes</option>
-                            <option value="cupcakes">Cup Cakes</option>
-                            <option value="sweets">Sweets</option>
+                            <option value="Cakes">Cakes</option>
+                            <option value="Cup Cakes">Cup Cakes</option>
+                            <option value="Sweets">Sweets</option>
                         </select>
                     </div>
                     <div className='normal-inputs'>
                         <label htmlFor="subcategory">SUB CATEGORY</label>
                         <select value={productDetails.subcategory} onChange={changeHandler} name="subcategory" id="subcategory">
-                            <option value="kids">Kids</option>
-                            <option value="birthday">Birthday</option>
-                            <option value="partysets">Party Sets</option>
-                            <option value="lovethemed">Love Themed</option>
-                            <option value="engagement">Engagement</option>
-                            <option value="wedding">Wedding</option>
-                            <option value="buttercream">Butter Cream</option>
-                            <option value="frosted">Frosted</option>
-                            <option value="ganache">Ganache</option>
-                            <option value="fondant">Fondant</option>
-                            <option value="whippedcream">Whipped Cream</option>
+                            <option value="Kids">Kids</option>
+                            <option value="Birthday">Birthday</option>
+                            <option value="Party Sets">Party Sets</option>
+                            <option value="Love Themed">Love Themed</option>
+                            <option value="Engagement">Engagement</option>
+                            <option value="Wedding">Wedding</option>
+                            <option value="Butter Cream">Butter Cream</option>
+                            <option value="Frosted">Frosted</option>
+                            <option value="Ganache">Ganache</option>
+                            <option value="Fondant">Fondant</option>
+                            <option value="Whipped Cream">Whipped Cream</option>
+                            <option value="Cakesicles">Cakesicles</option>
+                            <option value="Cake Pops">Cake Pops</option>
+                            <option value="Sugar Cookies">Sugar Cookies</option>
+                            <option value="Trees">Trees</option>
                         </select>
                     </div>
                     <div className='normal-inputs'>
                         <label htmlFor="flavor">FLAVOR</label>
                         <select value={productDetails.flavor} onChange={changeHandler} name="flavor" id="flavor">
-                            <option value="vanilla">Vanila</option>
-                            <option value="chocolate">Chocolate</option>
-                            <option value="redvelvet">Red Velvet</option>
-                            <option value="strawberry">Strawberry</option>
-                            <option value="lemon">Lemon</option>
-                            <option value="coffee">Coffee</option>
+                            <option value="Vanila">Vanila</option>
+                            <option value="Chocolate">Chocolate</option>
+                            <option value="Red Velvet">Red Velvet</option>
+                            <option value="Strawberry">Strawberry</option>
+                            <option value="Lemon">Lemon</option>
+                            <option value="Coffee">Coffee</option>
+                            <option value="Funfetti">Funfetti</option>
                         </select>
                     </div>
                     <div className='number-inputs'>
                         <div className='layers'>
                             <label htmlFor="layers">LAYER COUNT</label>
                             <i className="fa-solid fa-minus"></i>
-                            <input value={productDetails.layercount} onChange={changeHandler} type="number" name="layercount" id="layers" />
+                            <input value={productDetails.layercount}
+                                onChange={changeHandler} type="number" name="layercount" id="layers" />
                             <i className="fa-solid fa-plus"></i>
                         </div>
                         <div className='tiers'>
                             <label htmlFor="tiers">TIER COUNT</label>
                             <i className="fa-solid fa-minus"></i>
-                            <input value={productDetails.tiercount} onChange={changeHandler} type="number" name="tiercount" id="tiers" />
+                            <input value={productDetails.tiercount}
+                                onChange={changeHandler} type="number" name="tiercount" id="tiers" />
                             <i className="fa-solid fa-plus"></i>
                         </div>
                     </div>
                     <div className='normal-inputs'>
                         <label htmlFor="shape">SHAPE</label>
                         <select value={productDetails.shape} onChange={changeHandler} name="shape" id="shape">
-                            <option value="round">Round</option>
-                            <option value="slice">Slice</option>
-                            <option value="topforward">Top Forward</option>
-                            <option value="square">Square</option>
-                            <option value="rectangular">Rectangular</option>
-                            <option value="heartshaped">Heart Shaped</option>
-                            <option value="custom">Custom</option>
+                            <option value="Round">Round</option>
+                            <option value="Slice">Slice</option>
+                            <option value="Top Forward">Top Forward</option>
+                            <option value="Square">Square</option>
+                            <option value="Rectangular">Rectangular</option>
+                            <option value="Heart Shaped">Heart Shaped</option>
+                            <option value="Custom">Custom</option>
                         </select>
                     </div>
                     <div className="color">
