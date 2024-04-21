@@ -200,7 +200,9 @@ const CartPage = () => {
 
                 </>
             ) : (
-                <div>No items in cart</div>
+                <div className='no-cartitems'>
+                    <h1>No items in cart...</h1>
+                </div>
             )}
         </div>
     );
