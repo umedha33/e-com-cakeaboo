@@ -36,7 +36,7 @@ const CakesPage = () => {
           }));
 
           setAllProducts(updatedProducts);
-          console.log(`meka thama`, alldaProducts);
+          // console.log(`meka thama`, alldaProducts);
 
         } else {
           console.log("data.allProducts is not an array, it is a:", typeof data.allProducts);
@@ -406,7 +406,7 @@ const CakesPage = () => {
                   >
                     <img src={product.mainimage} alt={product.title} />
                   </Link>
-                  <button>ADD TO CART</button>
+                  {/* <button>ADD TO CART</button> */}
                   <div className="ind-product-details">
                     <h3>{product.title}</h3>
                     <p id='indprice'>{(product.price).toFixed(2)} LKR</p>

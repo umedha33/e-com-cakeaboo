@@ -170,7 +170,12 @@ app.get('/allproducts', async (req, res) => {
     res.json({ allProducts });
 })
 
-
+// Endpoint for Getting One Product
+app.get('/oneproduct', async (req, res) => {
+    let oneProduct = await Product.findOne({ id: req.query.id });
+    console.log("Product Fetched");
+    res.json({ oneProduct });
+})
 
 
 

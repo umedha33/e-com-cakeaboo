@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './SingleProduct.css'
 import dummyProducts from './../Assets/dummy-products';
@@ -11,8 +11,26 @@ const allColors = [
 const SingleProduct = () => {
     const location = useLocation()
     const { singleProduct } = location.state
-    const product = dummyProducts.find(product => product.id === singleProduct);
     const [selectedColors, setSelectedColors] = useState([]);
+    const [oneProduct, setOneProduct] = useState({});
+    const [currentImage, setCurrentImage] = useState('mainimage');
+
+    const fetchProduct = async (id) => {
+        const response = await fetch(`http://localhost:4000/oneproduct?id=${id}`);
+        const data = await response.json();
+        setOneProduct(data.oneProduct)
+        // console.log(`Product eka: `, oneProduct)
+    }
+
+    useEffect(() => {
+        const productID = singleProduct;
+        fetchProduct(productID);
+    }, [])
+
+    const handleThumbnailClick = (imageSrc) => {
+        setCurrentImage(imageSrc);
+        console.log(`clicked: `, imageSrc);
+    };
 
     const toggleColor = (color) => {
         if (selectedColors.includes(color)) {
@@ -41,44 +59,57 @@ const SingleProduct = () => {
 
     return (
         <div className='single-product-container'>
-            {product && (
-                <div className="left-side-cont">
-                    <div key={product.id} className="product-img-viewer">
-                        <div className="thumb-container">
-                            <img id='thumb-image' src={product.image} alt={product.title} />
-                            <img id='thumb-image' src={product.image} alt={product.title} />
-                            <img id='thumb-image' src={product.image} alt={product.title} />
-                            <img id='thumb-image' src={product.image} alt={product.title} />
+            {oneProduct !== null ? (
+                <>
+                    <div className="left-side-cont">
+                        <div className="product-img-viewer">
+                            <div className="thumb-container">
+                                {oneProduct.productgallery && oneProduct.productgallery.map((image, index) => (
+                                    <div key={index}>
+                                        <img id='thumb-image'
+                                            src={image}
+                                            alt={`Gallery image ${index + 1}`}
+                                            onClick={() => { handleThumbnailClick(image) }} />
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="fullimg-container">
+                                {currentImage === 'mainimage' ? (
+                                    <img id='main-image'
+                                        src={oneProduct.mainimage}
+                                        alt={oneProduct.title} />
+                                ) : (
+                                    <>
+                                        <img id='main-image'
+                                            src={currentImage}
+                                            alt={oneProduct.title} />
+                                    </>
+                                )}
+                            </div>
                         </div>
-                        <div className="fullimg-container">
-                            <img id='main-image' src={product.image} alt={product.title} />
+                        <div className="description-sec">
+                            <div className="desc-head">
+                                <h2>Description</h2>
+                            </div>
+                            <div className="desc-body">
+                                <p>{oneProduct.description}</p>
+                            </div>
                         </div>
                     </div>
-                    <div className="description-sec">
-                        <div className="desc-head">
-                            <h2>Description</h2>
-                        </div>
-                        <div className="desc-body">
-                            <p>{product.description}</p>
-                        </div>
-                    </div>
-                </div>
-            )}
-            <div className="right-side-cont">
-                {product && (
-                    <div key={product.id} className="product-dtl-viewer">
-                        <h1 id='title'>{product.title}</h1>
-                        <h2 id='categories'>{`Category › ${product.categories}`}</h2>
-                        <h2 id='keywords'>{`Keywords: ${product.keywords}`}</h2>
+
+                    <div className="product-dtl-viewer">
+                        <h1 id='title'>{oneProduct.title}</h1>
+                        <h2 id='categories'>{`Category › ${oneProduct.category} | ${oneProduct.subcategory} `}</h2>
+                        <h2 id='keywords'>{`Keywords: Item_${oneProduct.id}`}</h2>
                         <div className="default-sec">
                             <h1>Default Variations</h1>
                             <hr />
-                            <h2 id='layers'>{`Layer Count: ${product.layerCount}`}</h2>
-                            <h2 id='tiers'>{`Tier Count: ${product.tierCount}`}</h2>
-                            <h2 id='flavors'>{`Flavor: ${product.flavor}`}</h2>
+                            <h2 id='layers'>{`Layer Count: ${oneProduct.layercount}`}</h2>
+                            <h2 id='tiers'>{`Tier Count: ${oneProduct.tiercount}`}</h2>
+                            <h2 id='flavors'>{`Flavor: ${oneProduct.flavor}`}</h2>
                             <div className="color-grid">
                                 <h2>Color ›</h2>
-                                {product.color.map((color, index) => (
+                                {oneProduct.color && oneProduct.color.map((color, index) => (
                                     <div
                                         key={index}
                                         className='gcell'
@@ -141,11 +172,16 @@ const SingleProduct = () => {
                                     <button id='proceed'>Procees to Checkout ›</button>
                                 </Link>
                             </div>
-                            <h2 id='sprice'>{`${(product.price).toFixed(2)} LKR`}</h2>
+                            <h2 id='sprice'>{`LKR${(oneProduct.price)}/=`}</h2>
                         </div>
                     </div>
-                )}
-            </div>
+                </>
+
+
+            ) : (
+                <></>
+            )}
+
         </div>
     )
 }
