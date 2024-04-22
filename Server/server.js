@@ -453,8 +453,30 @@ app.post('/addorder', fetchUser, async (req, res) => {
     }
 });
 
+// Endpoint for getting order data - customer's end
+app.get('/getorderscust', fetchUser, async (req, res) => {
+    try {
+        const userOrders = await Orders.find({
+            userid: req.user.id
+        });
 
+        if (!userOrders.length) {
+            return res.status(404).json({ message: "No orders found for this user." });
+        }
 
+        res.json({
+            success: true,
+            userOrders: userOrders
+        });
+
+    } catch (error) {
+        console.error("Failed to retrieve user orders:", error);
+        res.status(500).json({
+            message: "An error occurred while retrieving order data",
+            error: error.toString()
+        });
+    }
+});
 
 
 
