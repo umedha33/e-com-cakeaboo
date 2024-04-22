@@ -46,7 +46,7 @@ const CartPage = () => {
                 const result = await response.json();
                 if (response.status === 200) {
                     setAllCartItems(result.cartData);
-                    console.log(`All items:`, allCartItems);
+                    // console.log(`All items:`, allCartItems);
                 } else {
                     throw new Error(result.message);
                 }
@@ -75,6 +75,27 @@ const CartPage = () => {
     const findPrice = (itemId) => {
         const product = alldaProducts.find(product => product.id === itemId);
         return product ? product.price : '';
+    };
+
+    const findTitle = (itemId) => {
+        const product = alldaProducts.find(product => product.id === itemId);
+        return product ? product.title : '';
+    };
+
+    const findLayers = (itemId) => {
+        const product = alldaProducts.find(product => product.id === itemId);
+        return product ? product.layercount : '';
+    };
+
+    const findTiers = (itemId) => {
+        const product = alldaProducts.find(product => product.id === itemId);
+        return product ? product.tiercount : '';
+    };
+
+    const findColors = (itemId) => {
+        const product = alldaProducts.find(product => product.id === itemId);
+        // console.log(product ? product.color : '');
+        return product ? product.color : '';
     };
 
     const incrementQty = (key) => {
@@ -117,6 +138,10 @@ const CartPage = () => {
                                         if (key !== "initialized") {
                                             const imageUrl = findProductImage(item.ItemID);
                                             const price = findPrice(item.ItemID);
+                                            const title = findTitle(item.ItemID);
+                                            const layers = findLayers(item.ItemID);
+                                            const tiers = findTiers(item.ItemID);
+                                            const colors = findColors(item.ItemID);
                                             return (
                                                 <tr key={key}>
                                                     <td><img src={imageUrl}
@@ -124,14 +149,89 @@ const CartPage = () => {
                                                         id='image' />
                                                     </td>
                                                     <td style={{ textAlign: 'left', paddingLeft: '20px' }}>
-                                                        Layers: {item.CustomData.customlayers}<br />
-                                                        Tiers: {item.CustomData.customtiers}<br />
-                                                        Writing: {item.CustomData.customwriting || "None"}<br />
-                                                        Comment: {item.CustomData.customcomment || "None"}<br />
-                                                        Color: {item.CustomData.customcolor.length > 0 ? item.CustomData.customcolor.join(", ") : "None"}<br />
-                                                        Flavor: {item.CustomData.customflavor || "None"}
+                                                        <b>Product Title:</b> {title}<br />
+                                                        {item.CustomData.customlayers === 'Default' ? (
+                                                            <><b>Layers:</b> {layers}<br /></>
+                                                        ) : (
+                                                            <><b>Layers:</b> {item.CustomData.customlayers}<br /></>
+                                                        )}
+                                                        {item.CustomData.customtiers === 'Default' ? (
+                                                            <><b>Tiers:</b> {tiers}<br /></>
+                                                        ) : (
+                                                            <><b>Tiers:</b> {item.CustomData.customtiers}<br /></>
+                                                        )}
+                                                        {item.CustomData.customcolor[0] === 'Default' ? (
+                                                            <div style={
+                                                                {
+                                                                    display: 'flex',
+                                                                    flexDirection: 'row',
+                                                                    alignItems: 'center',
+                                                                    gap: '8px',
+                                                                }
+                                                            }>  <b>Colors:</b>
+                                                                {Array.isArray(colors) ? colors.map((color, index) => (
+                                                                    <div key={index} style={{
+                                                                        backgroundColor: color,
+                                                                        width: '20px',
+                                                                        height: '20px',
+                                                                        borderRadius: '4px',
+                                                                    }}></div>
+                                                                )) : (
+                                                                    <div style={{
+                                                                        backgroundColor: colors,
+                                                                        width: '20px',
+                                                                        height: '20px',
+                                                                        borderRadius: '4px',
+                                                                    }}></div>
+                                                                )}<br />
+                                                            </div>
+                                                        ) : (
+                                                            <div style={
+                                                                {
+                                                                    display: 'flex',
+                                                                    flexDirection: 'row',
+                                                                    alignItems: 'center',
+                                                                    gap: '8px',
+                                                                }
+                                                            }> <b>Colors:</b>
+                                                                {Array.isArray(item.CustomData.customcolor) ? item.CustomData.customcolor.map((color, index) => (
+                                                                    <div key={index} style={{
+                                                                        backgroundColor: color,
+                                                                        width: '20px',
+                                                                        height: '20px',
+                                                                        borderRadius: '4px',
+                                                                    }}></div>
+                                                                )) : (
+                                                                    <div style={{
+                                                                        backgroundColor: colors,
+                                                                        width: '20px',
+                                                                        height: '20px',
+                                                                        borderRadius: '4px',
+                                                                    }}></div>
+                                                                )} <br />
+                                                            </div>
+                                                        )}
+                                                        {item.CustomData.customflavor === 'Default' ? (
+                                                            <></>
+                                                        ) : (
+                                                            <><b>Flavor:</b> {item.CustomData.customflavor}<br /></>
+                                                        )}
+                                                        <div className='cust notes' style={{ paddingTop: '10px' }}>
+                                                            {item.CustomData.customwriting === 'Default' ? (
+                                                                <></>
+                                                            ) : (
+                                                                <div style={{ width: '400px' }}>
+                                                                    <b>Writings:</b> {item.CustomData.customwriting}<br /></div>
+                                                            )}
+                                                            {item.CustomData.customcomment === 'Default' ? (
+                                                                <></>
+                                                            ) : (
+                                                                <div style={{ width: '400px' }}>
+                                                                    <b>Comment:</b> {item.CustomData.customcomment}<br /></div>
+                                                            )}
+                                                        </div>
                                                     </td>
-                                                    <td>{price} LKR</td>
+                                                    <td><b>{price} LKR</b></td>
                                                     <td>
                                                         <div className="qty-input">
                                                             <i onClick={() => decrementQty(key)} className="fa-solid fa-minus pm-icons"></i>
@@ -143,7 +243,7 @@ const CartPage = () => {
                                                             <i onClick={() => incrementQty(key)} className="fa-solid fa-plus pm-icons"></i>
                                                         </div>
                                                     </td>
-                                                    <td>{price * (quantities[key] || 1)} LKR</td>
+                                                    <td><b>{price * (quantities[key] || 1)} LKR</b></td>
                                                     <td>
                                                         <i id='dlt-mark'
                                                             className="fa-solid fa-circle-xmark">
