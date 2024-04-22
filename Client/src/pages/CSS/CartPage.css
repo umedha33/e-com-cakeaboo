@@ -100,6 +100,10 @@ table {
     cursor: pointer;
 }
 
+#dlt-mark:hover {
+    color: black;
+}
+
 .cart-right-panel {
     display: flex;
     flex-direction: column;
@@ -133,6 +137,7 @@ table {
     background-color: white;
     height: 100%;
     margin: 20px;
+    padding-bottom: 20px;
     border-radius: 20px;
     /* justify-content: space-between; */
 }
@@ -162,7 +167,7 @@ table {
 #pricelbl {
     font-size: 1.2rem;
     margin: 0;
-    color: blue;
+    color: rebeccapurple;
 }
 
 .promo-code {
@@ -197,7 +202,7 @@ table {
 
 #applyBtn {
     width: 10rem;
-    background-color: greenyellow;
+    background-color: lightgreen;
     border: none;
     border-radius: 10px;
     font-weight: bold;
@@ -207,8 +212,8 @@ table {
 }
 
 #applyBtn:hover {
-    background-color: green;
-    color: white;
+    background-color: rgb(112, 217, 112);
+    /* color: white; */
 }
 
 .shipping {
@@ -226,7 +231,7 @@ table {
 
 #shippingprice {
     font-size: 1rem;
-    color: blue;
+    color: rebeccapurple;
     margin: 0;
 }
 
@@ -261,20 +266,19 @@ table {
     width: 88%;
     font-size: 1rem;
     font-weight: bold;
-    background-color: blue;
+    background-color: rgb(140, 83, 197);
     border: none;
     border-radius: 10px;
     color: white;
     margin: 0 20px;
     margin-top: 8px;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s;
 }
 
 #checkoutBtn:hover {
-    background-color: lawngreen;
-    color: black;
-    transition: background-color 0.2s, color 0.2s;
+    background-color: rebeccapurple;
+    transition: background-color 0.2s;
 }
 
 #order-hr {

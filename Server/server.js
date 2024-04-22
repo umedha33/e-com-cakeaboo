@@ -247,6 +247,24 @@ app.get('/getfromcart', fetchUser, async (req, res) => {
     }
 });
 
+// Endpoint for removing cart items
+app.post('/removefromcart', fetchUser, async (req, res) => {
+    try {
+        // Find the user and update
+        await Users.findOneAndUpdate({
+            _id: req.user.id
+        }, {
+            $unset: { [`cartData.${req.body.id}`]: "" }
+        });
+
+        // Respond to the client
+        res.send("Item removed from cart");
+    } catch (error) {
+        // Handle possible errors
+        console.error("Error removing item from cart:", error);
+        res.status(500).send("An error occurred while removing the item from the cart");
+    }
+})
 
 // Schema for User Accounts
 const Users = mongoose.model('Users', {

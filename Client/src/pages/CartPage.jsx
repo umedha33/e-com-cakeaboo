@@ -94,7 +94,6 @@ const CartPage = () => {
 
     const findColors = (itemId) => {
         const product = alldaProducts.find(product => product.id === itemId);
-        // console.log(product ? product.color : '');
         return product ? product.color : '';
     };
 
@@ -110,6 +109,36 @@ const CartPage = () => {
             return prev;
         });
     };
+
+    let totalamount = 0;
+    const shipping = 500;
+
+    const subtotal = (values) => {
+        totalamount += values
+    }
+
+    const removeFromCart = (key) => {
+        if (localStorage.getItem('auth-token')) {
+            fetch('http://localhost:4000/removefromcart', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'auth-token': `${localStorage.getItem('auth-token')}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: key,
+                }),
+            }).then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                })
+            fetchInfo();
+
+        } else {
+            window.alert("Please Login!")
+        }
+    }
 
     return (
         <div className='cart-page-container'>
@@ -142,6 +171,12 @@ const CartPage = () => {
                                             const layers = findLayers(item.ItemID);
                                             const tiers = findTiers(item.ItemID);
                                             const colors = findColors(item.ItemID);
+                                            const totval = price * (quantities[key] || 1);
+                                            const getTot = (val) => {
+                                                subtotal(val);
+                                                return val;
+                                            }
+
                                             return (
                                                 <tr key={key}>
                                                     <td><img src={imageUrl}
@@ -243,10 +278,13 @@ const CartPage = () => {
                                                             <i onClick={() => incrementQty(key)} className="fa-solid fa-plus pm-icons"></i>
                                                         </div>
                                                     </td>
-                                                    <td><b>{price * (quantities[key] || 1)} LKR</b></td>
-                                                    <td>
+                                                    <td><b>
+                                                        {getTot(totval)} LKR
+                                                    </b></td>
+                                                    <td style={{ paddingRight: '20px' }}>
                                                         <i id='dlt-mark'
-                                                            className="fa-solid fa-circle-xmark">
+                                                            className="fa-solid fa-circle-xmark"
+                                                            onClick={() => { removeFromCart(key) }}>
                                                         </i>
                                                     </td>
                                                 </tr>
@@ -268,7 +306,7 @@ const CartPage = () => {
                             <div className="right-bttom-topPane">
                                 <div className="items-n-total">
                                     <h1 id='itemslbl'>ITEMS {count - (allCartItems.initialized ? 1 : 0)}</h1>
-                                    <h1 id='pricelbl'>{15400} LKR</h1>
+                                    <h1 id='pricelbl'>{totalamount} LKR</h1>
                                 </div>
                                 <hr id='order-hr' />
                                 <div className="promo-code">
@@ -281,7 +319,7 @@ const CartPage = () => {
                                 {/* <hr id='order-hr' /> */}
                                 <div className="shipping">
                                     <h1 id='shippinglbl'>SHIPPING</h1>
-                                    <h1 id='shippingprice'>{500} LKR</h1>
+                                    <h1 id='shippingprice'>{shipping} LKR</h1>
                                 </div>
                                 <hr id='order-hr' />
                             </div>
@@ -289,7 +327,7 @@ const CartPage = () => {
                                 {/* <hr /> */}
                                 <div className="total-price">
                                     <h1 id='totllbl'>TOTAL COST</h1>
-                                    <h1 id='totlpricelbl'>{15890} LKR</h1>
+                                    <h1 id='totlpricelbl'>{totalamount + shipping} LKR</h1>
                                 </div>
                                 <Link to="/checkout">
                                     <button id='checkoutBtn'>CHECKOUT</button>
