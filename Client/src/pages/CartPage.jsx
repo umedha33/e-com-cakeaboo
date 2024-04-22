@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import './CSS/CartPage.css'
 import cartDummy from './../components/Assets/cart-products-dummy'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CartPage = () => {
     const [allCartItems, setAllCartItems] = useState({});
     const [alldaProducts, setAllProducts] = useState([]);
     const [quantities, setQuantities] = useState({});
+
+    const navigate = useNavigate();
 
     const fetchProducts = async () => {
         await fetch('http://localhost:4000/allproducts')
@@ -63,6 +65,29 @@ const CartPage = () => {
         fetchProducts();
         fetchInfo();
     }, [])
+
+    const getCheckoutData = () => {
+        const checkoutItems = Object.entries(allCartItems).map(([key, item]) => {
+            if (key !== "initialized") {
+                const quantity = quantities[key] || 1;
+                const price = findPrice(item.ItemID);
+                return {
+                    itemId: item.ItemID,
+                    customData: item.CustomData,
+                    quantity: quantity,
+                    totalAmount: price * quantity
+                };
+            }
+            return null;
+        }).filter(item => item !== null);
+
+        return checkoutItems;
+    };
+
+    const handleCheckout = () => {
+        const checkoutData = getCheckoutData();
+        navigate('/checkout', { state: { items: checkoutData } });
+    };
 
     const keysArray = Object.keys(allCartItems);
     const count = keysArray.length;
@@ -329,7 +354,7 @@ const CartPage = () => {
                                     <h1 id='totllbl'>TOTAL COST</h1>
                                     <h1 id='totlpricelbl'>{totalamount + shipping} LKR</h1>
                                 </div>
-                                <Link to="/checkout">
+                                <Link to="/checkout" state={{ items: getCheckoutData() }}>
                                     <button id='checkoutBtn'>CHECKOUT</button>
                                 </Link>
                             </div>

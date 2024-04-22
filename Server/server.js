@@ -176,6 +176,8 @@ app.get('/oneproduct', async (req, res) => {
     res.json({ oneProduct });
 })
 
+// ===================================================
+
 // Middleware to fetch user
 const fetchUser = async (req, res, next) => {
     const token = req.header('auth-token');
@@ -195,6 +197,9 @@ const fetchUser = async (req, res, next) => {
         }
     }
 }
+
+// ===================================================
+
 
 // Endpoint for adding products to cart
 app.post('/addtocart', fetchUser, async (req, res) => {
@@ -348,6 +353,110 @@ app.post('/login', async (req, res) => {
         });
     }
 })
+
+
+
+
+
+
+// Schema for orders
+const Orders = mongoose.model('Orders', {
+    orderID: {
+        type: Number,
+    },
+    userid: {
+        type: String,
+    },
+    orderOBJ: {
+        type: Object,
+    },
+    orderDate: {
+        type: Date,
+        default: Date.now,
+    },
+    deliverDate: {
+        type: Date,
+    },
+    orderStatus: {
+        type: String,
+        default: "Order Placed",
+    },
+    custName: {
+        type: String,
+    },
+    custPhone: {
+        type: String,
+    },
+    custEmail: {
+        type: String,
+    },
+    custCity: {
+        type: String,
+    },
+    custProvince: {
+        type: String,
+    },
+    custPostal: {
+        type: String,
+    },
+    custAddress: {
+        type: String,
+    },
+    custAddNotes: {
+        type: String,
+    },
+})
+
+// Endpoint for Adding Orders
+app.post('/addorder', fetchUser, async (req, res) => {
+    try {
+        let lastOrder = await Orders.findOne().sort({ orderDate: -1 });
+        let newOrderId = lastOrder ? parseInt(lastOrder.orderID) + 1 : 1;
+
+        const { orderOBJ, deliverDate, custName, custPhone, custEmail, custCity, custProvince, custPostal, custAddress, custAddNotes } = req.body;
+
+        // Constructing the new order object with the new order ID and user ID from the middleware
+        const newOrder = new Orders({
+            orderID: newOrderId,
+            userid: req.user.id,
+            orderOBJ: orderOBJ,
+            orderDate: new Date(),
+            deliverDate: deliverDate,
+            orderStatus: "Order Placed",
+            custName: custName,
+            custPhone: custPhone,
+            custEmail: custEmail,
+            custCity: custCity,
+            custProvince: custProvince,
+            custPostal: custPostal,
+            custAddress: custAddress,
+            custAddNotes: custAddNotes
+        });
+
+        // Saving the order to the database
+        await newOrder.save();
+
+        // Sending success response back to client
+        res.json({
+            success: true,
+            message: 'Order successfully added!',
+            orderDetails: newOrder
+        });
+    } catch (error) {
+        // Handle possible errors during save operation
+        console.error("Failed to add order:", error);
+        res.status(500).json({
+            success: false,
+            message: "An error occurred while adding the order",
+            error: error.toString()
+        });
+    }
+});
+
+
+
+
+
 
 
 
