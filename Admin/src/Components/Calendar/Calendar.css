@@ -191,3 +191,36 @@
 .order-card span {
     font-weight: bold;
 }
+
+.order-card-dlvd {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(127, 219, 151, 0.662);
+    margin: 10px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.order-card-dlvditles {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.order-card-dlvd h3 {
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+}
+
+.order-card-dlvd p {
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+    margin: 5px 0;
+    text-align: left;
+}
+
+.order-card-dlvd span {
+    font-weight: bold;
+}

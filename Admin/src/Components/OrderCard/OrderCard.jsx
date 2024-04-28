@@ -82,6 +82,7 @@ const OrderCard = ({ selectedOrder }) => {
                     <div className='status-row'>
                         <p><strong>Status:</strong></p>
                         <select name="status" id="status" value={selectedOrder.orderStatus} onChange={(e) => handleStatusChange(e.target.value)}>
+                            <option style={{ color: 'red' }} disabled selected>{selectedOrder.orderStatus}</option>
                             <option value="Order Placed">Order Placed</option>
                             <option value="Accepted">Accepted</option>
                             <option value="Processing">Processing</option>

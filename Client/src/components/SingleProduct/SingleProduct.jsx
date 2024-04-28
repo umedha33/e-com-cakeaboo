@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './SingleProduct.css'
 import dummyProducts from './../Assets/dummy-products';
+import CartPage from '../../pages/CartPage';
 
 const allColors = [
     'red', 'blue', 'green', 'yellow', 'orange', 'purple',
@@ -232,8 +233,9 @@ const SingleProduct = () => {
                                     id='addtocart'
                                     onClick={() => { handleAddToCart(oneProduct.id, customizedData) }}
                                 >{buttonText} <i className={iconClass}></i></button>
-                                <Link to="/checkout" style={{ textDecoration: 'none' }}>
-                                    <button id='proceed'>Procees to Checkout ›</button>
+                                <Link to="/cart" style={{ textDecoration: 'none' }}>
+                                    <button id='proceed'
+                                    >Proceed to Checkout ›</button>
                                 </Link>
                             </div>
                             <h2 id='sprice'>{`LKR${(oneProduct.price)}/=`}</h2>

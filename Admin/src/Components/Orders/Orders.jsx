@@ -66,9 +66,9 @@ const Orders = () => {
     const isDefaultOrder = (customData) => {
         return Object.values(customData).some(value => {
             if (Array.isArray(value)) {
-                return value.some(subValue => subValue === "Default");
+                return value.some(subValue => subValue !== "Default");
             }
-            return value === "Default";
+            return value !== "Default";
         });
     }
 
@@ -86,6 +86,12 @@ const Orders = () => {
         if (!dateString) return "N/A";
         const dateObj = new Date(dateString);
         return dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
+    }
+
+    const Popup = () => {
+        setShowPopup(false);
+        fetchProducts();
+        fetchInfo();
     }
 
     return (
@@ -128,8 +134,8 @@ const Orders = () => {
                                                     alt="Product Image"
                                                     id='image'
                                                 /></td>
-                                                <td className={item.customData && !isDefaultOrder(item.customData) ? 'custom-order' : 'default-order'}>
-                                                    {item.customData && !isDefaultOrder(item.customData) ? "CUSTOM" : "DEFAULT"}
+                                                <td className={item.customData && !isDefaultOrder(item.customData) ? 'default-order' : 'custom-order'}>
+                                                    {item.customData && !isDefaultOrder(item.customData) ? "DEFAULT" : "CUSTOM"}
                                                 </td>
                                                 <td style={{ textAlign: 'left', paddingLeft: '20px' }}>{prodTitle(item.itemId)}</td>
                                                 <td>{formatDate(order.orderDate)}</td>
@@ -155,7 +161,7 @@ const Orders = () => {
             {showPopup && selectedOrder && (
                 <div className="popup">
                     <OrderCard selectedOrder={selectedOrder} />
-                    <button onClick={() => setShowPopup(false)}>Close</button>
+                    <button onClick={() => Popup()}>Close</button>
                 </div>
             )}
         </div>

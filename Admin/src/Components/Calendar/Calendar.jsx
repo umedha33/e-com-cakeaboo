@@ -1,10 +1,49 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Calendar.css'
 import dummyAdminOrders from '../Assets/dummyAdmin-orders';
 
 const Calendar = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(null);
+    const [alldaOrders, setAllOrders] = useState([]);
+    const [alldaProducts, setAllProducts] = useState([]);
+
+    const fetchProducts = async () => {
+        await fetch('http://localhost:4000/allproducts')
+            .then((res) => res.json())
+            .then((data) => {
+                if (Array.isArray(data.allProducts)) {
+                    const updatedProducts = data.allProducts.map(product => ({
+                        ...product,
+                        categories: [product.category, product.subcategory]
+                    }));
+
+                    setAllProducts(updatedProducts);
+
+                } else {
+                    console.log("data.allProducts is not an array, it is a:", typeof data.allProducts);
+                }
+            });
+    }
+
+    const fetchInfo = async () => {
+        await fetch('http://localhost:4000/allorders')
+            .then((res) => res.json())
+            .then((data) => {
+                if (Array.isArray(data.allOrders)) {
+                    setAllOrders(data.allOrders);
+                    // console.log(`Orders: `, alldaOrders);
+                } else {
+                    console.log("data.allOrders is not an array, it is a:", typeof data.allOrders);
+                }
+            });
+    }
+
+    useEffect(() => {
+        fetchProducts();
+        fetchInfo();
+    }, [])
+
 
     const getMonthYear = () => {
         const monthNames = [
@@ -22,13 +61,11 @@ const Calendar = () => {
 
     const getOrderCountsByDate = () => {
         const counts = {};
-        dummyAdminOrders.forEach(order => {
-            const deliveryDate = new Date(order.deliveryDate);
-            const key = `${deliveryDate.getMonth()}/${deliveryDate.getDate()}/${deliveryDate.getFullYear()}`;
-            if (!counts[key]) {
-                counts[key] = 0;
-            }
-            counts[key]++;
+        alldaOrders.forEach(order => {
+            const deliveryDate = new Date(order.deliverDate);
+            // Create a standardized date string key
+            const key = `${deliveryDate.getFullYear()}-${deliveryDate.getMonth() + 1}-${deliveryDate.getDate()}`;
+            counts[key] = (counts[key] || 0) + 1;
         });
         return counts;
     };
@@ -60,7 +97,7 @@ const Calendar = () => {
             <div className="calndr-return">
                 <div className="calendar-grid">
                     {days.map((day, index) => {
-                        const dateKey = `${currentDate.getMonth()}/${day}/${currentDate.getFullYear()}`;
+                        const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}`;
                         const orderCount = orderCounts[dateKey] || 0;
                         const isSelectedDay = selectedDate && day === selectedDate.getDate() && selectedDate.getMonth() === currentDate.getMonth();
                         return (
@@ -77,26 +114,32 @@ const Calendar = () => {
         );
     };
 
+    const formatDate = (dateString) => {
+        if (!dateString) return "N/A";
+        const dateObj = new Date(dateString);
+        return dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
+    }
+
     const renderOrderDetails = () => {
         if (!selectedDate) return null;
         const formattedDate = `${selectedDate.getMonth()}/${selectedDate.getDate()}/${selectedDate.getFullYear()}`;
-        const ordersForDay = dummyAdminOrders.filter(order => {
-            const orderDate = new Date(order.deliveryDate);
+        const ordersForDay = alldaOrders.filter(order => {
+            const orderDate = new Date(order.deliverDate);
             return `${orderDate.getMonth()}/${orderDate.getDate()}/${orderDate.getFullYear()}` === formattedDate;
         });
 
         if (ordersForDay.length === 0) return null;
 
         return ordersForDay.map(order => (
-            <div key={order.orderID} className="order-card">
+            <div key={order.orderID} className={order.orderStatus === 'Delivered' ? "order-card-dlvd" : "order-card"}>
                 <div className="ord-card-titles">
-                    <h3>{order.orderTitle}</h3>
+                    <h3 style={{ textTransform: 'capitalize' }}><span>Customer Name: </span>{order.custName}</h3>
                     <h3>ORDER ID: {order.orderID}</h3>
                 </div>
-                <p><span>Date: </span>{order.orderDate}</p>
-                <p><span>Name: </span>{order.custName}</p>
+                <p><span>Date: </span>{formatDate(order.deliverDate)}</p>
                 <p><span>Phone: </span>{order.custPhone}</p>
-                <p><span>Adress: </span>{order.custAddress}</p>
+                <p><span>Email: </span>{order.custEmail}</p>
+                <p><span>Address: </span>{order.custAddress}</p>
                 <p><span>Status: </span>{order.orderStatus}</p>
             </div>
         ));
@@ -121,7 +164,13 @@ const Calendar = () => {
         <div className='calendar-container'>
             <div className="caln-body">
                 <div className="calendar-section">
-                    {renderCalendar()}
+                    {alldaOrders.length > 0 ? (
+                        <>
+                            {renderCalendar()}
+                        </>
+                    ) : (
+                        <></>
+                    )}
                 </div>
                 <div className="month-year">
                     <div className="month-info-panel">
