@@ -52,6 +52,24 @@ const OrderCard = ({ selectedOrder }) => {
         });
     }
 
+    const handleStatusChange = async (newStatus) => {
+        const response = await fetch('http://localhost:4000/updateOrderStatus', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ orderID: selectedOrder.orderID, newStatus })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            // window.location.reload();
+        } else {
+            console.error("Failed to update order status:", data.message);
+        }
+    };
+
+
     return (
         <div className='ordercard-container'>
             <h2>Order Details</h2>
@@ -63,14 +81,13 @@ const OrderCard = ({ selectedOrder }) => {
                     <p><strong>Customization:</strong>{selectedOrder.selectedItem.customData && !isDefaultOrder(selectedOrder.selectedItem.customData) ? " Custom" : " Default"}</p>
                     <div className='status-row'>
                         <p><strong>Status:</strong></p>
-                        <select name="status" id="status" >
-                            <option style={{ color: 'red' }} value="" disabled selected>{selectedOrder.orderStatus}</option>
-                            <option value="order-placed">Order Placed</option>
-                            <option value="accepted">Accepted</option>
-                            <option value="processing">Processing</option>
-                            <option value="ready">Ready</option>
-                            <option value="dispatched">Dispatched</option>
-                            <option value="delivered">Delivered</option>
+                        <select name="status" id="status" value={selectedOrder.orderStatus} onChange={(e) => handleStatusChange(e.target.value)}>
+                            <option value="Order Placed">Order Placed</option>
+                            <option value="Accepted">Accepted</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Ready">Ready</option>
+                            <option value="Dispatched">Dispatched</option>
+                            <option value="Delivered">Delivered</option>
                         </select>
                     </div>
                 </div>
@@ -82,11 +99,12 @@ const OrderCard = ({ selectedOrder }) => {
                     <div className="order-right-col">
                         <div className="all-info">
                             <p><strong>Order Date:</strong> {formatDate(selectedOrder.orderDate)}</p>
-                            <p><strong>Delivery Date:</strong> {formatDate(selectedOrder.orderDate)}</p>
+                            <p><strong>Delivery Date:</strong> {formatDate(selectedOrder.deliverDate)}</p>
                             <p><strong>Quantity:</strong> {selectedOrder.selectedItem.quantity}</p>
                             <div className="variations">
                                 <div className="layer-tier">
                                     <p><strong>Layer Count: </strong> {selectedOrder.selectedItem.customData.customlayers}</p>
+                                    |
                                     <p><strong>Tier Count: </strong> {selectedOrder.selectedItem.customData.customtiers}</p>
                                 </div>
                                 <div className="color-set">

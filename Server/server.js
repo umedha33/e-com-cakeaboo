@@ -354,11 +354,6 @@ app.post('/login', async (req, res) => {
     }
 })
 
-
-
-
-
-
 // Schema for orders
 const Orders = mongoose.model('Orders', {
     orderID: {
@@ -486,8 +481,30 @@ app.get('/allorders', async (req, res) => {
     res.json({ allOrders });
 })
 
+// Endpoint for Updating Order Status
+app.post('/updateOrderStatus', async (req, res) => {
+    const { orderID, newStatus } = req.body;
 
+    if (!orderID || !newStatus) {
+        return res.status(400).json({ success: false, message: "Missing order ID or new status" });
+    }
 
+    try {
+        const updatedOrder = await Orders.findOneAndUpdate(
+            { orderID: orderID },
+            { $set: { orderStatus: newStatus } },
+            { new: true }
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
+
+        res.json({ success: true, message: "Order status updated successfully", updatedOrder });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Failed to update order status", error: error.toString() });
+    }
+});
 
 
 
