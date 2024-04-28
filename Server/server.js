@@ -478,6 +478,18 @@ app.get('/getorderscust', fetchUser, async (req, res) => {
     }
 });
 
+// Endpoint fot getting all orders
+app.get('/allorders', async (req, res) => {
+    let allOrders = await Orders.find({});
+    console.log("All Orders Fetched");
+    // console.log("Sending all products:", allOrders);
+    res.json({ allOrders });
+})
+
+
+
+
+
 
 
 

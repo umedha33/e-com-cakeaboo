@@ -1,19 +1,70 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './OrderCard.css'
 
-const OrderCard = ({ order }) => {
+const OrderCard = ({ selectedOrder }) => {
+    const [alldaProducts, setAllProducts] = useState([]);
+
+    const fetchProducts = async () => {
+        await fetch('http://localhost:4000/allproducts')
+            .then((res) => res.json())
+            .then((data) => {
+                if (Array.isArray(data.allProducts)) {
+                    const updatedProducts = data.allProducts.map(product => ({
+                        ...product,
+                        categories: [product.category, product.subcategory]
+                    }));
+
+                    setAllProducts(updatedProducts);
+
+                } else {
+                    console.log("data.allProducts is not an array, it is a:", typeof data.allProducts);
+                }
+            });
+    }
+
+    useEffect(() => {
+        fetchProducts();
+        console.log(`Received: `, selectedOrder);
+    }, [])
+
+    const prodTitle = (itemId) => {
+        const product = alldaProducts.find(product => product.id === itemId);
+        return product ? product.title : '';
+    }
+
+    const findImage = (itemId) => {
+        const product = alldaProducts.find(product => product.id === itemId);
+        return product ? product.mainimage : '';
+    };
+
+    const formatDate = (dateString) => {
+        if (!dateString) return "N/A";
+        const dateObj = new Date(dateString);
+        return dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
+    }
+
+    const isDefaultOrder = (customData) => {
+        return Object.values(customData).some(value => {
+            if (Array.isArray(value)) {
+                return value.some(subValue => subValue === "Default");
+            }
+            return value === "Default";
+        });
+    }
+
     return (
         <div className='ordercard-container'>
             <h2>Order Details</h2>
+
             <div className="order-info">
                 <div className="maininf">
-                    <p><strong>Order ID:</strong> {order.orderID}</p>
-                    <p><strong>Order Title:</strong> {order.orderTitle}</p>
-                    <p><strong>Customization:</strong> {order.isCustom ? "Custom" : "Default"}</p>
+                    <p><strong>Order ID:</strong> {selectedOrder.orderID}</p>
+                    <p><strong>Order Title:</strong> {prodTitle(selectedOrder.selectedItem.itemId)}</p>
+                    <p><strong>Customization:</strong>{selectedOrder.selectedItem.customData && !isDefaultOrder(selectedOrder.selectedItem.customData) ? " Custom" : " Default"}</p>
                     <div className='status-row'>
                         <p><strong>Status:</strong></p>
                         <select name="status" id="status" >
-                            <option style={{ color: 'red' }} value="" disabled selected>{order.orderStatus}</option>
+                            <option style={{ color: 'red' }} value="" disabled selected>{selectedOrder.orderStatus}</option>
                             <option value="order-placed">Order Placed</option>
                             <option value="accepted">Accepted</option>
                             <option value="processing">Processing</option>
@@ -26,17 +77,17 @@ const OrderCard = ({ order }) => {
 
                 <div className="card-body">
                     <div className="crdb-left-col">
-                        <img src={order.imageUrl} alt="order-image" />
+                        <img src={findImage(selectedOrder.selectedItem.itemId)} alt="Item Image" />
                     </div>
                     <div className="order-right-col">
                         <div className="all-info">
-                            <p><strong>Order Date:</strong> {order.orderDate}</p>
-                            <p><strong>Delivery Date:</strong> {order.deliveryDate}</p>
-                            <p><strong>Quantity:</strong> {order.quantity}</p>
+                            <p><strong>Order Date:</strong> {formatDate(selectedOrder.orderDate)}</p>
+                            <p><strong>Delivery Date:</strong> {formatDate(selectedOrder.orderDate)}</p>
+                            <p><strong>Quantity:</strong> {selectedOrder.selectedItem.quantity}</p>
                             <div className="variations">
                                 <div className="layer-tier">
-                                    <p><strong>Layer Count: </strong> {order.layerCount}</p>
-                                    <p><strong>Tier Count: </strong> {order.tierCount}</p>
+                                    <p><strong>Layer Count: </strong> {selectedOrder.selectedItem.customData.customlayers}</p>
+                                    <p><strong>Tier Count: </strong> {selectedOrder.selectedItem.customData.customtiers}</p>
                                 </div>
                                 <div className="color-set">
                                     <p><strong>Color:</strong></p>
@@ -46,36 +97,54 @@ const OrderCard = ({ order }) => {
                                         alignItems: 'center',
                                         gap: '8px',
                                     }}>
-                                        {Array.isArray(order.color) ? order.color.map((color, index) => (
-                                            <div key={index} style={{
-                                                backgroundColor: color,
-                                                width: '20px',
-                                                height: '20px',
-                                                borderRadius: '4px',
-                                            }}></div>
-                                        )) : (
-                                            <div style={{
-                                                backgroundColor: order.color,
-                                                width: '20px',
-                                                height: '20px',
-                                                borderRadius: '4px',
-                                            }}></div>
+                                        {selectedOrder.selectedItem.customData.customcolor[0] !== 'Default' ? (
+                                            <>
+                                                {Array.isArray(selectedOrder.selectedItem.customData.customcolor) ? selectedOrder.selectedItem.customData.customcolor.map((color, index) => (
+                                                    <div key={index} style={{
+                                                        backgroundColor: color,
+                                                        width: '20px',
+                                                        height: '20px',
+                                                        borderRadius: '4px',
+                                                    }}></div>
+                                                )) : (
+                                                    <div style={{
+                                                        backgroundColor: selectedOrder.selectedItem.customData.customcolor,
+                                                        width: '20px',
+                                                        height: '20px',
+                                                        borderRadius: '4px',
+                                                    }}></div>
+                                                )}
+                                            </>
+                                        ) : (
+                                            <><p style={{ marginLeft: '-10px' }}>Default</p></>
                                         )}
+
                                     </div>
                                 </div>
-                                <p><strong>Flavor:</strong> {order.flavor}</p>
-                                <p><strong>Writing:</strong> {order.writing || "No writings"}</p>
-                                <p><strong>Comments:</strong> {order.comment || "No comments"}</p>
+                                <p><strong>Flavor:</strong> {selectedOrder.selectedItem.customData.customflavor}</p>
+                                <p><strong>Writing:</strong> {selectedOrder.selectedItem.customData.customwriting || "No writings"}</p>
+                                <p><strong>Comments:</strong> {selectedOrder.selectedItem.customData.customcomment || "No comments"}</p>
 
                             </div>
-                            <p><strong>Customer Name:</strong> {order.custName}</p>
-                            <p><strong>Customer Phone:</strong> {order.custPhone}</p>
-                            <p><strong>Address:</strong> {order.custAddress}</p>
-                            <p><strong>Phone:</strong> {order.custPhone}</p>
+                            <p style={{ textTransform: 'capitalize' }}><strong>Customer Name:</strong> {selectedOrder.custName}</p>
+                            <p><strong>Email Address:</strong> {selectedOrder.custEmail}</p>
+                            <p><strong>Customer Contact:</strong> {selectedOrder.custPhone}</p>
+                            <p style={{ textTransform: 'capitalize' }}><strong>Deliver Address:</strong> {selectedOrder.custAddress}</p>
+                            <div className='dlvr-locs'>
+                                <p style={{ textTransform: 'capitalize' }}><strong>City: </strong> {selectedOrder.custCity}</p>
+                                |
+                                <p style={{ textTransform: 'capitalize' }}><strong>Province:</strong> {selectedOrder.custProvince}</p>
+                                |
+                                <p><strong>Postal Code:</strong> {selectedOrder.custPostal}</p>
+                            </div>
+                            <p><strong>Customer Note:</strong> {selectedOrder.custAddNotes || "None"}</p>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
         </div>
     )
 }

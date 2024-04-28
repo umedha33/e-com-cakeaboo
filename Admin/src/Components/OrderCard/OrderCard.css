@@ -53,30 +53,40 @@
     justify-content: center;
     margin-bottom: -10px;
     padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .crdb-left-col {
-    /* background-color: black; */
-    padding: 10px 30px;
+    /* background-color: cadetblue; */
+    /* padding: 10px 30px; */
     display: flex;
+    height: 100%;
+    width: 50%;
     align-items: center;
     justify-content: center;
 }
 
 .crdb-left-col img {
-    width: 22rem;
+    width: 90%;
     border-radius: 15px;
-    margin-left: -10px;
+    /* margin-left: -10px; */
+    margin: 10px 0;
 }
 
 
 .order-right-col {
     /* background-color: antiquewhite; */
-    padding-top: 15px;
+    /* padding-top: 15px; */
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 70%;
+    width: 50%;
+}
+
+.dlvr-locs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .all-info {

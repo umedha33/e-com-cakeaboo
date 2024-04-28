@@ -90,6 +90,7 @@
     font-size: 0.9rem;
     font-family: "Roboto", sans-serif;
     color: rebeccapurple;
+    text-transform: capitalize;
 }
 
 #delv-date {
