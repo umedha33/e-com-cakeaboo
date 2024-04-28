@@ -3,9 +3,10 @@ import './CSS/GeneratePage.css'
 
 const GeneratePage = () => {
   const [generatedImage, setGeneratedImage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [formInputs, setFormInputs] = useState({
-    entercake: '',
     entercat: '',
+    entercake: '',
     enterflav: '',
     entershape: '',
     entercolor: '',
@@ -23,7 +24,8 @@ const GeneratePage = () => {
   }
 
   const handleSubmit = async () => {
-    const prompt = Object.values(formInputs).filter(Boolean).join(' ');
+    setIsLoading(true);
+    const prompt = "One " + formInputs.entercat + " " + formInputs.entercake + " that is " + formInputs.enterflav + " flavored " + formInputs.entershape + " shaped " + formInputs.entercolor + " color " + formInputs.entericing + " " + formInputs.enterlnt + " and " + formInputs.enterdtls;
     console.log("Generated Prompt:", prompt);
 
     try {
@@ -37,9 +39,10 @@ const GeneratePage = () => {
       const data = await response.json();
       console.log("Image URL:", data.data);
       setGeneratedImage(data.data);
-
+      setIsLoading(false);
     } catch (error) {
       console.error('Failed to generate image:', error);
+      setIsLoading(false);
     }
   }
 
@@ -47,14 +50,14 @@ const GeneratePage = () => {
     <div className='generate-page-container'>
       <div className="generate-left">
         <div className="preview-panel">
-          {generatedImage ? (
+          {isLoading ? (
+            <div className="loader">Loading...</div>
+          ) : generatedImage ? (
             <div className='gencont'>
               <img src={generatedImage} alt="Generated Cake" />
             </div>
           ) : (
-            <>
-              <h1>Provide your preferences and get it generated here!</h1>
-            </>
+            <h1>Provide your preferences and get it generated here!</h1>
           )}
         </div>
         <h1 id='bottom-txt'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, magnam optio obcaecati est doloribus commodi, atque eaque pariatur itaque rerum voluptatibus omnis quam, consequuntur similique consectetur! Corporis reiciendis nam harum?</h1>
@@ -62,13 +65,13 @@ const GeneratePage = () => {
       <div className="generate-right">
         <div className="form-panel">
           <div className='formlines-double'>
-            <div>
-              <label htmlFor="entercake">Enter cake type:</label>
-              <input type="entercake" name="entercake" id="entercake" placeholder='eg: Cake, Cup Cake, Sweets' onChange={handleInputChange} />
-            </div>
             <div >
               <label htmlFor="entercat">Enter category:</label>
               <input type="entercat" name="entercat" id="entercat" placeholder='eg: Kids, Love Themed, Party' onChange={handleInputChange} />
+            </div>
+            <div>
+              <label htmlFor="entercake">Enter cake type:</label>
+              <input type="entercake" name="entercake" id="entercake" placeholder='eg: Cake, Cup Cake, Sweets' onChange={handleInputChange} />
             </div>
           </div>
           <div className='formlines-double'>

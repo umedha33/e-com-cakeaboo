@@ -22,7 +22,12 @@
     color: rebeccapurple;
 }
 
-
+#dlt-mark-tp {
+    font-size: 1.1rem;
+    color: red;
+    cursor: pointer;
+    z-index: 1000;
+}
 
 
 .coup-creat {

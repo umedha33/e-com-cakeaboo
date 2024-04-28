@@ -59,7 +59,6 @@ app.post('/generateimage', async (req, res) => {
     }
 });
 
-
 // Endpoint for Uploading Images
 app.use('/images', express.static('upload/images'))
 app.post("/uploadImages", upload.fields([
@@ -535,6 +534,100 @@ app.post('/updateOrderStatus', async (req, res) => {
         res.json({ success: true, message: "Order status updated successfully", updatedOrder });
     } catch (error) {
         res.status(500).json({ success: false, message: "Failed to update order status", error: error.toString() });
+    }
+});
+
+
+// Schema for coupons
+const Coupons = mongoose.model('Coupons', {
+    couponID: {
+        type: Number,
+    },
+    couponTitle: {
+        type: String,
+    },
+    couponCategory: {
+        type: String,
+    },
+    couponStartDate: {
+        type: Date,
+    },
+    couponEndDate: {
+        type: Date,
+    },
+    couponPrice: {
+        type: Number,
+    },
+    couponCode: {
+        type: String,
+    },
+})
+
+// Endpoint for Adding Coupons
+app.post('/addcoupon', async (req, res) => {
+    const { title, category, startdate, enddate, price, code } = req.body;
+
+    // Find the next couponID if needed
+    const nextID = async () => {
+        const lastCoupon = await Coupons.findOne({}).sort({ couponID: -1 });
+        return lastCoupon ? lastCoupon.couponID + 1 : 1;
+    };
+
+    try {
+        const coupon = await Coupons.findOneAndUpdate(
+            { couponCode: code },
+            {
+                couponID: await nextID(),
+                couponTitle: title,
+                couponCategory: category,
+                couponStartDate: startdate,
+                couponEndDate: enddate,
+                couponPrice: price,
+                couponCode: code
+            },
+            {
+                new: true,
+                upsert: true
+            }
+        );
+
+        console.log("Coupon processed:", coupon);
+        res.json({
+            success: true,
+            message: "Coupon has been added / updated successfully.",
+            title: title
+        });
+    } catch (error) {
+        console.error("Error processing coupon:", error);
+        res.status(500).json({ success: false, message: "Failed to process coupon" });
+    }
+});
+
+// Endpoint for Getting All coupons
+app.get('/allcoupons', async (req, res) => {
+    let allCoupons = await Coupons.find({});
+    console.log("All Coupons Fetched");
+    // console.log("Sending all coupons:", allCoupons);
+    res.json({ allCoupons });
+})
+
+// Endpoint for Deleting coupons
+app.post('/removecoupon', async (req, res) => {
+    const { id } = req.body;
+    const result = await Coupons.findOneAndDelete({ couponID: id });
+
+    if (result) {
+        // console.log("Coupon Removed:", result.title);
+        res.json({
+            success: true,
+            title: result.title
+        });
+    } else {
+        // console.log("No matching document found for ID:", id);
+        res.status(404).json({
+            success: false,
+            message: "No matching coupon found"
+        });
     }
 });
 
