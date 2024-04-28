@@ -1,5 +1,7 @@
-const port = 4000;
+const port = process.env.PORT || 4000;
 const express = require("express");
+const { OpenAI } = require('openai');
+const dotenv = require('dotenv').config();
 const app = express();
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
@@ -9,6 +11,7 @@ const cors = require("cors");
 
 app.use(express.json());
 app.use(cors());
+// app.use('/openai', require('./routes/openaiRoutes'));
 
 // Database Connection with MongoDB
 mongoose.connect("mongodb+srv://ecomcakeadmin:KJSbY147cPWxMzPB@cluster0.unjvjpt.mongodb.net/ecom-cakeaboo");
@@ -27,6 +30,35 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage })
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
+
+// Endpoint for generating images using OpenAI
+app.post('/generateimage', async (req, res) => {
+    try {
+        const response = await openai.images.generate({
+            prompt: req.body.prompt,
+            n: 1,
+            size: "512x512"
+        });
+
+        const imageUrl = response.data[0].url;
+
+        res.status(200).json({
+            success: true,
+            data: imageUrl
+        });
+    } catch (error) {
+        console.error("Error generating image:", error);
+        res.status(500).json({
+            success: false,
+            error: 'Failed to generate image'
+        });
+    }
+});
+
 
 // Endpoint for Uploading Images
 app.use('/images', express.static('upload/images'))
