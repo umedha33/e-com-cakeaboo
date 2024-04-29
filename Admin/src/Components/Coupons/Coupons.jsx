@@ -21,7 +21,7 @@ const Coupons = () => {
                 if (Array.isArray(data.allCoupons)) {
                     // console.log("data.allProducts is an array");
                     setAllCoupons(data.allCoupons);
-                    console.log(`Coupons: `, alldaCoupons);
+                    // console.log(`Coupons: `, alldaCoupons);
                 } else {
                     console.log("data.allProducts is not an array, it is a:", typeof data.allProducts);
                 }
@@ -151,11 +151,11 @@ const Coupons = () => {
                         <div className="date-sel-set">
                             <div className='normal-inputs'>
                                 <label htmlFor="startdate">START DATE</label>
-                                <input type="date" name="startdate" id="startdate" value={selectedCoupon.startDate || ''} onChange={(e) => setSelectedCoupon({ ...selectedCoupon, couponStartDate: e.target.value })} />
+                                <input type="date" name="startdate" id="startdate" value={selectedCoupon.startDate || ''} onChange={(e) => setSelectedCoupon({ ...selectedCoupon, startDate: e.target.value })} />
                             </div>
                             <div className='normal-inputs'>
                                 <label htmlFor="enddate">END DATE</label>
-                                <input type="date" name="enddate" id="enddate" value={selectedCoupon.endDate || ''} onChange={(e) => setSelectedCoupon({ ...selectedCoupon, couponEndDate: e.target.value })} />
+                                <input type="date" name="enddate" id="enddate" value={selectedCoupon.endDate || ''} onChange={(e) => setSelectedCoupon({ ...selectedCoupon, endDate: e.target.value })} />
                             </div>
                         </div>
                         <div className='normal-inputs'>
