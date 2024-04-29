@@ -116,6 +116,7 @@ const Orders = () => {
                                 <th style={{ textAlign: 'left', paddingLeft: '20px' }}>TITLE</th>
                                 <th>ORDER DATE</th>
                                 <th>DELIVERY DATE</th>
+                                <th>PAID AMOUNT</th>
                                 <th>CUSTOMER NAME</th>
                                 <th>ORDER STATUS</th>
                             </tr>
@@ -140,6 +141,7 @@ const Orders = () => {
                                                 <td style={{ textAlign: 'left', paddingLeft: '20px' }}>{prodTitle(item.itemId)}</td>
                                                 <td>{formatDate(order.orderDate)}</td>
                                                 <td id='delv-date' style={{ fontWeight: 'bold' }}>{formatDate(order.deliverDate)}</td>
+                                                <td style={{ fontWeight: 'bold' }}>{order.checkoutAmount} LKR</td>
                                                 <td id='custName' style={{ fontWeight: 'bold' }}>{order.custName}</td>
                                                 <td>{order.orderStatus}</td>
                                             </tr>
@@ -147,7 +149,7 @@ const Orders = () => {
                                     )}
                                 </>
                             ) : (
-                                <><h1>Loading...</h1></>
+                                <><h3>No Orders...</h3></>
                             )}
                         </tbody>
                     </table>

@@ -431,6 +431,9 @@ const Orders = mongoose.model('Orders', {
     custAddNotes: {
         type: String,
     },
+    checkoutAmount: {
+        type: Number,
+    },
 })
 
 // Endpoint for Adding Orders
@@ -439,7 +442,7 @@ app.post('/addorder', fetchUser, async (req, res) => {
         let lastOrder = await Orders.findOne().sort({ orderDate: -1 });
         let newOrderId = lastOrder ? parseInt(lastOrder.orderID) + 1 : 1;
 
-        const { orderOBJ, deliverDate, custName, custPhone, custEmail, custCity, custProvince, custPostal, custAddress, custAddNotes } = req.body;
+        const { orderOBJ, deliverDate, custName, custPhone, custEmail, custCity, custProvince, custPostal, custAddress, custAddNotes, checkoutAmount } = req.body;
 
         // Constructing the new order object with the new order ID and user ID from the middleware
         const newOrder = new Orders({
@@ -456,7 +459,8 @@ app.post('/addorder', fetchUser, async (req, res) => {
             custProvince: custProvince,
             custPostal: custPostal,
             custAddress: custAddress,
-            custAddNotes: custAddNotes
+            custAddNotes: custAddNotes,
+            checkoutAmount: checkoutAmount
         });
 
         // Saving the order to the database
@@ -631,7 +635,14 @@ app.post('/removecoupon', async (req, res) => {
     }
 });
 
-
+// Endpoint for Getting One Product
+app.get('/onecoupon', async (req, res) => {
+    // console.log(`apu eka: `, req.query.couponCode)
+    let oneCoupon = await Coupons.findOne({ couponCode: req.query.couponCode });
+    console.log("Coupon Fetched");
+    console.log(`Coupon Details: `, oneCoupon);
+    res.json({ oneCoupon });
+})
 
 
 

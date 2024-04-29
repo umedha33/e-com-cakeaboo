@@ -5,8 +5,11 @@ import { useLocation } from 'react-router-dom';
 const Checkout = () => {
     const location = useLocation();
     const { items } = location.state;
+    const { checkoutAmount } = location.state;
+    const passAmount = checkoutAmount;
     // const orderOBJ = items;
     // console.log(`Items received:`, items);
+    // console.log(`Amount:`, checkoutAmount);
 
     // Initial state for userData
     const [userData, setUserData] = useState({
@@ -38,11 +41,12 @@ const Checkout = () => {
         const custPostal = userData.custPostal;
         const custAddress = userData.custAddress;
         const custAddNotes = userData.custAddNotes;
+        const checkoutAmount = passAmount;
 
-        addOrder(orderOBJ, deliverDate, custName, custPhone, custEmail, custCity, custProvince, custPostal, custAddress, custAddNotes);
+        addOrder(orderOBJ, deliverDate, custName, custPhone, custEmail, custCity, custProvince, custPostal, custAddress, custAddNotes, checkoutAmount);
     }
 
-    const addOrder = (orderOBJ, deliverDate, custName, custPhone, custEmail, custCity, custProvince, custPostal, custAddress, custAddNotes) => {
+    const addOrder = (orderOBJ, deliverDate, custName, custPhone, custEmail, custCity, custProvince, custPostal, custAddress, custAddNotes, checkoutAmount) => {
         if (localStorage.getItem('auth-token')) {
             fetch('http://localhost:4000/addorder', {
                 method: 'POST',
@@ -62,6 +66,7 @@ const Checkout = () => {
                     custPostal: custPostal,
                     custAddress: custAddress,
                     custAddNotes: custAddNotes,
+                    checkoutAmount: checkoutAmount,
                 }),
             }).then((response) => response.json())
                 .then((data) => {

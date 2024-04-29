@@ -7,6 +7,10 @@ const CartPage = () => {
     const [allCartItems, setAllCartItems] = useState({});
     const [alldaProducts, setAllProducts] = useState([]);
     const [quantities, setQuantities] = useState({});
+    // const [coupon, setCoupon] = useState([]);
+    const [promoInp, setPromoInp] = useState('');
+    const [promPrice, setPromPrice] = useState();
+    // const [chckoutAmount, setChckoutAmount] = useState(0);
 
     const navigate = useNavigate();
 
@@ -75,14 +79,42 @@ const CartPage = () => {
                     itemId: item.ItemID,
                     customData: item.CustomData,
                     quantity: quantity,
-                    totalAmount: price * quantity
+                    totalAmount: price * quantity,
                 };
             }
             return null;
         }).filter(item => item !== null);
-
+        // console.log(checkoutItems);
         return checkoutItems;
     };
+
+    const fetchCoupon = async (code) => {
+        // console.log(`yawana eka: `, code);
+        const response = await fetch(`http://localhost:4000/onecoupon?couponCode=${code}`);
+        const data = await response.json();
+        // await setCoupon(data.oneCoupon);
+
+        if (data.oneCoupon && data.oneCoupon.couponCode === code) {
+            const currentDate = new Date();
+            const formattedDate = currentDate.toISOString().slice(0, 10);
+            const startDate = formatDate(data.oneCoupon.couponStartDate);
+            const endDate = formatDate(data.oneCoupon.couponEndDate);
+
+            const currentDateString = new Date(formattedDate);
+            const startDateObj = new Date(startDate);
+            const endDateObj = new Date(endDate);
+
+
+            if (currentDateString < startDateObj || currentDateString > endDateObj) {
+                window.alert("Promo is not valid.");
+            } else {
+                // console.log(`Coupon Price`, data.oneCoupon.couponPrice);
+                setPromPrice(data.oneCoupon.couponPrice);
+            }
+        } else {
+            window.alert("Invalid Promo Code!")
+        }
+    }
 
     const handleCheckout = () => {
         const checkoutData = getCheckoutData();
@@ -91,6 +123,12 @@ const CartPage = () => {
 
     const keysArray = Object.keys(allCartItems);
     const count = keysArray.length;
+
+    const formatDate = (dateString) => {
+        if (!dateString) return "N/A";
+        const dateObj = new Date(dateString);
+        return dateObj.toISOString().slice(0, 10);
+    }
 
     const findProductImage = (itemId) => {
         const product = alldaProducts.find(product => product.id === itemId);
@@ -337,8 +375,10 @@ const CartPage = () => {
                                 <div className="promo-code">
                                     <h1 id='promolbl'>PROMO CODE</h1>
                                     <div className="promoinner">
-                                        <input type="text" name="promo" id="promobox" />
-                                        <button id='applyBtn'>APPLY</button>
+                                        <input type="text" name="promo" id="promobox"
+                                            value={promoInp}
+                                            onChange={(e) => setPromoInp(e.target.value)} />
+                                        <button id='applyBtn' onClick={() => { fetchCoupon(promoInp) }}>APPLY</button>
                                     </div>
                                 </div>
                                 {/* <hr id='order-hr' /> */}
@@ -346,15 +386,27 @@ const CartPage = () => {
                                     <h1 id='shippinglbl'>SHIPPING</h1>
                                     <h1 id='shippingprice'>{shipping} LKR</h1>
                                 </div>
+                                <div className="shipping">
+                                    <h1 id='shippinglbl'>PROMO</h1>
+                                    {promPrice ? (
+                                        <>
+                                            <h1 id='shippingprice'>{- promPrice} LKR</h1>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <h1 id='shippingprice'>0 LKR</h1>
+                                        </>
+                                    )}
+                                </div>
                                 <hr id='order-hr' />
                             </div>
                             <div className="right-bttom-bottomPane">
                                 {/* <hr /> */}
                                 <div className="total-price">
                                     <h1 id='totllbl'>TOTAL COST</h1>
-                                    <h1 id='totlpricelbl'>{totalamount + shipping} LKR</h1>
+                                    <h1 id='totlpricelbl'>{(totalamount + shipping - (promPrice || 0))} LKR</h1>
                                 </div>
-                                <Link to="/checkout" state={{ items: getCheckoutData() }}>
+                                <Link to="/checkout" state={{ items: getCheckoutData(), checkoutAmount: (totalamount + shipping - (promPrice || 0)) }}>
                                     <button id='checkoutBtn'>CHECKOUT</button>
                                 </Link>
                             </div>

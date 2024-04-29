@@ -137,6 +137,7 @@ const Calendar = () => {
                     <h3>ORDER ID: {order.orderID}</h3>
                 </div>
                 <p><span>Date: </span>{formatDate(order.deliverDate)}</p>
+                <p><span>Paid Amount: </span>{order.checkoutAmount} LKR</p>
                 <p><span>Phone: </span>{order.custPhone}</p>
                 <p><span>Email: </span>{order.custEmail}</p>
                 <p><span>Address: </span>{order.custAddress}</p>
