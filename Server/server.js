@@ -550,9 +550,9 @@ const Coupons = mongoose.model('Coupons', {
     couponTitle: {
         type: String,
     },
-    couponCategory: {
-        type: String,
-    },
+    // couponCategory: {
+    //     type: String,
+    // },
     couponStartDate: {
         type: Date,
     },
@@ -569,7 +569,7 @@ const Coupons = mongoose.model('Coupons', {
 
 // Endpoint for Adding Coupons
 app.post('/addcoupon', async (req, res) => {
-    const { title, category, startdate, enddate, price, code } = req.body;
+    const { title, startdate, enddate, price, code } = req.body;
 
     // Find the next couponID if needed
     const nextID = async () => {
@@ -583,7 +583,7 @@ app.post('/addcoupon', async (req, res) => {
             {
                 couponID: await nextID(),
                 couponTitle: title,
-                couponCategory: category,
+                // couponCategory: category,
                 couponStartDate: startdate,
                 couponEndDate: enddate,
                 couponPrice: price,
@@ -635,7 +635,7 @@ app.post('/removecoupon', async (req, res) => {
     }
 });
 
-// Endpoint for Getting One Product
+// Endpoint for Getting One Coupon
 app.get('/onecoupon', async (req, res) => {
     // console.log(`apu eka: `, req.query.couponCode)
     let oneCoupon = await Coupons.findOne({ couponCode: req.query.couponCode });

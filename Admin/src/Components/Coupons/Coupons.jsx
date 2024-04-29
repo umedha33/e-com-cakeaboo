@@ -6,7 +6,6 @@ const Coupons = () => {
 
     const [selectedCoupon, setSelectedCoupon] = useState({
         couponTitle: '',
-        couponCategory: 'cakes',
         couponPrice: '',
         couponCode: '',
         startDate: '',
@@ -43,7 +42,6 @@ const Coupons = () => {
             },
             body: JSON.stringify({
                 title: selectedCoupon.couponTitle,
-                category: selectedCoupon.couponCategory,
                 startdate: selectedCoupon.startDate,
                 enddate: selectedCoupon.endDate,
                 price: selectedCoupon.couponPrice,
@@ -52,8 +50,8 @@ const Coupons = () => {
         }).then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                if (data.success) { // Assuming your backend sends back a success property when the operation is successful
-                    fetchCoupons(); // Refresh the coupons list after successfully adding a new coupon
+                if (data.success) {
+                    fetchCoupons();
                 } else {
                     console.error('Failed to add coupon:', data.message);
                 }
@@ -67,13 +65,11 @@ const Coupons = () => {
 
         setSelectedCoupon({
             couponTitle: coupon.couponTitle,
-            couponCategory: coupon.couponCategory,
             couponPrice: coupon.couponPrice,
             couponCode: coupon.couponCode,
             startDate: formDate(coupon.couponStartDate),
             endDate: formDate(coupon.couponEndDate)
         });
-        // console.log(selectedCoupon);
     }
 
     const formatDate = (dateString) => {
@@ -114,8 +110,7 @@ const Coupons = () => {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>TITLE</th>
-                                <th>CATEGORY</th>
+                                <th style={{ textAlign: 'left', paddingLeft: '15px' }}>TITLE</th>
                                 <th>PRICE</th>
                                 <th>CODE</th>
                                 <th>VALID TILL</th>
@@ -129,7 +124,6 @@ const Coupons = () => {
                                         <tr key={index} onClick={() => handleRowClick(coupon)}>
                                             <td style={{ width: '3%' }}>{coupon.couponID}</td>
                                             <td id='coup-title' style={{ width: '15%' }}>{coupon.couponTitle}</td>
-                                            <td style={{ width: '5%' }}>{coupon.couponCategory}</td>
                                             <td style={{ width: '8%' }}>{coupon.couponPrice} LKR</td>
                                             <td id='coup-code' style={{ width: '5%' }}>{coupon.couponCode}</td>
                                             <td style={{ width: '20%' }}>{formatDate(coupon.couponStartDate)} - <span>{formatDate(coupon.couponEndDate)}</span></td>
@@ -154,33 +148,14 @@ const Coupons = () => {
                             <label htmlFor="title">TITLE</label>
                             <input type="text" name="title" id="title" value={selectedCoupon.couponTitle} onChange={(e) => setSelectedCoupon({ ...selectedCoupon, couponTitle: e.target.value })} />
                         </div>
-                        <div className='normal-inputs'>
-                            <label htmlFor="category">CATEGORY</label>
-                            <select name="category" id="category" value={selectedCoupon.couponCategory} onChange={(e) => setSelectedCoupon({ ...selectedCoupon, couponCategory: e.target.value })}>
-                                <option value="cakes">CAKES</option>
-                                <option value="cupcakes">CUP CAKES</option>
-                                <option value="sweets">SWEETS</option>
-                                <option value="kids">Kids</option>
-                                <option value="birthday">Birthday</option>
-                                <option value="partysets">Party Sets</option>
-                                <option value="lovethemed">Love Themed</option>
-                                <option value="engagement">Engagement</option>
-                                <option value="wedding">Wedding</option>
-                                <option value="buttercream">Butter Cream</option>
-                                <option value="frosted">Frosted</option>
-                                <option value="ganache">Ganache</option>
-                                <option value="fondant">Fondant</option>
-                                <option value="whippedcream">Whipped Cream</option>
-                            </select>
-                        </div>
                         <div className="date-sel-set">
                             <div className='normal-inputs'>
                                 <label htmlFor="startdate">START DATE</label>
-                                <input type="date" name="startdate" id="startdate" value={selectedCoupon.startDate} onChange={(e) => setSelectedCoupon({ ...selectedCoupon, couponStartDate: e.target.value })} />
+                                <input type="date" name="startdate" id="startdate" value={selectedCoupon.startDate || ''} onChange={(e) => setSelectedCoupon({ ...selectedCoupon, couponStartDate: e.target.value })} />
                             </div>
                             <div className='normal-inputs'>
                                 <label htmlFor="enddate">END DATE</label>
-                                <input type="date" name="enddate" id="enddate" value={selectedCoupon.endDate} onChange={(e) => setSelectedCoupon({ ...selectedCoupon, couponEndDate: e.target.value })} />
+                                <input type="date" name="enddate" id="enddate" value={selectedCoupon.endDate || ''} onChange={(e) => setSelectedCoupon({ ...selectedCoupon, couponEndDate: e.target.value })} />
                             </div>
                         </div>
                         <div className='normal-inputs'>
