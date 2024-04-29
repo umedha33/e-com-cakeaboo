@@ -11,7 +11,6 @@ const cors = require("cors");
 
 app.use(express.json());
 app.use(cors());
-// app.use('/openai', require('./routes/openaiRoutes'));
 
 // Database Connection with MongoDB
 mongoose.connect("mongodb+srv://ecomcakeadmin:KJSbY147cPWxMzPB@cluster0.unjvjpt.mongodb.net/ecom-cakeaboo");
@@ -207,31 +206,6 @@ app.get('/oneproduct', async (req, res) => {
     res.json({ oneProduct });
 })
 
-// ===================================================
-
-// Middleware to fetch user
-const fetchUser = async (req, res, next) => {
-    const token = req.header('auth-token');
-    // console.log("Fetching User in Middleware", token);
-
-    if (!token) {
-        res.status(401).send({
-            error: "Authenticate with valid token"
-        })
-    } else {
-        try {
-            const data = jwt.verify(token, 'secret_cakeaboo');
-            req.user = data.user;
-            next();
-        } catch (error) {
-            res.status(401).send({ error: "Authenticate using valid token" })
-        }
-    }
-}
-
-// ===================================================
-
-
 // Endpoint for adding products to cart
 app.post('/addtocart', fetchUser, async (req, res) => {
     console.log(req.body, req.user);
@@ -299,89 +273,6 @@ app.post('/removefromcart', fetchUser, async (req, res) => {
         // Handle possible errors
         console.error("Error removing item from cart:", error);
         res.status(500).send("An error occurred while removing the item from the cart");
-    }
-})
-
-// Schema for User Accounts
-const Users = mongoose.model('Users', {
-    username: {
-        type: String,
-    },
-    useremail: {
-        type: String,
-        unique: true,
-    },
-    userpassword: {
-        type: String,
-    },
-    cartData: {
-        type: Object,
-    },
-    date: {
-        type: Date,
-        default: Date.now,
-    },
-})
-
-// Endpoint for user registeration 
-app.post('/signup', async (req, res) => {
-    let check = await Users.findOne({ useremail: req.body.useremail });
-    if (check) {
-        return res.status(400).json({
-            success: false,
-            error: "User Already Registered!"
-        })
-    }
-
-    const user = new Users({
-        username: req.body.username,
-        useremail: req.body.useremail,
-        userpassword: req.body.userpassword,
-        cartData: { initialized: true },
-    })
-    await user.save();
-
-    const data = {
-        user: {
-            id: user.id
-        }
-    }
-    const token = jwt.sign(data, 'secret_cakeaboo');
-    res.json({
-        success: true,
-        token
-    })
-})
-
-// Endpoint for user login
-app.post('/login', async (req, res) => {
-    let user = await Users.findOne({
-        useremail: req.body.useremail
-    });
-    if (user) {
-        const passwordCheck = req.body.userpassword === user.userpassword;
-        if (passwordCheck) {
-            const data = {
-                user: {
-                    id: user.id
-                }
-            }
-            const token = jwt.sign(data, 'secret_cakeaboo');
-            res.json({
-                success: true,
-                token
-            });
-        } else {
-            res.json({
-                success: false,
-                error: "Wrong Password!"
-            });
-        }
-    } else {
-        res.json({
-            success: false,
-            error: "Wrong Email Adress!"
-        });
     }
 })
 
@@ -646,6 +537,124 @@ app.get('/onecoupon', async (req, res) => {
 
 
 
+// ===================================================
+// ===================================================
+
+// Middleware to fetch user
+const fetchUser = async (req, res, next) => {
+    const token = req.header('auth-token');
+    // console.log("Fetching User in Middleware", token);
+
+    if (!token) {
+        res.status(401).send({
+            error: "Authenticate with valid token"
+        })
+    } else {
+        try {
+            const data = jwt.verify(token, 'secret_cakeaboo');
+            req.user = data.user;
+            next();
+        } catch (error) {
+            res.status(401).send({ error: "Authenticate using valid token" })
+        }
+    }
+}
+
+// Schema for User Accounts
+const Users = mongoose.model('Users', {
+    username: {
+        type: String,
+    },
+    useremail: {
+        type: String,
+        unique: true,
+    },
+    userpassword: {
+        type: String,
+    },
+    cartData: {
+        type: Object,
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+    },
+})
+
+// Endpoint for user registeration 
+app.post('/signup', async (req, res) => {
+    let check = await Users.findOne({ useremail: req.body.useremail });
+    if (check) {
+        return res.status(400).json({
+            success: false,
+            error: "User Already Registered!"
+        })
+    }
+
+    const user = new Users({
+        username: req.body.username,
+        useremail: req.body.useremail,
+        userpassword: req.body.userpassword,
+        cartData: { initialized: true },
+    })
+    await user.save();
+
+    const data = {
+        user: {
+            id: user.id
+        }
+    }
+    const token = jwt.sign(data, 'secret_cakeaboo');
+    res.json({
+        success: true,
+        token
+    })
+})
+
+// Endpoint for user login
+app.post('/login', async (req, res) => {
+    let user = await Users.findOne({
+        useremail: req.body.useremail
+    });
+    if (user) {
+        const passwordCheck = req.body.userpassword === user.userpassword;
+        if (passwordCheck) {
+            const data = {
+                user: {
+                    id: user.id
+                }
+            }
+            const token = jwt.sign(data, 'secret_cakeaboo');
+            res.json({
+                success: true,
+                token
+            });
+        } else {
+            res.json({
+                success: false,
+                error: "Wrong Password!"
+            });
+        }
+    } else {
+        res.json({
+            success: false,
+            error: "Wrong Email Adress!"
+        });
+    }
+})
+
+// ================================================================
+// ================================================================
+
+
+// =================================================================================
+// =================================================================================
+
+
+// =================================================================================
+// =================================================================================
+
+
 
 
 app.listen(port, (error) => {
@@ -655,3 +664,4 @@ app.listen(port, (error) => {
         console.log("Error : " + error)
     }
 })
+
