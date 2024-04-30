@@ -335,3 +335,27 @@
     text-align: justify;
     margin: 10px 20px;
 }
+
+.cht-now-body {
+    background-color: #8b6ff04b;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.cht-now-body button {
+    background-color: #8b6ff0;
+    border: none;
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 0 18px rgba(134, 102, 250, 0.8);
+    /* border-radius: 5px; */
+    cursor: pointer;
+}

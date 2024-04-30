@@ -6,6 +6,7 @@ const UserDashboard = () => {
     const [activeHeader, setActiveHeader] = useState('MY ORDERS');
     const [orderList, setOrderList] = useState([]);
     const [alldaProducts, setAllProducts] = useState([]);
+    const [canChat, setCanChat] = useState(false);
 
     const fetchProducts = async () => {
         await fetch('http://localhost:4000/allproducts')
@@ -58,9 +59,65 @@ const UserDashboard = () => {
         }
     };
 
+    const createChat = async () => {
+        const userId = "662faa8da7a1f72bb979229a";
+        const token = localStorage.getItem('auth-token');
+
+        try {
+            const response = await fetch('http://localhost:4000/api/chat', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'auth-token': token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            // console.log('Chat Created:', result);
+            fetchChats();
+        } catch (error) {
+            console.error('Failed to create chat:', error);
+        }
+    };
+
+    const fetchChats = async () => {
+        const token = localStorage.getItem('auth-token');
+        try {
+            const response = await fetch('http://localhost:4000/api/chat', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'auth-token': token,
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            // setChats(data)
+            // console.log(`Chat List: `, data);
+            if (data.length > 0) {
+                setCanChat(true);
+            }
+
+        } catch (error) {
+            console.error('Failed to fetch chats:', error);
+        }
+    };
+
     useEffect(() => {
         fetchProducts();
         fetchCartInfo();
+        fetchChats();
     }, [])
 
     const handleHeaderClick = (navItem) => {
@@ -249,47 +306,55 @@ const UserDashboard = () => {
                         <div className="cht-body">
                             <h1>Chat with Cake A Boo</h1>
                             <div className="msg-body">
-                                <div className="chat-threads">
-                                    <div className="sender-side">
-                                        <p id='sender-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti.</p>
-                                    </div>
-                                    <div className="user-side">
-                                        <p id='user-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti.</p>
-                                        <p id='user-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti.</p>
-                                    </div>
-                                    <div className="sender-side">
-                                        <p id='sender-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta adipisicing elit. Perferendis officia ad dicta error</p>
-                                    </div>
-                                    <div className="user-side">
-                                        <p id='user-msg'>Perferendis officia ad dicta error corrupti.</p>
-                                    </div>
-                                    <div className="sender-side">
-                                        <p id='sender-msg'>consectetur adipisicing elit. Perferendis officia ad dicta error corrupti dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error</p>
-                                    </div>
-                                </div>
-                                <div className="text-sender">
-                                    <input type="text" name="message-txt" id="message-txt" placeholder='Enter message' />
-                                    <input
-                                        type="file"
-                                        id="file-input"
-                                        style={{ display: 'none' }}
-                                    />
-                                    <label htmlFor="file-input" className="file-label">
-                                        <i className="fa-solid fa-file"></i>
-                                    </label>
-                                    <i class="fa-solid fa-paper-plane"></i>
-                                </div>
+                                <>
+                                    {canChat ? (
+                                        <>
+                                            <div className="chat-threads">
+                                                <div className="sender-side">
+                                                    <p id='sender-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti.</p>
+                                                </div>
+                                                <div className="user-side">
+                                                    <p id='user-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti.</p>
+                                                    <p id='user-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti.</p>
+                                                </div>
+                                                <div className="sender-side">
+                                                    <p id='sender-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta adipisicing elit. Perferendis officia ad dicta error</p>
+                                                </div>
+                                                <div className="user-side">
+                                                    <p id='user-msg'>Perferendis officia ad dicta error corrupti.</p>
+                                                </div>
+                                                <div className="sender-side">
+                                                    <p id='sender-msg'>consectetur adipisicing elit. Perferendis officia ad dicta error corrupti dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="text-sender">
+                                                <input type="text" name="message-txt" id="message-txt" placeholder='Enter message' />
+                                                <input
+                                                    type="file"
+                                                    id="file-input"
+                                                    style={{ display: 'none' }}
+                                                />
+                                                <label htmlFor="file-input" className="file-label">
+                                                    <i className="fa-solid fa-file"></i>
+                                                </label>
+                                                <i class="fa-solid fa-paper-plane"></i>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="cht-now-body">
+                                                <button onClick={() => { createChat() }}>CHAT NOW</button>
+                                            </div>
+                                        </>
+                                    )}
+                                </>
                             </div>
                         </div>
                     </div>
                 )}
             </div>
-
         </div>
-
-
-
-
     )
 }
 

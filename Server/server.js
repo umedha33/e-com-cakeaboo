@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
+// const { Chat } = require("openai/resources/index.mjs");
 
 app.use(express.json());
 app.use(cors());
@@ -721,8 +722,9 @@ app.post('/api/chat', fetchUser, async (req, res) => {
     if (isChat.length > 0) {
         res.send(isChat[0]);
     } else {
+        const user = await Users.findById(req.user.id).select('username');
         var chatData = {
-            chatName: "sender",
+            chatName: user.username,
             chatUsers: [req.user.id, userId],
         };
 
@@ -757,6 +759,56 @@ app.get('/api/chat', fetchUser, async (req, res) => {
         res.status(400).send({ error: error.message });
     }
 });
+
+// Endpoint for sending messages
+app.post('/api/message', fetchUser, async (req, res) => {
+    const { content, chatId } = req.body
+
+    if (!content || !chatId) {
+        console.log("Invalid data passed")
+        return res.sendStatus(400);
+    }
+
+    var newMessage = {
+        sender: req.user.id,
+        messageContent: content,
+        chat: chatId
+    }
+
+    try {
+        var message = await Messages.create(newMessage);
+        message = await message.populate('sender', 'username');
+        message = await message.populate('chat');
+        message = await Users.populate(message, {
+            path: 'chat.users',
+            select: 'username useremail'
+        });
+
+        await Chats.findByIdAndUpdate(req.body.chatId, {
+            latestMessage: message
+        });
+
+        res.json(message);
+
+    } catch (error) {
+        res.status(400).send({ error: error.message });
+    }
+});
+
+
+// Endpoint for fetch all messages of a chat
+app.get('/api/message/:chatId', fetchUser, async (req, res) => {
+    try {
+        const messages = await Messages.find({ chat: req.params.chatId })
+            .populate('sender', 'username useremail')
+            .populate('chat');
+
+        res.json(messages);
+    } catch (error) {
+        res.status(400).send({ error: error.message });
+    }
+})
+
 
 
 
