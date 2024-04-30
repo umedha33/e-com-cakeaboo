@@ -738,6 +738,27 @@ app.post('/api/chat', fetchUser, async (req, res) => {
     }
 });
 
+// Endpoint for fetching all chats
+app.get('/api/chat', fetchUser, async (req, res) => {
+    try {
+        Chats.find({
+            chatUsers: { $elemMatch: { $eq: req.user.id } }
+        }).populate('chatUsers', '-userpassword -cartData')
+            .populate('latestMessage')
+            .sort({ updatedAt: -1 })
+            .then(async (results) => {
+                results = await Users.populate(results, {
+                    path: 'latestMessage.sender',
+                    select: 'username useremail',
+                });
+                res.status(200).send(results);
+            })
+    } catch (error) {
+        res.status(400).send({ error: error.message });
+    }
+});
+
+
 
 
 
