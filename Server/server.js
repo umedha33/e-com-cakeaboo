@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 // Database Connection with MongoDB
-mongoose.connect("mongodb+srv://ecomcakeadmin:KJSbY147cPWxMzPB@cluster0.unjvjpt.mongodb.net/ecom-cakeaboo");
+mongoose.connect(process.env.MONGO_URI);
 
 // API Creation
 app.get("/", (req, res) => {
@@ -219,7 +219,7 @@ const fetchUser = async (req, res, next) => {
         })
     } else {
         try {
-            const data = jwt.verify(token, 'secret_cakeaboo');
+            const data = jwt.verify(token, process.env.JWT_SECRET);
             req.user = data.user;
             next();
         } catch (error) {
@@ -350,7 +350,7 @@ app.post('/signup', async (req, res) => {
             id: user.id
         }
     }
-    const token = jwt.sign(data, 'secret_cakeaboo');
+    const token = jwt.sign(data, process.env.JWT_SECRET);
     res.json({
         success: true,
         token
@@ -370,7 +370,7 @@ app.post('/login', async (req, res) => {
                     id: user.id
                 }
             }
-            const token = jwt.sign(data, 'secret_cakeaboo');
+            const token = jwt.sign(data, process.env.JWT_SECRET);
             res.json({
                 success: true,
                 token
@@ -656,6 +656,102 @@ app.get('/onecoupon', async (req, res) => {
 
 // =================================================================================
 // =================================================================================
+
+// Schema for Chats
+const Chats = mongoose.model('Chats', {
+    chatName: {
+        type: String,
+    },
+    chatUsers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
+    }],
+    latestMessage: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Messages'
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+    },
+})
+
+// Schema for Messages
+const Messages = mongoose.model('Messages', {
+    sender: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
+    },
+    messageContent: {
+        type: String,
+    },
+    chat: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Chats'
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+    },
+})
+
+// Endpoint for creating chats
+app.post('/api/chat', fetchUser, async (req, res) => {
+    const { userId } = req.body;
+    console.log(req.user.id);
+
+    if (!userId) {
+        console.log("User ID not received");
+        return res.status(400).send({ error: error.message });
+    }
+
+    var isChat = await Chats.find({
+        $and: [
+            { chatUsers: { $elemMatch: { $eq: req.user.id } } },
+            { chatUsers: { $elemMatch: { $eq: userId } } },
+        ]
+    }).populate('chatUsers', '-userpassword -cartData')
+        .populate('latestMessage');
+
+    isChat = await Users.populate(isChat, {
+        path: 'latestMessage.sender',
+        select: 'username useremail',
+    });
+
+    if (isChat.length > 0) {
+        res.send(isChat[0]);
+    } else {
+        var chatData = {
+            chatName: "sender",
+            chatUsers: [req.user.id, userId],
+        };
+
+        try {
+            const createdChat = await Chats.create(chatData);
+            const FullChat = await Chats.findOne({ _id: createdChat._id }).populate('chatUsers', '-userpassword -cartData')
+
+            res.status(200).send(FullChat);
+        } catch (error) {
+            res.status(400).send({ error: error.message });
+        }
+
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // =================================================================================
