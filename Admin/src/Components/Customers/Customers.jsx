@@ -10,15 +10,15 @@ var socket, selectedChatCompare;
 
 
 const Customers = () => {
-    // const [currentChatId, setCurrentChatId] = useState('');
     const [chats, setChats] = useState([]);
     const [slcted, setSlcted] = useState(false);
     const [chatId, setChatId] = useState('');
     const [msgContent, setMsgContent] = useState('');
     const [messages, setMessages] = useState([]);
     const [socketConnected, setSocketConnected] = useState(false);
-    const [userData, setUserData] = useState([])
     const token = localStorage.getItem('auth-token');
+    const [userData, setUserData] = useState([])
+    const [theChat, setTheChat] = useState([])
 
     const selectChat = chatId => {
         let selectedChatId = '';
@@ -32,7 +32,31 @@ const Customers = () => {
 
     useEffect(() => {
         fetchMessages();
+        selectedChatCompare = theChat;
+
     }, [chatId])
+
+    useEffect(() => {
+        socket = io(ENDPOINT, { auth: { token: localStorage.getItem('auth-token') } });
+
+        socket.on('connected', () => {
+            console.log("Socket Connected!");
+            setSocketConnected(true);
+        });
+
+        socket.on('message received', (newMessageReceived) => {
+            if (newMessageReceived.chat._id === chatId) {
+                setMessages(prevMessages => [...prevMessages, newMessageReceived]);
+            }
+        });
+
+        return () => {
+            socket.off('connected');
+            socket.off('message received');
+        };
+    }, [chatId]);
+
+
 
     const fetchChats = async () => {
         const token = localStorage.getItem('auth-token');
@@ -52,6 +76,8 @@ const Customers = () => {
 
             const data = await response.json();
             setChats(data);
+            setTheChat({ data }.data);
+
             // console.log(`Chat List: `, data);
         } catch (error) {
             console.error('Failed to fetch chats:', error);
@@ -107,6 +133,7 @@ const Customers = () => {
             }
 
             const result = await response.json();
+            socket.emit('new message', { result });
             // console.log('Result:', { result }.result.messageContent);
         } catch (error) {
             console.error('Failed to create chat:', error);
@@ -137,7 +164,9 @@ const Customers = () => {
 
             const data = await response.json();
             setMessages(data);
+
             socket.emit('join chat', chatId);
+
         } catch (error) {
             console.error('Failed to fetch messages:', error);
         }
@@ -168,16 +197,6 @@ const Customers = () => {
         fetchChats();
         fetchUserData();
     }, [])
-
-    // ============================================
-
-    useEffect(() => {
-        socket = io(ENDPOINT);
-        socket.emit('setup', userData.data);
-        socket.on('connection', () => setSocketConnected(true));
-    }, [userData]);
-
-    // ============================================
 
     return (
         <div className='customers-container'>

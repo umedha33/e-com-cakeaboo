@@ -17,6 +17,7 @@ const UserChat = () => {
     const token = localStorage.getItem('auth-token');
     const [socketConnected, setSocketConnected] = useState(false);
     const [userData, setUserData] = useState([])
+    const [theChat, setTheChat] = useState([])
 
 
     const createChat = async () => {
@@ -65,6 +66,7 @@ const UserChat = () => {
             const data = await response.json();
             setChatId({ data }.data[0]._id);
             setUsersId({ data }.data[0].chatUsers[0]._id);
+            setTheChat({ data }.data);
             if (data.length > 0) {
                 setCanChat(true);
             }
@@ -91,6 +93,7 @@ const UserChat = () => {
 
             const data = await response.json();
             setMessages(data);
+
             socket.emit('join chat', chatId);
             // console.log(`msgs: `, data);
         } catch (error) {
@@ -120,6 +123,27 @@ const UserChat = () => {
     };
 
     useEffect(() => {
+        socket = io(ENDPOINT, { auth: { token: localStorage.getItem('auth-token') } });
+
+        socket.on('connected', () => {
+            console.log("Socket Connected!");
+            setSocketConnected(true);
+        });
+
+        socket.on('message received', (newMessageReceived) => {
+            if (newMessageReceived.chat._id === chatId) {
+                setMessages(prevMessages => [...prevMessages, newMessageReceived]);
+            }
+        });
+
+        return () => {
+            socket.off('connected');
+            socket.off('message received');
+        };
+    }, [chatId]);
+
+
+    useEffect(() => {
         fetchChats();
         fetchUserData();
         fetchMessages();
@@ -127,24 +151,11 @@ const UserChat = () => {
 
     useEffect(() => {
         fetchMessages();
+        selectedChatCompare = theChat;
+        // console.log(`the chat: `, theChat);
     }, [chatId]);
 
-
-    // ============================================
-
-    useEffect(() => {
-        socket = io(ENDPOINT);
-        socket.emit('setup', userData.data);
-        // console.log(`user id: `, userData);
-        socket.on('connection', () => setSocketConnected(true));
-    }, [userData]);
-
-    // ============================================
-
-
     const createMsg = async () => {
-        // const token = localStorage.getItem('auth-token');
-
         try {
             const response = await fetch('http://localhost:4000/api/message', {
                 method: 'POST',
@@ -164,7 +175,8 @@ const UserChat = () => {
             }
 
             const result = await response.json();
-            console.log('Result:', { result }.result.messageContent);
+            socket.emit('new message', { result });
+
         } catch (error) {
             console.error('Failed to create chat:', error);
         }
@@ -178,8 +190,6 @@ const UserChat = () => {
     }
 
     return (
-
-
         <div className="user-chat-container">
             <div className="chat-instructions">
                 <h1>Chat instructions and policies</h1>

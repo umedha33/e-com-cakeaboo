@@ -798,9 +798,9 @@ app.post('/api/message', fetchUser, async (req, res) => {
             select: 'username useremail'
         });
 
-        await Chats.findByIdAndUpdate(req.body.chatId, {
-            latestMessage: message
-        });
+        await Chats.findByIdAndUpdate(req.body.chatId, { latestMessage: message });
+
+        io.in(req.body.chatId).emit('new message', message.toJSON());
 
         res.json(message);
 
@@ -825,9 +825,6 @@ app.get('/api/message/:chatId', fetchUser, async (req, res) => {
 // =================================================================================
 // =================================================================================
 
-
-
-
 const server = app.listen(port, (error) => {
     if (!error) {
         console.log("Server Running on Port " + port)
@@ -848,7 +845,7 @@ io.on('connection', (socket) => {
 
     socket.on('setup', (userData) => {
         if (userData !== null) {
-            console.log(`user id: `, userData._id);
+            // console.log(`user id: `, userData._id);
             socket.join(userData._id);
             socket.emit('connected');
         }
@@ -858,4 +855,59 @@ io.on('connection', (socket) => {
         socket.join(room);
         console.log('User joined room: ' + room);
     })
+
+    // ================================================================================
+    // socket.on('new message', async (data) => {
+    //     const newMessageReceived = data.result; 
+    //     console.log(`Received message: `, newMessageReceived);
+
+    //     if (!newMessageReceived || !newMessageReceived.chat || !newMessageReceived.chat._id) {
+    //         return console.error('Invalid message data received:', newMessageReceived);
+    //     }
+
+    //     try {
+    //         const chat = await Chats.findById(newMessageReceived.chat._id)
+    //             .populate('chatUsers', 'username _id');
+
+    //         if (!chat) {
+    //             return console.error('Chat not found with ID:', newMessageReceived.chat._id);
+    //         }
+
+    //         chat.chatUsers.forEach(user => {
+    //             if (user._id.toString() !== newMessageReceived.sender._id.toString()) {
+    //                 socket.to(user._id.toString()).emit('message received', newMessageReceived);
+    //             }
+    //         });
+    //     } catch (error) {
+    //         console.error('Error handling new message:', error);
+    //     }
+    // });
+
+    socket.on('new message', async (data) => {
+        const newMessageReceived = data.result;
+        console.log(`Received message: `, newMessageReceived);
+
+        if (!newMessageReceived || !newMessageReceived.chat || !newMessageReceived.chat._id) {
+            return console.error('Invalid message data received:', newMessageReceived);
+        }
+
+        try {
+            const chat = await Chats.findById(newMessageReceived.chat._id)
+                .populate('chatUsers', 'username _id');
+
+            if (!chat) {
+                return console.error('Chat not found with ID:', newMessageReceived.chat._id);
+            }
+
+            chat.chatUsers.forEach(user => {
+                if (user._id.toString() !== newMessageReceived.sender._id.toString()) {
+                    socket.to(user._id.toString()).emit('message received', newMessageReceived);
+                }
+            });
+        } catch (error) {
+            console.error('Error handling new message:', error);
+        }
+    });
+
+
 });
