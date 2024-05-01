@@ -390,6 +390,20 @@ app.post('/login', async (req, res) => {
     }
 })
 
+// Endpoint to get the authenticated user's data
+app.get('/user', fetchUser, async (req, res) => {
+    try {
+        // req.user.id should have the id from JWT
+        const user = await Users.findById(req.user.id).select('-userpassword -cartData'); // Exclude password from the result
+        if (!user) {
+            return res.status(404).send({ error: "User not found" });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error('Server Error:', error.message);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+});
 
 // ================================================================
 // ================================================================
@@ -795,7 +809,6 @@ app.post('/api/message', fetchUser, async (req, res) => {
     }
 });
 
-
 // Endpoint for fetch all messages of a chat
 app.get('/api/message/:chatId', fetchUser, async (req, res) => {
     try {
@@ -809,31 +822,13 @@ app.get('/api/message/:chatId', fetchUser, async (req, res) => {
     }
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // =================================================================================
 // =================================================================================
 
 
 
 
-app.listen(port, (error) => {
+const server = app.listen(port, (error) => {
     if (!error) {
         console.log("Server Running on Port " + port)
     } else {
@@ -841,3 +836,26 @@ app.listen(port, (error) => {
     }
 })
 
+const io = require('socket.io')(server, {
+    pingTimeout: 60000,
+    cors: {
+        origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
+    },
+});
+
+io.on('connection', (socket) => {
+    console.log('connected to socket.io');
+
+    socket.on('setup', (userData) => {
+        if (userData !== null) {
+            console.log(`user id: `, userData._id);
+            socket.join(userData._id);
+            socket.emit('connected');
+        }
+    });
+
+    socket.on('join chat', (room) => {
+        socket.join(room);
+        console.log('User joined room: ' + room);
+    })
+});
