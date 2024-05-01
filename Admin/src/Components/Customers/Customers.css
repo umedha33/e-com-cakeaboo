@@ -114,7 +114,10 @@
     margin: 0;
 }
 
-
+#ltst-msg {
+    word-wrap: break-word;
+    max-width: 60%;
+}
 
 
 
@@ -165,7 +168,7 @@
     font-family: "Roboto", sans-serif;
     font-size: 1.5rem;
     color: rgb(49, 68, 160);
-    margin-bottom: 15rem;
+    margin-bottom: 17rem;
 }
 
 

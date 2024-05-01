@@ -7,6 +7,11 @@ const UserDashboard = () => {
     const [orderList, setOrderList] = useState([]);
     const [alldaProducts, setAllProducts] = useState([]);
     const [canChat, setCanChat] = useState(false);
+    const [chatId, setChatId] = useState('');
+    const [usersId, setUsersId] = useState('');
+    const [msgContent, setMsgContent] = useState('');
+    const [messages, setMessages] = useState([]);
+    const token = localStorage.getItem('auth-token');
 
     const fetchProducts = async () => {
         await fetch('http://localhost:4000/allproducts')
@@ -61,7 +66,7 @@ const UserDashboard = () => {
 
     const createChat = async () => {
         const userId = "662faa8da7a1f72bb979229a";
-        const token = localStorage.getItem('auth-token');
+        // const token = localStorage.getItem('auth-token');
 
         try {
             const response = await fetch('http://localhost:4000/api/chat', {
@@ -87,7 +92,7 @@ const UserDashboard = () => {
     };
 
     const fetchChats = async () => {
-        const token = localStorage.getItem('auth-token');
+        // const token = localStorage.getItem('auth-token');
         try {
             const response = await fetch('http://localhost:4000/api/chat', {
                 method: 'GET',
@@ -103,8 +108,8 @@ const UserDashboard = () => {
             }
 
             const data = await response.json();
-            // setChats(data)
-            // console.log(`Chat List: `, data);
+            setChatId({ data }.data[0]._id);
+            setUsersId({ data }.data[0].chatUsers[0]._id);
             if (data.length > 0) {
                 setCanChat(true);
             }
@@ -114,11 +119,43 @@ const UserDashboard = () => {
         }
     };
 
+    const fetchMessages = async () => {
+        if (!chatId) return;  // Don't fetch if chatId is not set
+
+        try {
+            const response = await fetch(`http://localhost:4000/api/message/${chatId}`, {
+                headers: {
+                    Accept: 'application/json',
+                    'auth-token': token
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setMessages(data);  // Set the fetched messages into state
+            // console.log(`Msges`, data);
+        } catch (error) {
+            console.error('Failed to fetch messages:', error);
+        }
+    };
+
     useEffect(() => {
         fetchProducts();
         fetchCartInfo();
         fetchChats();
     }, [])
+
+    useEffect(() => {
+        fetchMessages();
+    }, [chatId]); // Re-fetch messages whenever chatId changes
+
+    useEffect(() => {
+        console.log(`Msges`, messages);
+    }, [messages]);
+
 
     const handleHeaderClick = (navItem) => {
         setActiveHeader(navItem);
@@ -153,6 +190,48 @@ const UserDashboard = () => {
         const product = alldaProducts.find(product => product.id === itemId);
         return product ? product.color : [];
     };
+
+    const createMsg = async () => {
+        // const token = localStorage.getItem('auth-token');
+
+        try {
+            const response = await fetch('http://localhost:4000/api/message', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'auth-token': token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content: msgContent,
+                    chatId: chatId
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log('Result:', { result }.result.messageContent);
+        } catch (error) {
+            console.error('Failed to create chat:', error);
+        }
+    };
+
+    const sendBtn = () => {
+        console.log(`Msg Content:`, msgContent);
+        createMsg();
+        fetchMessages();
+        setMsgContent('');
+    }
+
+
+
+    // useEffect(() => {
+    //     fetchMessages();
+    // }, [])
+
 
     return (
         <div className='user-dashboard-container'>
@@ -310,26 +389,35 @@ const UserDashboard = () => {
                                     {canChat ? (
                                         <>
                                             <div className="chat-threads">
-                                                <div className="sender-side">
-                                                    <p id='sender-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti.</p>
-                                                </div>
-                                                <div className="user-side">
-                                                    <p id='user-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti.</p>
-                                                    <p id='user-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error corrupti.</p>
-                                                </div>
-                                                <div className="sender-side">
-                                                    <p id='sender-msg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta adipisicing elit. Perferendis officia ad dicta error</p>
-                                                </div>
-                                                <div className="user-side">
-                                                    <p id='user-msg'>Perferendis officia ad dicta error corrupti.</p>
-                                                </div>
-                                                <div className="sender-side">
-                                                    <p id='sender-msg'>consectetur adipisicing elit. Perferendis officia ad dicta error corrupti dolor sit amet, consectetur adipisicing elit. Perferendis officia ad dicta error</p>
-                                                </div>
+                                                {/* div- sender-side */}
+                                                {/* p- sender-msg */}
+                                                {/* div- user-side */}
+                                                {/* p- user-msg */}
+
+                                                {messages.length > 0 ? (
+                                                    <>
+                                                        {messages.map((msg, index) => {
+                                                            const isSender = msg.sender._id === usersId;
+                                                            return (
+                                                                <div key={index} className={isSender ? "user-side" : "sender-side"}>
+                                                                    <p id={isSender ? "sender-msg" : "user-msg"}>{msg.messageContent}</p>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </>
+                                                ) : (
+                                                    <></>
+                                                )}
+
                                             </div>
 
                                             <div className="text-sender">
-                                                <input type="text" name="message-txt" id="message-txt" placeholder='Enter message' />
+                                                <input type="text"
+                                                    name="message-txt"
+                                                    id="message-txt"
+                                                    placeholder='Enter message'
+                                                    value={msgContent}
+                                                    onChange={(e) => setMsgContent(e.target.value)} />
                                                 <input
                                                     type="file"
                                                     id="file-input"
@@ -338,7 +426,9 @@ const UserDashboard = () => {
                                                 <label htmlFor="file-input" className="file-label">
                                                     <i className="fa-solid fa-file"></i>
                                                 </label>
-                                                <i class="fa-solid fa-paper-plane"></i>
+                                                <i className="fa-solid fa-paper-plane"
+                                                    onClick={() => { sendBtn() }}
+                                                ></i>
                                             </div>
                                         </>
                                     ) : (
