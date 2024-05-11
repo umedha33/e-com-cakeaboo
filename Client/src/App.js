@@ -14,6 +14,7 @@ import CartPage from './pages/CartPage';
 import Checkout from './components/Checkout/Checkout';
 import UserDashboard from './components/UserDashboard/UserDashboard';
 import UserLogin from './components/UserLogin/UserLogin';
+import ForgotPass from './components/ForgotPass/ForgotPass';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/userdashboard' element={<UserDashboard />} />
           <Route path='/userlogin' element={<UserLogin />} />
+          <Route path='/forgotpassword' element={<ForgotPass />} />
         </Routes>
         <Footer />
       </BrowserRouter>

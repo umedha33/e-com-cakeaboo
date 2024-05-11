@@ -251,7 +251,8 @@ app.post('/addtocart', fetchUser, async (req, res) => {
             customwriting: req.body.CustomData.customwriting,
             customcomment: req.body.CustomData.customcomment,
             customcolor: req.body.CustomData.customcolor,
-            customflavor: req.body.CustomData.customflavor
+            customflavor: req.body.CustomData.customflavor,
+            customPrice: req.body.CustomData.customPrice
         }
     };
 

@@ -47,7 +47,7 @@ const UserDashboard = () => {
                 const result = await response.json();
                 if (response.status === 200) {
                     setOrderList(result.userOrders);
-                    // console.log(`All orders:`, orderList);
+                    console.log(`All orders:`, orderList);
                 } else {
                     throw new Error(result.message);
                 }
@@ -218,7 +218,7 @@ const UserDashboard = () => {
                                                                 </h3></>
                                                             )}
                                                             <h3><b>Quantity:</b> {item.quantity}</h3>
-                                                            <h3><b>Total Amount:</b> {item.totalAmount} LKR</h3>
+                                                            <h3><b>Total Amount:</b> {item.customData.customPrice ? item.customData.customPrice : item.totalAmount} LKR</h3>
                                                             {/* <br /> */}
                                                         </div>
                                                     </div>
@@ -226,7 +226,7 @@ const UserDashboard = () => {
                                             ))}
                                         </td>
                                         <td style={{ width: '10%' }}>
-                                            <b> {order.orderOBJ.reduce((total, item) => total + item.totalAmount, 0)} LKR</b>
+                                            <b> {order.checkoutAmount} LKR</b>
                                         </td>
                                         <td style={{ width: '10%' }}><b>{new Date(order.orderDate).toLocaleDateString()}</b></td>
                                         <td style={{ width: '10%' }}><b>{new Date(order.deliverDate).toLocaleDateString()}</b></td>

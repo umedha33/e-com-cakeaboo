@@ -22,12 +22,32 @@ const SingleProduct = () => {
         customcomment: "Default",
         customcolor: ["Default"],
         customflavor: "Default",
+        customPrice: 0,
     })
 
-    const changeHandler = (e) => {
-        setCustomizedData({ ...customizedData, [e.target.name]: e.target.value });
-    }
+    useEffect(() => {
+        console.log(`new price: `, customizedData.customPrice)
+    }, [customizedData.customPrice])
 
+    // Function to calculate custom price
+    const calculateCustomPrice = (data) => {
+        let additionalPrice = 0;
+        additionalPrice += data.customlayers !== "Default" ? parseInt(data.customlayers) * 400 : 0;
+        additionalPrice += data.customtiers !== "Default" ? parseInt(data.customtiers) * 900 : 0;
+        additionalPrice += data.customcolor[0] !== "Default" ? data.customcolor.length * 200 : 0;
+        additionalPrice += data.customflavor !== 'Default' ? 300 : 0;
+        if (data.customcomment.toLowerCase().includes('add')) {
+            additionalPrice += 500;
+        }
+        return oneProduct.price + additionalPrice;
+    };
+
+    const changeHandler = (e) => {
+        const { name, value } = e.target;
+        const updatedData = { ...customizedData, [name]: value };
+        const newPrice = calculateCustomPrice(updatedData);
+        setCustomizedData({ ...updatedData, customPrice: newPrice });
+    }
 
     const fetchProduct = async (id) => {
         const response = await fetch(`http://localhost:4000/oneproduct?id=${id}`);
@@ -46,6 +66,17 @@ const SingleProduct = () => {
         console.log(`clicked: `, imageSrc);
     };
 
+    // const toggleColor = (color) => {
+    //     let newSelectedColors;
+    //     if (selectedColors.includes(color)) {
+    //         newSelectedColors = selectedColors.filter(c => c !== color);
+    //     } else {
+    //         newSelectedColors = [...selectedColors, color];
+    //     }
+    //     setSelectedColors(newSelectedColors);
+    //     setCustomizedData({ ...customizedData, customcolor: newSelectedColors });
+    // };
+
     const toggleColor = (color) => {
         let newSelectedColors;
         if (selectedColors.includes(color)) {
@@ -54,9 +85,10 @@ const SingleProduct = () => {
             newSelectedColors = [...selectedColors, color];
         }
         setSelectedColors(newSelectedColors);
-        setCustomizedData({ ...customizedData, customcolor: newSelectedColors });
+        const updatedData = { ...customizedData, customcolor: newSelectedColors };
+        const newPrice = calculateCustomPrice(updatedData);
+        setCustomizedData({ ...updatedData, customPrice: newPrice });
     };
-
 
     const [buttonText, setButtonText] = useState('Add to Cart');
     const [isClicked, setIsClicked] = useState(false);
@@ -168,14 +200,18 @@ const SingleProduct = () => {
                                         name='customlayers'
                                         value={customizedData.customlayers}
                                         onChange={changeHandler}
-                                        placeholder='0' />
+                                        placeholder='0'
+                                        min="0"
+                                        max="8" />
 
                                     <h2 id='cust-layers'>Custom Tiers: </h2>
                                     <input type="number"
                                         name='customtiers'
                                         value={customizedData.customtiers}
                                         onChange={changeHandler}
-                                        placeholder='0' />
+                                        placeholder='0'
+                                        min="0"
+                                        max="4" />
                                 </div>
                                 <div className="second-rw">
                                     <label>Writings: </label>
@@ -238,7 +274,13 @@ const SingleProduct = () => {
                                     >Proceed to Checkout ›</button>
                                 </Link>
                             </div>
-                            <h2 id='sprice'>{`LKR${(oneProduct.price)}/=`}</h2>
+                            <div className="price-cont">
+                                {customizedData.customPrice > 0 ? (
+                                    <h2 id='sprice'>{`LKR${customizedData.customPrice}/=`}</h2>
+                                ) : (
+                                    <h2 id='sprice'>{`LKR${oneProduct.price}/=`}</h2>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </>

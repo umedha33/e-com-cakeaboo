@@ -60,7 +60,7 @@ const GeneratePage = () => {
             <h1>Provide your preferences and get it generated here!</h1>
           )}
         </div>
-        <h1 id='bottom-txt'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, magnam optio obcaecati est doloribus commodi, atque eaque pariatur itaque rerum voluptatibus omnis quam, consequuntur similique consectetur! Corporis reiciendis nam harum?</h1>
+        <h1 id='bottom-txt'>Kindly complete the form with all pertinent details, including your preferences and requirements, to ensure we can tailor the cake design precisely to your needs. Your input is invaluable in crafting the perfect cake for your special occasion!</h1>
       </div>
       <div className="generate-right">
         <div className="form-panel">

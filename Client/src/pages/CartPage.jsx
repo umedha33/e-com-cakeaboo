@@ -52,7 +52,7 @@ const CartPage = () => {
                 const result = await response.json();
                 if (response.status === 200) {
                     setAllCartItems(result.cartData);
-                    // console.log(`All items:`, allCartItems);
+                    console.log(`All items:`, allCartItems);
                 } else {
                     throw new Error(result.message);
                 }
@@ -229,7 +229,9 @@ const CartPage = () => {
                                     {Object.entries(allCartItems).map(([key, item]) => {
                                         if (key !== "initialized") {
                                             const imageUrl = findProductImage(item.ItemID);
-                                            const price = findPrice(item.ItemID);
+                                            // const price = findPrice(item.ItemID);
+                                            const price = item.CustomData.customPrice > 0 ? item.CustomData.customPrice : findPrice(item.ItemID);
+                                            const customPrice = item.CustomData.customPrice;
                                             const title = findTitle(item.ItemID);
                                             const layers = findLayers(item.ItemID);
                                             const tiers = findTiers(item.ItemID);

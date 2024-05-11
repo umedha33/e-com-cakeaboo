@@ -55,6 +55,10 @@ const UserLogin = () => {
         }
     }
 
+    const forgotFunc = () => {
+        window.location.replace("/forgotpassword");
+    }
+
     return (
         <div className='userlogin-container'>
             <div className="login-register-container">
@@ -78,11 +82,11 @@ const UserLogin = () => {
                     </div>
                     <div className="login-btns">
                         <button onClick={() => { login() }} id='signInBtn'>Sign In</button>
-                        <button id='googleBtn'>
+                        {/* <button id='googleBtn'>
                             <img src={googleIcon} alt="Google Icon" />
-                            Sign In with Google</button>
+                            Sign In with Google</button> */}
                     </div>
-                    <p id='forgot-pass-lbl'>Forgot Password? <span>Click Here</span></p>
+                    <p id='forgot-pass-lbl'>Forgot Password? <span onClick={() => forgotFunc()}>Click Here</span></p>
                 </div>
                 <div className="register-sec">
                     <h1 id='donthave-account-lbl'>Don't have an account? <br /> Register Here!</h1>
@@ -111,9 +115,9 @@ const UserLogin = () => {
                     </div>
                     <div className="register-btns">
                         <button onClick={() => { register() }} id='registerBtn'>Sign Up</button>
-                        <button id='googleRegBtn'>
+                        {/* <button id='googleRegBtn'>
                             <img src={googleIcon} alt="Google Icon" />
-                            Sign Up with Google</button>
+                            Sign Up with Google</button> */}
                     </div>
                 </div>
             </div>

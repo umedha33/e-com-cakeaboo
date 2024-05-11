@@ -151,9 +151,13 @@
 }
 
 .chat-instructions p {
-    font-size: 1rem;
+    font-size: 0.8rem;
     text-align: justify;
     margin: 10px 20px;
+}
+
+.chat-instructions p span {
+    font-weight: bold;
 }
 
 .cht-now-body {

@@ -25,6 +25,8 @@ const shapes = [
 
 const CakesPage = () => {
   const [alldaProducts, setAllProducts] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(null);
+
   const fetchInfo = async () => {
     await fetch('http://localhost:4000/allproducts')
       .then((res) => res.json())
@@ -143,6 +145,20 @@ const CakesPage = () => {
     }
   };
 
+  // ==================================================================================
+  // ==================================================================================
+  const handleQuickSelection = (category) => {
+    setSelectedCategories([category]);
+    setActiveCategory(category);
+  };
+
+  const resetFilters = () => {
+    setSelectedCategories([]);
+    setActiveCategory(null);
+  };
+  // ==================================================================================
+  // ==================================================================================
+
   const toggleColor = (color) => {
     if (selectedColors.includes(color)) {
       setSelectedColors(selectedColors.filter(c => c !== color));
@@ -199,16 +215,19 @@ const CakesPage = () => {
 
       <div className="main-cat-container">
         <h1 id='quck-selctin-lbl'>Qucik Selections ›</h1>
-        <div className="lbl-main-tags">
-          <h1 className='txt-main-lb'>Cakes Only</h1>
+        <div className={activeCategory === 'Cakes' ? 'lbl-main-tags-active' : 'lbl-main-tags'}
+          onClick={() => handleQuickSelection('Cakes')}>
+          <h1 className='txt-main-lb'> Cakes Only</h1>
         </div>
-        <div className="lbl-main-tags">
+        <div className={activeCategory === 'Cup Cakes' ? 'lbl-main-tags-active' : 'lbl-main-tags'}
+          onClick={() => handleQuickSelection('Cup Cakes')}>
           <h1 className='txt-main-lb'> Just Cupcakes</h1>
         </div>
-        <div className="lbl-main-tags">
+        <div className={activeCategory === 'Sweets' ? 'lbl-main-tags-active' : 'lbl-main-tags'}
+          onClick={() => handleQuickSelection('Sweets')}>
           <h1 className='txt-main-lb'>Sweets Corner</h1>
         </div>
-        <button><i className="fa-solid fa-xmark"></i></button>
+        <button onClick={resetFilters}><i className="fa-solid fa-xmark"></i></button>
       </div>
 
       <div className="products-container-with-side">

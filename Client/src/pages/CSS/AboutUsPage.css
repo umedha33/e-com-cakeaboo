@@ -1,7 +1,7 @@
 .aboutus-container {
     display: flex;
     flex-direction: row;
-    background: rgb(235, 255, 123);
+    background: rgb(255, 199, 247);
     height: 80vh;
     border-radius: 40px;
     align-items: center;
@@ -25,11 +25,11 @@
     display: flex;
     flex-direction: column;
     width: 60%;
-    background-color: #ffffff13;
+    background-color: #b8b8b818;
     box-shadow: 0 1px 15px -5px rgba(0, 0, 0, 0.295);
     padding: 30px;
     border-radius: 30px;
-    height: 65vh;
+    height: 69vh;
     /* margin-left: 25px; */
     justify-content: center;
 }
@@ -49,17 +49,19 @@
 }
 
 .aboutus-sub-heading {
-    font-size: 24px;
-    color: #333;
+    font-size: 2rem;
+    color: #ffffff;
+    font-family: "Bungee", sans-serif;
     margin-bottom: 10px;
 }
 
 .aboutus-paragraph {
-    font-size: 16px;
+    font-size: 1rem;
     color: #555;
-    line-height: 1.6;
+    line-height: 2rem;
     margin-bottom: 20px;
     padding: 10px;
+    font-family: "Roboto", sans-serif;
     border-radius: 5px;
 }
 
@@ -89,15 +91,20 @@
 .aboutus-contact-btn {
     background-color: #D862BC;
     color: #fff;
-    padding: 10px 20px;
+    padding: 3px 20px;
+    font-size: 1rem;
     border-radius: 30px;
     text-decoration: none;
+    border: none;
     display: inline-block;
-    transition: background-color 0.3s ease;
+    cursor: pointer;
+    font-family: "Bungee", sans-serif;
+    transition: background-color 0.3s, border 0.2s ease;
 }
 
 .aboutus-contact-btn:hover {
-    background-color: #8644A2;
+    background-color: #fd3bd3;
+    border: 3px solid rgba(0, 0, 0, 0.664);
 }
 
 @media (max-width: 600px) {

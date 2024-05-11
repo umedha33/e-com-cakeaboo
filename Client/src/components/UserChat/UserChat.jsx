@@ -193,9 +193,21 @@ const UserChat = () => {
         <div className="user-chat-container">
             <div className="chat-instructions">
                 <h1>Chat instructions and policies</h1>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit sapiente cupiditate aliquid veniam vero perspiciatis, libero possimus laudantium impedit explicabo dignissimos, minus obcaecati earum beatae, in quia error cumque! Quas.</p>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit sapiente cupiditate aliquid veniam vero perspiciatis, libero possimus laudantium impedit explicabo dignissimos, minus obcaecati earum beatae, in quia error cumque! Quas.</p>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit sapiente cupiditate aliquid veniam vero perspiciatis, libero possimus laudantium impedit explicabo dignissimos, minus obcaecati earum beatae, in quia error cumque! Quas.</p>
+                <p>Welcome to our chat platform! Here are some important instructions and policies for you to keep in mind while using our service:
+                    <br /><br />
+                    <span>Respectful Communication: </span>Please engage with others in a courteous and respectful manner. Avoid offensive language, harassment, or any form of discrimination.
+                    <br />
+                    <br />
+                    <span>Privacy and Security: </span>Protect your personal information and avoid sharing sensitive data in public chat rooms. Be cautious of sharing contact details or financial information with strangers.
+                    <br />
+                    <br />
+                    <span>Content Guidelines: </span>Ensure that your messages comply with our community guidelines. Avoid sharing inappropriate or harmful content, including spam, misleading information, or illegal activities.
+                    <br />
+                    <br />
+                    <span>Feedback and Support: </span>If you encounter any issues or have suggestions for improvement, feel free to reach out to our support team. We're here to help and enhance your experience on our platform.
+                    <br />
+                    <br />
+                    By adhering to these guidelines, you contribute to creating a positive and enjoyable environment for everyone. Thank you for being a part of our community!</p>
             </div>
             <div className="cht-body">
                 <h1>Chat with Cake A Boo</h1>
