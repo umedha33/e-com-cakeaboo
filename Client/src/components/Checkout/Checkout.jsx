@@ -1,15 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Checkout.css'
 import { useLocation } from 'react-router-dom';
+import md5 from 'crypto-js/md5';
 
 const Checkout = () => {
     const location = useLocation();
     const { items } = location.state;
     const { checkoutAmount } = location.state;
     const passAmount = checkoutAmount;
-    // const orderOBJ = items;
-    // console.log(`Items received:`, items);
-    // console.log(`Amount:`, checkoutAmount);
+
+
+    const merchantId = '1226692';
+    const merchantSecret = 'Mjk5NzM5NjUwMzEwNDY3MzQ3MTA0MjE1NDgzMDA3MzE3NzAwNzUwMQ==';
+    const returnUrl = '/checkout';
+    const cancelUrl = '/checkout';
+    const notifyUrl = 'https://msarcherylk.com/';
+
 
     // Initial state for userData
     const [userData, setUserData] = useState({
@@ -24,13 +30,80 @@ const Checkout = () => {
         custAddNotes: ''
     });
 
+    useEffect(() => {
+        const storedUserData = JSON.parse(localStorage.getItem('userOrderFormData'));
+        if (storedUserData) {
+            setUserData(storedUserData);
+            dataPass(storedUserData);
+        }
+    }, []);
+
     // Function to handle form input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setUserData(prevState => ({ ...prevState, [name]: value }));
     };
 
-    const dataPass = () => {
+    // Function to generate a random order ID
+    const generateOrderId = () => {
+        return Math.floor(Math.random() * 1000000).toString();
+    };
+
+    // Function to generate the hash value
+    const generateHash = (orderId, amount, currency) => {
+        const formattedAmount = parseFloat(amount).toLocaleString('en-us', { minimumFractionDigits: 2 }).replaceAll(',', '');
+        const hashedSecret = md5(merchantSecret).toString().toUpperCase();
+        return md5(merchantId + orderId + formattedAmount + currency + hashedSecret).toString().toUpperCase();
+    };
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+
+        const orderId = generateOrderId();
+        const currency = 'LKR';
+        const hash = generateHash(orderId, passAmount, currency);
+
+        localStorage.setItem('userOrderFormData', JSON.stringify(userData));
+
+        // Create a form dynamically and submit it
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'https://sandbox.payhere.lk/pay/checkout'; // Use the live URL for production
+
+        const params = {
+            merchant_id: merchantId,
+            return_url: returnUrl,
+            cancel_url: cancelUrl,
+            notify_url: notifyUrl,
+            first_name: userData.custName.split(' ')[0],
+            last_name: userData.custName.split(' ')[1] || '',
+            email: userData.custEmail,
+            phone: userData.custPhone,
+            address: userData.custAddress,
+            city: userData.custCity,
+            country: 'Sri Lanka',
+            order_id: orderId,
+            items: items.map(item => item.name).join(', '),
+            currency: currency,
+            amount: passAmount,
+            hash: hash,
+        };
+
+        Object.keys(params).forEach(key => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = params[key];
+            form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
+    };
+
+
+    // dataPass should be called upon sucess of payment gateway.
+    const dataPass = (userData) => {
         const orderOBJ = items;
         const deliverDate = userData.deliverDate;
         const custName = userData.custName;
@@ -71,6 +144,8 @@ const Checkout = () => {
             }).then((response) => response.json())
                 .then((data) => {
                     console.log(data);
+                    localStorage.removeItem('userOrderFormData');
+                    window.alert("Order Successful!")
                 })
 
         } else {
@@ -144,7 +219,8 @@ const Checkout = () => {
                 <div className='place-order'>
                     <button type="submit"
                         id='place-order-btn'
-                        onClick={() => { dataPass() }}
+                        onClick={handleFormSubmit}
+                    // onClick={() => { dataPass() }} //onclick should redirect the user to the payment gateway
                     >Place Order</button>
                 </div>
             </div>

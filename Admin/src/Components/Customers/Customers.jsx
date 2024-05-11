@@ -56,6 +56,14 @@ const Customers = () => {
         };
     }, [chatId]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            fetchMessages();
+            fetchChats();
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, [chatId]);
 
 
     const fetchChats = async () => {
@@ -165,12 +173,13 @@ const Customers = () => {
             const data = await response.json();
             setMessages(data);
 
-            socket.emit('join chat', chatId);
+            // socket.emit('join chat', chatId);
 
         } catch (error) {
             console.error('Failed to fetch messages:', error);
         }
     };
+
 
     const fetchUserData = async () => {
         try {

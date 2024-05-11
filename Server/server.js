@@ -841,13 +841,16 @@ const io = require('socket.io')(server, {
     },
 });
 
+
+
 io.on('connection', (socket) => {
     console.log('connected to socket.io');
 
     socket.on('setup', (userData) => {
         if (userData !== null) {
-            // console.log(`user id: `, userData._id);
+            console.log(`user id: `, userData._id);
             socket.join(userData._id);
+            // console.log(userData._id);
             socket.emit('connected');
         }
     });
@@ -857,32 +860,6 @@ io.on('connection', (socket) => {
         console.log('User joined room: ' + room);
     })
 
-    // ================================================================================
-    // socket.on('new message', async (data) => {
-    //     const newMessageReceived = data.result; 
-    //     console.log(`Received message: `, newMessageReceived);
-
-    //     if (!newMessageReceived || !newMessageReceived.chat || !newMessageReceived.chat._id) {
-    //         return console.error('Invalid message data received:', newMessageReceived);
-    //     }
-
-    //     try {
-    //         const chat = await Chats.findById(newMessageReceived.chat._id)
-    //             .populate('chatUsers', 'username _id');
-
-    //         if (!chat) {
-    //             return console.error('Chat not found with ID:', newMessageReceived.chat._id);
-    //         }
-
-    //         chat.chatUsers.forEach(user => {
-    //             if (user._id.toString() !== newMessageReceived.sender._id.toString()) {
-    //                 socket.to(user._id.toString()).emit('message received', newMessageReceived);
-    //             }
-    //         });
-    //     } catch (error) {
-    //         console.error('Error handling new message:', error);
-    //     }
-    // });
 
     socket.on('new message', async (data) => {
         const newMessageReceived = data.result;

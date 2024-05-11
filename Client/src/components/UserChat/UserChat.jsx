@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './UserChats.css'
 import dummyOrders from '../Assets/dummy-orders'
 import io from 'socket.io-client'
@@ -18,7 +18,13 @@ const UserChat = () => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [userData, setUserData] = useState([])
     const [theChat, setTheChat] = useState([])
+    const chatContainerRef = useRef(null);
 
+    useEffect(() => {
+        socket = io(ENDPOINT);
+        socket.emit('setup', usersId)
+        socket.on('connection', () => setSocketConnected(true))
+    }, [])
 
     const createChat = async () => {
         const userId = "662faa8da7a1f72bb979229a";
@@ -94,7 +100,7 @@ const UserChat = () => {
             const data = await response.json();
             setMessages(data);
 
-            socket.emit('join chat', chatId);
+            // socket.emit('join chat', chatId);
             // console.log(`msgs: `, data);
         } catch (error) {
             console.error('Failed to fetch messages:', error);
@@ -122,26 +128,6 @@ const UserChat = () => {
         }
     };
 
-    useEffect(() => {
-        socket = io(ENDPOINT, { auth: { token: localStorage.getItem('auth-token') } });
-
-        socket.on('connected', () => {
-            console.log("Socket Connected!");
-            setSocketConnected(true);
-        });
-
-        socket.on('message received', (newMessageReceived) => {
-            if (newMessageReceived.chat._id === chatId) {
-                setMessages(prevMessages => [...prevMessages, newMessageReceived]);
-            }
-        });
-
-        return () => {
-            socket.off('connected');
-            socket.off('message received');
-        };
-    }, [chatId]);
-
 
     useEffect(() => {
         fetchChats();
@@ -154,6 +140,21 @@ const UserChat = () => {
         selectedChatCompare = theChat;
         // console.log(`the chat: `, theChat);
     }, [chatId]);
+
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            fetchMessages();
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, [chatId]);
+
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     const createMsg = async () => {
         try {
@@ -215,7 +216,7 @@ const UserChat = () => {
                     <>
                         {canChat ? (
                             <>
-                                <div className="chat-threads">
+                                <div className="chat-threads" ref={chatContainerRef}>
                                     {messages.length > 0 ? (
                                         <>
                                             {messages.map((msg, index) => {
@@ -230,7 +231,6 @@ const UserChat = () => {
                                     ) : (
                                         <></>
                                     )}
-
                                 </div>
 
                                 <div className="text-sender">
