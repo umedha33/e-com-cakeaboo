@@ -10,8 +10,8 @@ const Header = () => {
                 <div className='header-container'>
                     <h1>ADMIN PANEL</h1>
                     <div className="noti-acc-set">
-                        <i className="fa-solid fa-bell"></i>
-                        <img src={adminDP} id='admin-dp' alt="admin-dp" />
+                        {/* <i className="fa-solid fa-bell"></i> */}
+                        {/* <img src={adminDP} id='admin-dp' alt="admin-dp" /> */}
                     </div>
                 </div>
             ) : (

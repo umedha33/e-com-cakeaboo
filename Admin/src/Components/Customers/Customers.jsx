@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Customers.css'
 import dummyChats from '../Assets/dummyChats'
 import io from 'socket.io-client'
+import { useRef } from 'react';
 
 // ===========================================================
 const ENDPOINT = 'http://localhost:4000';
@@ -19,6 +20,7 @@ const Customers = () => {
     const token = localStorage.getItem('auth-token');
     const [userData, setUserData] = useState([])
     const [theChat, setTheChat] = useState([])
+    const chatContainerRef = useRef(null);
 
     const selectChat = chatId => {
         let selectedChatId = '';
@@ -65,6 +67,11 @@ const Customers = () => {
         return () => clearInterval(interval);
     }, [chatId]);
 
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     const fetchChats = async () => {
         const token = localStorage.getItem('auth-token');
@@ -244,7 +251,7 @@ const Customers = () => {
                     <div className="msg-body">
                         {slcted ? (
                             <>
-                                <div className="chat-threads">
+                                <div className="chat-threads" ref={chatContainerRef}>
                                     {messages.length > 0 ? (
                                         <>
                                             {messages.map((msg, index) => {
