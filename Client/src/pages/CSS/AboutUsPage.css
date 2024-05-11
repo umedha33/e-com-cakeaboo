@@ -1,11 +1,112 @@
 .aboutus-container {
     display: flex;
     flex-direction: row;
-    background: rgb(255, 255, 123);
+    background: rgb(235, 255, 123);
     height: 80vh;
     border-radius: 40px;
     align-items: center;
-    text-align: center;
-    justify-content: center;
+    /* text-align: center; */
+    justify-content: space-around;
     margin: 0px 10px;
+    padding: 30px 0;
+    gap: 10px;
+}
+
+.insd-cntn {
+    display: flex;
+    /* background-color: #33333383; */
+    align-items: center;
+    justify-content: space-around;
+    padding: 50px;
+    gap: 80px;
+}
+
+.aboutus-content {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    background-color: #ffffff13;
+    box-shadow: 0 1px 15px -5px rgba(0, 0, 0, 0.295);
+    padding: 30px;
+    border-radius: 30px;
+    height: 65vh;
+    /* margin-left: 25px; */
+    justify-content: center;
+}
+
+.aboutus-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.aboutus-header h1 {
+    font-size: 3rem;
+    color: #ff5fda;
+    margin: 0;
+    /* white-space: nowrap; */
+
+    font-family: "Pacifico", cursive;
+}
+
+.aboutus-sub-heading {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.aboutus-paragraph {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.aboutus-image {
+    /* background-color: #8644A2; */
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.img-cnt-abts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#abts-img {
+    width: 110%;
+    box-shadow: 0 1px 15px -5px black;
+    border-radius: 20px;
+}
+
+.aboutus-contact-btn {
+    background-color: #D862BC;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.aboutus-contact-btn:hover {
+    background-color: #8644A2;
+}
+
+@media (max-width: 600px) {
+    .aboutus-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .aboutus-content {
+        width: 100%;
+    }
 }
