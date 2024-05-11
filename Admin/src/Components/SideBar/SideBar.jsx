@@ -2,6 +2,11 @@ import React from 'react'
 import './SideBar.css'
 
 const SideBar = ({ active, onComponentSelect }) => {
+
+    const handleLogOut = () => {
+        localStorage.removeItem('auth-token');
+        window.location.replace('/');
+    }
     return (
         <div className='siderbar-container'>
             <div>
@@ -27,7 +32,7 @@ const SideBar = ({ active, onComponentSelect }) => {
                 </h1>
             </div>
             <div className="bottom-sec">
-                <button id='logoutBtn'>LOGOUT</button>
+                <button id='logoutBtn' onClick={() => { handleLogOut() }}>LOGOUT</button>
             </div>
         </div>
     )

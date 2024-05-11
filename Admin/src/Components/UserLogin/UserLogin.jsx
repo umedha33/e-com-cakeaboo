@@ -59,16 +59,14 @@ const UserLogin = () => {
         <div className='userlogin-container'>
             <div className="login-register-container">
                 <div className="login-sec">
-                    <h1 id='already-regged-lbl'>Already Registered? <br /> Sign In,</h1>
+                    <h1 id='admin-lbl'>CAKE A BOO ADMIN</h1>
                     <div className="login-form">
-                        <label htmlFor="loginEmail">Email:</label>
                         <input type="email"
                             name="useremail"
                             value={formData.useremail}
                             onChange={changeHandler}
                             id="loginEmail"
                             placeholder='Enter your email address' />
-                        <label htmlFor="loginPassword">Password:</label>
                         <input type="password"
                             name="userpassword"
                             value={formData.userpassword}
@@ -77,43 +75,7 @@ const UserLogin = () => {
                             placeholder='Enter your password' />
                     </div>
                     <div className="login-btns">
-                        <button onClick={() => { login() }} id='signInBtn'>Sign In</button>
-                        <button id='googleBtn'>
-                            <img src={"googleIcon"} alt="Google Icon" />
-                            Sign In with Google</button>
-                    </div>
-                    <p id='forgot-pass-lbl'>Forgot Password? <span>Click Here</span></p>
-                </div>
-                <div className="register-sec">
-                    <h1 id='donthave-account-lbl'>Don't have an account? <br /> Register Here!</h1>
-                    <div className="register-form">
-                        <label htmlFor="registerName">Name:</label>
-                        <input type="text"
-                            name="username"
-                            value={formData.username}
-                            onChange={changeHandler}
-                            id="registerName"
-                            placeholder='Enter your name' />
-                        <label htmlFor="registerEmail">Email:</label>
-                        <input type="email"
-                            name="useremail"
-                            value={formData.useremail}
-                            onChange={changeHandler}
-                            id="registerEmail"
-                            placeholder='Enter an email address' />
-                        <label htmlFor="registerPassword">Password:</label>
-                        <input type="password"
-                            name="userpassword"
-                            value={formData.userpassword}
-                            onChange={changeHandler}
-                            id="registerPassword"
-                            placeholder='Enter a password' />
-                    </div>
-                    <div className="register-btns">
-                        <button onClick={() => { register() }} id='registerBtn'>Sign Up</button>
-                        <button id='googleRegBtn'>
-                            <img src={"googleIcon"} alt="Google Icon" />
-                            Sign Up with Google</button>
+                        <button onClick={() => { login() }} id='signInBtn'>SIGN IN</button>
                     </div>
                 </div>
             </div>

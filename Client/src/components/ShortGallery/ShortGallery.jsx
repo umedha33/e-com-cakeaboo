@@ -6,6 +6,10 @@ const ShortGallery = () => {
 
   const short_gallery = dummyProducts.slice(0, 8);
 
+  const goToFunc = () => {
+    window.location.replace("/cakes");
+  }
+
   return (
     <div className='products-gallery'>
       <h1>Our Products</h1>
@@ -25,7 +29,7 @@ const ShortGallery = () => {
           </div>
         ))}
       </div>
-      <button id='view-more-btn'>View More ›</button>
+      <button id='view-more-btn' onClick={() => { goToFunc() }}>View More ›</button>
     </div>
   )
 }

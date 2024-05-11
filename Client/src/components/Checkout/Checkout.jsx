@@ -146,6 +146,7 @@ const Checkout = () => {
                     console.log(data);
                     localStorage.removeItem('userOrderFormData');
                     window.alert("Order Successful!")
+                    window.location.replace("/myaccount");
                 })
 
         } else {
