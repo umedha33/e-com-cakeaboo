@@ -406,6 +406,22 @@ app.get('/user', fetchUser, async (req, res) => {
     }
 });
 
+
+// Endpoint to get all users
+app.get('/getAllUsers', async (req, res) => {
+    try {
+        const users = await Users.find().select('-userpassword -cartData'); // Exclude passwords and cart data from the results
+        res.json({
+            success: true,
+            users
+        });
+    } catch (error) {
+        console.error('Server Error:', error.message);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+});
+
+
 // ================================================================
 // ================================================================
 
