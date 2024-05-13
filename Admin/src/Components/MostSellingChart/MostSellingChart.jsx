@@ -1,45 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import './MostSellingChart.css';
 
+// Register Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 const MostSellingChart = () => {
     const [chartData, setChartData] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchOrdersAndProducts = async () => {
             try {
-                // Fetch orders
                 const ordersRes = await axios.get('http://localhost:4000/allorders');
-                const allOrders = ordersRes.data.allOrders;
+                const allOrdersResponse = ordersRes.data;
 
-                // Get the current month
+                // console.log('Full orders response:', allOrdersResponse);
+
+                let allOrders = [];
+                if (Array.isArray(allOrdersResponse)) {
+                    allOrders = allOrdersResponse;
+                } else if (Array.isArray(allOrdersResponse.allOrders)) {
+                    allOrders = allOrdersResponse.allOrders;
+                } else {
+                    throw new TypeError('Expected orders to be an array');
+                }
+
+                // console.log('Orders:', allOrders);
+
                 const currentMonth = new Date().getMonth();
                 const currentYear = new Date().getFullYear();
 
-                // Filter orders for the current month
                 const monthlyOrders = allOrders.filter(order => {
                     const orderDate = new Date(order.orderDate);
                     return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
                 });
 
-                // Count occurrences of each product ID
                 const productCount = {};
                 monthlyOrders.forEach(order => {
-                    order.orderOBJ.items.forEach(item => {
-                        if (productCount[item.id]) {
-                            productCount[item.id]++;
-                        } else {
-                            productCount[item.id] = 1;
-                        }
-                    });
+                    if (order.orderOBJ && Array.isArray(order.orderOBJ)) {
+                        order.orderOBJ.forEach(item => {
+                            if (productCount[item.itemId]) {
+                                productCount[item.itemId]++;
+                            } else {
+                                productCount[item.itemId] = 1;
+                            }
+                        });
+                    }
                 });
 
-                // Fetch products
                 const productsRes = await axios.get('http://localhost:4000/allproducts');
-                const allProducts = productsRes.data.allProducts;
+                const allProductsResponse = productsRes.data;
 
-                // Prepare data for the chart
+                console.log('Full products response:', allProductsResponse);
+
+                let allProducts = [];
+                if (Array.isArray(allProductsResponse)) {
+                    allProducts = allProductsResponse;
+                } else if (Array.isArray(allProductsResponse.allProducts)) {
+                    allProducts = allProductsResponse.allProducts;
+                } else {
+                    throw new TypeError('Expected products to be an array');
+                }
+
+                console.log('Products:', allProducts);
+
                 const labels = [];
                 const data = [];
                 for (let productId in productCount) {
@@ -50,7 +78,6 @@ const MostSellingChart = () => {
                     }
                 }
 
-                // Set chart data
                 setChartData({
                     labels: labels,
                     datasets: [{
@@ -75,18 +102,29 @@ const MostSellingChart = () => {
                         borderWidth: 1,
                     }],
                 });
+                setLoading(false);
 
             } catch (error) {
                 console.error("Error fetching orders and products:", error);
+                setError(error.message);
+                setLoading(false);
             }
         };
 
         fetchOrdersAndProducts();
     }, []);
 
+    if (loading) {
+        return <div className='mostselling-container'>Loading...</div>;
+    }
+
+    if (error) {
+        return <div className='mostselling-container'>Error: {error}</div>;
+    }
+
     return (
         <div className='mostselling-container'>
-            {chartData.labels ? <Pie data={chartData} /> : 'Loading...'}
+            <Pie data={chartData} />
         </div>
     );
 };

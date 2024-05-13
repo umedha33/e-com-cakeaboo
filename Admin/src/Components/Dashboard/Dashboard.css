@@ -1,22 +1,24 @@
 .dashboard-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
     width: 85%;
     margin: 0 auto;
     background-color: aliceblue;
-    padding: 20px;
+    padding: 10px 10px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .chart-container {
-    width: 80%;
-    margin: 20px 0;
-    padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 canvas {
@@ -34,16 +36,4 @@ canvas {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-}
-
-@media (min-width: 768px) {
-    .dashboard-container {
-        flex-direction: row;
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-
-    .chart-container {
-        width: 48%;
-    }
 }
